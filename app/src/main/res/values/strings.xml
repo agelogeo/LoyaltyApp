@@ -9,6 +9,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="menu_login">Σύνδεση</string>
-    <string name="menu_signup">Εγγραφή Μέλους</string>
+    <string name="menu_login">Σύνδεση διαχειριστή</string>
+    <string name="menu_signup">Εγγραφή διαχειριστή</string>
+    <string name="deleteUser">Διαγραφή Διαχειριστή</string>
 </resources>

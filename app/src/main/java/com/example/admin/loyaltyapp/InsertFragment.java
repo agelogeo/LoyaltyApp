@@ -86,7 +86,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener{
             case R.id.signup_btn:
                 username = signup_user.getText().toString();
                 password = signup_pass.getText().toString();
-                new InsertFragment.AttemptLogin().execute();
+                new AttemptLogin().execute();
                 // here we have used, switch case, because on login activity you may //also want to show registration button, so if the user is new ! we can go the //registration activity , other than this we could also do this without switch //case.
             default:
                 break;
@@ -135,9 +135,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener{
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1) {
                     Log.d("Successfully Login!", json.toString());
-
-                    Intent ii = new Intent(getActivity(),OtherActivity.class);
-                    startActivity(ii);
+                    Toast.makeText(getActivity(),"Operator has been added successfully.",Toast.LENGTH_LONG).show();
                     return json.getString(TAG_MESSAGE);
                 }else{
                     Toast.makeText(getActivity(),"Invalid username/password",Toast.LENGTH_LONG).show();

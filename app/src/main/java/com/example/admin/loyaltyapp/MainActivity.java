@@ -4,20 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -29,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener {
 
     private EditText user, pass;
     private Button bLogin;
@@ -48,23 +41,12 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
+        setContentView(R.layout.activity_main);
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
         bLogin = (Button)findViewById(R.id.login_btn);
         bLogin.setOnClickListener(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -73,7 +55,13 @@ public class NavigationActivity extends AppCompatActivity
         switch (v.getId()) {
             case R.id.login_btn:
                 username = user.getText().toString();
-                password = pass.getText().toString();
+                if(username.charAt(0) == 'a'  && pass.getText().length()==0) {
+                    pass.setVisibility(View.VISIBLE);
+                    Toast.makeText(MainActivity.this,"Please enter password if you are an operator.",Toast.LENGTH_SHORT).show();
+                    break;
+                }else if(username.charAt(0) == 'a' ){
+                    password = pass.getText().toString();
+                }
                 new AttemptLogin().execute();
                 // here we have used, switch case, because on login activity you may //also want to show registration button, so if the user is new ! we can go the //registration activity , other than this we could also do this without switch //case.
             default:
@@ -90,7 +78,7 @@ public class NavigationActivity extends AppCompatActivity
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(NavigationActivity.this);
+            pDialog = new ProgressDialog(MainActivity.this);
             pDialog.setMessage("Attempting for login...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -124,11 +112,11 @@ public class NavigationActivity extends AppCompatActivity
                 if (success == 1) {
                     Log.d("Successfully Login!", json.toString());
 
-                    Intent ii = new Intent(NavigationActivity.this,OtherActivity.class);
+                    Intent ii = new Intent(MainActivity.this,OtherActivity.class);
                     startActivity(ii);
                     return json.getString(TAG_MESSAGE);
                 }else{
-                    Toast.makeText(NavigationActivity.this,"Invalid username/password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Invalid username/password",Toast.LENGTH_LONG).show();
                     return json.getString(TAG_MESSAGE);
 
                 }
@@ -145,20 +133,11 @@ public class NavigationActivity extends AppCompatActivity
 
             pDialog.dismiss();
             if (message != null){
-                Toast.makeText(NavigationActivity.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -182,35 +161,4 @@ public class NavigationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_login) {
-            startActivity(new Intent(NavigationActivity.this,NavigationActivity.class));
-            finish();
-        } else if (id == R.id.nav_signup) {
-            InsertFragment fragment = new InsertFragment();
-            FrameLayout mainLayout = (FrameLayout) findViewById(R.id.layout_container);
-            mainLayout.removeAllViews();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.layout_container,fragment);
-            fragmentTransaction.commit();
-        } else if (id == R.id.nav_delete) {
-            DeleteFragment fragment = new DeleteFragment();
-            FrameLayout mainLayout = (FrameLayout) findViewById(R.id.layout_container);
-            mainLayout.removeAllViews();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.layout_container,fragment);
-            fragmentTransaction.commit();
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

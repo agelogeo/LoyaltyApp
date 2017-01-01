@@ -44,7 +44,7 @@ public class DeleteFragment extends Fragment implements View.OnClickListener {
     String username,password;
 
     JSONParser jsonParser = new JSONParser();
-    private static final String SIGNUP_URL = "https://test-cafeoino.000webhostapp.com/delete.php";
+    private static final String DELETE_URL = "https://test-cafeoino.000webhostapp.com/delete.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
@@ -65,7 +65,9 @@ public class DeleteFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_insert, container, false);
+        View v = inflater.inflate(R.layout.fragment_delete, container, false);
+        Toast.makeText(getActivity(),"Test.",Toast.LENGTH_SHORT).show();
+
         delete_user = (EditText)v.findViewById(R.id.delete_username);
         delete_pass = (EditText)v.findViewById(R.id.delete_password);
         deleteUser = (Button)v.findViewById(R.id.delete_btn);
@@ -79,7 +81,7 @@ public class DeleteFragment extends Fragment implements View.OnClickListener {
             case R.id.delete_btn:
                 username = delete_user.getText().toString();
                 password = delete_pass.getText().toString();
-                new DeleteFragment.AttemptLogin().execute();
+                new AttemptLogin().execute();
                 // here we have used, switch case, because on login activity you may //also want to show registration button, so if the user is new ! we can go the //registration activity , other than this we could also do this without switch //case.
             default:
                 break;
@@ -117,8 +119,8 @@ public class DeleteFragment extends Fragment implements View.OnClickListener {
                 Log.d("request!", "starting");
 
                 JSONObject json = jsonParser.makeHttpRequest(
-                        SIGNUP_URL, "GET", params);
-                System.out.println(SIGNUP_URL);
+                        DELETE_URL, "GET", params);
+                System.out.println(DELETE_URL);
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
@@ -128,9 +130,7 @@ public class DeleteFragment extends Fragment implements View.OnClickListener {
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1) {
                     Log.d("Successfully Login!", json.toString());
-
-                    Intent ii = new Intent(getActivity(),OtherActivity.class);
-                    startActivity(ii);
+                    Toast.makeText(getActivity(),"Operator has been removed successfully.",Toast.LENGTH_LONG).show();
                     return json.getString(TAG_MESSAGE);
                 }else{
                     Toast.makeText(getActivity(),"Invalid username/password",Toast.LENGTH_LONG).show();
