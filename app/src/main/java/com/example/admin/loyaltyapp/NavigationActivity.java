@@ -4,8 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -49,9 +49,9 @@ public class NavigationActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        user = (EditText)findViewById(R.id.username);
-        pass = (EditText)findViewById(R.id.password);
-        bLogin = (Button)findViewById(R.id.login);
+        user = (EditText)findViewById(R.id.login_username);
+        pass = (EditText)findViewById(R.id.login_password);
+        bLogin = (Button)findViewById(R.id.login_btn);
         bLogin.setOnClickListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,7 +71,7 @@ public class NavigationActivity extends AppCompatActivity
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case R.id.login:
+            case R.id.login_btn:
                 username = user.getText().toString();
                 password = pass.getText().toString();
                 new AttemptLogin().execute();
@@ -188,16 +188,23 @@ public class NavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
+        if (id == R.id.nav_login) {
+            startActivity(new Intent(NavigationActivity.this,NavigationActivity.class));
+            finish();
+        } else if (id == R.id.nav_signup) {
+            InsertFragment fragment = new InsertFragment();
+            FrameLayout mainLayout = (FrameLayout) findViewById(R.id.layout_container);
+            mainLayout.removeAllViews();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.layout_container,fragment);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_delete) {
+            DeleteFragment fragment = new DeleteFragment();
+            FrameLayout mainLayout = (FrameLayout) findViewById(R.id.layout_container);
+            mainLayout.removeAllViews();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.layout_container,fragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_send) {
 
         }
