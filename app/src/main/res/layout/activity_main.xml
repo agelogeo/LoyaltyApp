@@ -31,7 +31,7 @@
             android:layout_alignLeft="@+id/login_password"
             android:ems="10"
             android:focusable="true"
-            android:hint="Enter ID or phone"
+            android:hint="Enter barcode or phone"
             android:imeOptions="actionNext"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:gravity="center_vertical|center_horizontal" />
@@ -44,6 +44,12 @@
             android:layout_below="@+id/login_password"
             android:text="login"
             android:textSize="14sp" />
+
+        <Switch
+            android:text="Are you an operator?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/operator_switch" />
 
         <EditText android:id="@+id/login_password"
             android:layout_width="match_parent"

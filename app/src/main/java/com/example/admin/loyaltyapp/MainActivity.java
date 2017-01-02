@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -29,12 +30,13 @@ public class MainActivity extends AppCompatActivity
     private Button bLogin;
     // Progress Dialog
     private ProgressDialog pDialog;
+    private Switch oper_switch;
     // JSON parser class
 
     String username,password;
 
     JSONParser jsonParser = new JSONParser();
-    private static final String LOGIN_URL = "https://test-cafeoino.000webhostapp.com/initC.php";
+
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
@@ -44,8 +46,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
+        oper_switch = (Switch) findViewById(R.id.operator_switch);
         bLogin = (Button)findViewById(R.id.login_btn);
         bLogin.setOnClickListener(this);
+
+
 
     }
 
@@ -55,21 +60,23 @@ public class MainActivity extends AppCompatActivity
         switch (v.getId()) {
             case R.id.login_btn:
                 username = user.getText().toString();
-                if(username.charAt(0) == 'a'  && pass.getText().length()==0) {
-                    pass.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this,"Please enter password if you are an operator.",Toast.LENGTH_SHORT).show();
-                    break;
-                }else if(username.charAt(0) == 'a' ){
+                if(oper_switch.isChecked()) {
+                    if ( pass.getText().length() == 0) {
+                        pass.setVisibility(View.VISIBLE);
+                        Toast.makeText(MainActivity.this, "Please enter password if you are an operator.", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                     password = pass.getText().toString();
+                    new AttemptLoginForOperator().execute();
                 }
-                new AttemptLogin().execute();
+
                 // here we have used, switch case, because on login activity you may //also want to show registration button, so if the user is new ! we can go the //registration activity , other than this we could also do this without switch //case.
             default:
                 break;
         }
     }
 
-    class AttemptLogin extends AsyncTask<String, String, String> {
+    class AttemptLoginForOperator extends AsyncTask<String, String, String> {
         /**
          * Before starting background thread Show Progress Dialog
          * */
@@ -100,8 +107,8 @@ public class MainActivity extends AppCompatActivity
                 Log.d("request!", "starting");
 
                 JSONObject json = jsonParser.makeHttpRequest(
-                        LOGIN_URL, "GET", params);
-                System.out.println(LOGIN_URL);
+                        getString(R.string.OPERATOR_LOGIN_URL), "GET", params);
+                System.out.println(getString(R.string.OPERATOR_LOGIN_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
@@ -112,7 +119,8 @@ public class MainActivity extends AppCompatActivity
                 if (success == 1) {
                     Log.d("Successfully Login!", json.toString());
 
-                    Intent ii = new Intent(MainActivity.this,OtherActivity.class);
+                    Intent ii = new Intent(MainActivity.this,BasicActivity.class);
+                    ii.putExtra("jsonResponse",json.toString());
                     finish();
                     startActivity(ii);
                     return json.getString(TAG_MESSAGE);

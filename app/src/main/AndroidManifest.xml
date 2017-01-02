@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name=".OtherActivity" />
+        <activity android:name=".BasicActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OperatorCreation"></activity>
     </application>
 
 </manifest>
