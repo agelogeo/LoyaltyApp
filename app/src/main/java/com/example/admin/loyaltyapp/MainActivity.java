@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
                     Log.d("Successfully Login!", json.toString());
 
                     Intent ii = new Intent(MainActivity.this,OtherActivity.class);
+                    finish();
                     startActivity(ii);
                     return json.getString(TAG_MESSAGE);
                 }else{
