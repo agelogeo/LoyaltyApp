@@ -60,10 +60,22 @@
             android:id="@+id/new_customer_btn" />
 
         <Button
+            android:text="DELETE CUSTOMER"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_customer_btn" />
+
+        <Button
             android:text="NEW OPERATOR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/new_operator_btn" />
+
+        <Button
+            android:text="DELETE OPERATOR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_operator_btn" />
 
         <Button
             android:text="DATABASE STATS"

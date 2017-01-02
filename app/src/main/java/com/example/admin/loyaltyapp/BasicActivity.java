@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 public class BasicActivity extends AppCompatActivity {
     private TextView welcomeView;
-    private Button check_barcode_btn,new_operator_btn,new_customer_btn,db_btn;
+    private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn;
     private static int ADMIN_ACCESS_LEVEL = 1;
 
     @Override
@@ -43,6 +43,8 @@ public class BasicActivity extends AppCompatActivity {
         check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
         new_operator_btn = (Button) findViewById(R.id.new_operator_btn);
         new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
+        delete_customer_btn = (Button) findViewById(R.id.delete_customer_btn);
+        delete_operator_btn = (Button) findViewById(R.id.delete_operator_btn);
         db_btn = (Button) findViewById(R.id.db_btn);
 
         Intent ii = getIntent();
@@ -55,6 +57,7 @@ public class BasicActivity extends AppCompatActivity {
             if(json.getInt("access_level")!=ADMIN_ACCESS_LEVEL){
                 db_btn.setVisibility(View.GONE);
                 new_operator_btn.setVisibility(View.GONE);
+                delete_operator_btn.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
             e.printStackTrace();

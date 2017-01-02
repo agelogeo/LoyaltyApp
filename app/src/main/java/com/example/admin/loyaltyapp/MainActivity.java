@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -47,6 +48,16 @@ public class MainActivity extends AppCompatActivity
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
         oper_switch = (Switch) findViewById(R.id.operator_switch);
+        oper_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(oper_switch.isChecked()){
+                    pass.setVisibility(View.VISIBLE);
+                }else
+                    pass.setVisibility(View.GONE);
+
+            }
+        });
         bLogin = (Button)findViewById(R.id.login_btn);
         bLogin.setOnClickListener(this);
 
@@ -62,7 +73,6 @@ public class MainActivity extends AppCompatActivity
                 username = user.getText().toString();
                 if(oper_switch.isChecked()) {
                     if ( pass.getText().length() == 0) {
-                        pass.setVisibility(View.VISIBLE);
                         Toast.makeText(MainActivity.this, "Please enter password if you are an operator.", Toast.LENGTH_SHORT).show();
                         break;
                     }
