@@ -71,6 +71,14 @@ public class BasicActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        delete_operator_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(BasicActivity.this,OperatorDeletion.class);
+                startActivity(i);
+            }
+        });
     }
 
 
