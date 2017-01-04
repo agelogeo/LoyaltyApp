@@ -79,6 +79,14 @@ public class OperatorActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        delete_customer_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OperatorActivity.this,CustomerDeletion.class);
+                startActivity(i);
+            }
+        });
     }
 
 

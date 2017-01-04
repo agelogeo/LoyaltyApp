@@ -18,7 +18,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OperatorDeletion extends AppCompatActivity {
+public class CustomerDeletion extends AppCompatActivity {
+
     private List<NameValuePair> params = new ArrayList<>();
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -30,38 +31,38 @@ public class OperatorDeletion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_operator_deletion);
+        setContentView(R.layout.activity_customer_deletion);
 
-        delete_btn = (Button) findViewById(R.id.delete_btn);
-        delete_Text = (EditText) findViewById(R.id.delete_Text);
+        delete_btn = (Button) findViewById(R.id.customer_delete_btn);
+        delete_Text = (EditText) findViewById(R.id.customer_delete_Text);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(delete_Text.getText().length()==0){
-                    Toast.makeText(OperatorDeletion.this,"Please enter username or phone.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerDeletion.this,"Please enter barcode or phone.",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 params.clear();
                 params.add(new BasicNameValuePair("username",delete_Text.getText().toString()));
-                new AttemptDeleteOperator().execute();
+                new AttemptDeleteCustomer().execute();
             }
         });
 
 
     }
 
-    class AttemptDeleteOperator extends AsyncTask<String, String, String> {
+    class AttemptDeleteCustomer extends AsyncTask<String, String, String> {
         /**
          * Before starting background thread Show Progress Dialog
          * */
-        boolean failure = false;
+
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(OperatorDeletion.this);
-            pDialog.setMessage("Deleting operator..");
+            pDialog = new ProgressDialog(CustomerDeletion.this);
+            pDialog.setMessage("Deleting customer..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -80,8 +81,8 @@ public class OperatorDeletion extends AppCompatActivity {
                 Log.d("request!", "starting");
 
                 JSONObject json = jsonParser.makeHttpRequest(
-                        getString(R.string.OPERATOR_DELETION_URL), "GET", params);
-                System.out.println(getString(R.string.OPERATOR_DELETION_URL));
+                        getString(R.string.CUSTOMER_DELETION_URL), "GET", params);
+                System.out.println(getString(R.string.CUSTOMER_DELETION_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
@@ -91,7 +92,7 @@ public class OperatorDeletion extends AppCompatActivity {
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
                     Log.d("Successfully Deletion!", json.toString());
-                    return "Operator has been deleted successfully.";
+                    return "Customer has been deleted successfully.";
                 }else{
                     return "This account doesn't exist.";
 
@@ -109,7 +110,7 @@ public class OperatorDeletion extends AppCompatActivity {
 
             pDialog.dismiss();
             if (message != null){
-                Toast.makeText(OperatorDeletion.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(CustomerDeletion.this, message, Toast.LENGTH_LONG).show();
             }
         }
     }
