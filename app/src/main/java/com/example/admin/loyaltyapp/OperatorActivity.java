@@ -76,6 +76,7 @@ public class OperatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(OperatorActivity.this,CustomerCreation.class);
+                i.putExtra("operator",true);
                 startActivity(i);
             }
         });

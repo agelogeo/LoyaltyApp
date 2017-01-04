@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         implements View.OnClickListener {
 
     private EditText user, pass;
-    private Button bLogin;
+    private Button bLogin,signup;
     // Progress Dialog
     private ProgressDialog pDialog;
     private Switch oper_switch;
@@ -61,6 +61,15 @@ public class MainActivity extends AppCompatActivity
         bLogin = (Button)findViewById(R.id.login_btn);
         bLogin.setOnClickListener(this);
 
+        signup = (Button) findViewById(R.id.register_btn);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ii = new Intent(MainActivity.this,CustomerCreation.class);
+                ii.putExtra("operator",false);
+                startActivity(ii);
+            }
+        });
 
 
     }

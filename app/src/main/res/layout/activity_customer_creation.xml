@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_customer_creation"
     android:layout_width="match_parent"
@@ -17,38 +18,91 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@android:dimen/thumbnail_height">
+            android:layout_height="match_parent">
 
-            <EditText
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/customer_name_Text"
-                android:hint="Name" />
+                android:layout_height="match_parent"
+                android:paddingBottom="@android:dimen/thumbnail_height"
+                android:id="@+id/fields_layout">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/customer_surname_Text"
-                android:hint="Surname" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/customer_name_Text"
+                    android:hint="Name" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/customer_phone_Text"
-                android:hint="Phone" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/customer_surname_Text"
+                    android:hint="Surname" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/customer_phone_Text"
+                    android:hint="Phone" />
+
+                <Button
+                    android:text="CREATE CUSTOMER"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/customer_create_btn" />
+
+            </LinearLayout>
 
             <Button
-                android:text="CREATE CUSTOMER"
+                android:text="JUMP TO LOGIN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/customer_create_btn" />
+                android:id="@+id/jumpToLogin_btn"
+                android:visibility="gone" />
+
+            <Button
+                android:text="JUMP TO CHECK BARCODE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/jumpToCheckBarcode_btn"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:id="@+id/customer_profile_layout"
+                android:visibility="gone">
+
+                <TextView
+                    android:text="Hello , "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profile_name_Text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:text="Your barcode ID is : "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profile_barcode_Text"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:id="@+id/profile_barcode"
+                    android:layout_gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
 
         </LinearLayout>
 

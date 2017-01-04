@@ -45,6 +45,12 @@
             android:text="login"
             android:textSize="14sp" />
 
+        <Button
+            android:text="SIGN UP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_btn" />
+
         <Switch
             android:text="Are you an operator?"
             android:layout_width="match_parent"
