@@ -28,7 +28,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".OperatorDeletion" />
         <activity android:name=".CustomerActivity" />
-        <activity android:name=".CustomerDeletion"></activity>
+        <activity android:name=".CustomerDeletion" />
+        <activity android:name=".CustomerCreation"></activity>
     </application>
 
 </manifest>

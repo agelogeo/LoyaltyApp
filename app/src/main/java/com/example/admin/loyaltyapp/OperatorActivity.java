@@ -72,6 +72,14 @@ public class OperatorActivity extends AppCompatActivity {
             }
         });
 
+        new_customer_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OperatorActivity.this,CustomerCreation.class);
+                startActivity(i);
+            }
+        });
+
         delete_operator_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +95,8 @@ public class OperatorActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
     }
 
 
