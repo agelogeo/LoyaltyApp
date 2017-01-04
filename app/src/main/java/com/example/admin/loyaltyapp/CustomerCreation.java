@@ -2,6 +2,8 @@ package com.example.admin.loyaltyapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +22,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CustomerCreation extends AppCompatActivity {
     private EditText first_name,last_name,phone;
@@ -80,6 +86,7 @@ public class CustomerCreation extends AppCompatActivity {
          * Before starting background thread Show Progress Dialog
          * */
         boolean failure = false;
+        ImageView qrCodeImageview ;
 
         @Override
         protected void onPreExecute() {
@@ -130,10 +137,10 @@ public class CustomerCreation extends AppCompatActivity {
                     profile_layout.setVisibility(View.VISIBLE);
                     TextView profile_name = (TextView) profile_layout.findViewById(R.id.profile_name_Text);
                     TextView profile_barcode_Text = (TextView) profile_layout.findViewById(R.id.profile_barcode_Text);
-                    ImageView barcode_View = (ImageView) profile_layout.findViewById(R.id.profile_barcode);
+                    qrCodeImageview = (ImageView) profile_layout.findViewById(R.id.profile_barcode);
                     profile_name.setText(profile_name.getText()+" "+json.getString("name")+" "+json.getString("surname"));
                     profile_barcode_Text.setText(profile_barcode_Text.getText()+" "+json.getString("barcode"));
-
+                    GenerateBarCode(json.getString("barcode"));
                     fields_layout.setVisibility(View.GONE);
 
                     if(isOperatorTheCreator){
@@ -168,6 +175,31 @@ public class CustomerCreation extends AppCompatActivity {
             if (message != null){
                 Toast.makeText(CustomerCreation.this, toast_message, Toast.LENGTH_LONG).show();
             }
+        }
+
+        private void GenerateBarCode(final String barcodeID) {
+                new AsyncTask<Void,Void,Bitmap>(){
+                    @Override
+                    protected Bitmap doInBackground(Void... voids) {
+                        URL url = null;
+                        Bitmap bmp = null;
+                        try {
+                            url = new URL("https://chart.googleapis.com/chart?cht=qr&chl="+barcodeID+"&chs=500x500");
+                            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return bmp;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Bitmap aVoid) {
+                        qrCodeImageview.setImageBitmap(aVoid);
+                    }
+                }.execute();
+
         }
     }
 }

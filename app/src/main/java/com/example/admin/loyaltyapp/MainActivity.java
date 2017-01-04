@@ -53,8 +53,11 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(oper_switch.isChecked()){
                     pass.setVisibility(View.VISIBLE);
-                }else
+                    user.setHint("Enter username or phone");
+                }else {
                     pass.setVisibility(View.GONE);
+                    user.setHint("Enter barcode or phone");
+                }
 
             }
         });

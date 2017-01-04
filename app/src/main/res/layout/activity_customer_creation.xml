@@ -101,7 +101,8 @@
                     android:layout_height="200dp"
                     app:srcCompat="@mipmap/ic_launcher"
                     android:id="@+id/profile_barcode"
-                    android:layout_gravity="center_vertical|center_horizontal" />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:paddingTop="@dimen/activity_vertical_margin" />
             </LinearLayout>
 
         </LinearLayout>
