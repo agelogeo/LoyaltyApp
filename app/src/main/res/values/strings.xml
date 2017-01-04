@@ -12,4 +12,6 @@
     <string name="menu_login">Σύνδεση διαχειριστή</string>
     <string name="menu_signup">Εγγραφή διαχειριστή</string>
     <string name="deleteUser">Διαγραφή Διαχειριστή</string>
+
+
 </resources>
