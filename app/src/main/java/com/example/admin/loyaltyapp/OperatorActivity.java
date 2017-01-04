@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class BasicActivity extends AppCompatActivity {
+public class OperatorActivity extends AppCompatActivity {
     private TextView welcomeView;
     private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn;
     private static int ADMIN_ACCESS_LEVEL = 1;
@@ -23,11 +23,11 @@ public class BasicActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        BasicActivity.super.onBackPressed();
+                        OperatorActivity.super.onBackPressed();
                     }
                 };
 
-        new AlertDialog.Builder(BasicActivity.this)
+        new AlertDialog.Builder(OperatorActivity.this)
                 .setMessage("Are you sure , you want to sign off?")
                 .setPositiveButton("Yes",okListener)
                 .setNegativeButton("No", null)
@@ -38,7 +38,7 @@ public class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic);
+        setContentView(R.layout.activity_operator);
 
         check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
         new_operator_btn = (Button) findViewById(R.id.new_operator_btn);
@@ -67,7 +67,7 @@ public class BasicActivity extends AppCompatActivity {
         new_operator_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(BasicActivity.this,OperatorCreation.class);
+                Intent i = new Intent(OperatorActivity.this,OperatorCreation.class);
                 startActivity(i);
             }
         });
@@ -75,7 +75,7 @@ public class BasicActivity extends AppCompatActivity {
         delete_operator_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(BasicActivity.this,OperatorDeletion.class);
+                Intent i = new Intent(OperatorActivity.this,OperatorDeletion.class);
                 startActivity(i);
             }
         });

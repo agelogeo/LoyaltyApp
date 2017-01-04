@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="WEBSITE_URL" translatable="false">https://test-cafeoino.000webhostapp.com</string>
-    <string name="OPERATOR_LOGIN_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_login.php</string>
-    <string name="OPERATOR_CREATION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_creation.php</string>
-    <string name="OPERATOR_DELETION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_deletion.php</string>
+    <string name="OPERATOR_LOGIN_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_login.php\?db=id99137_aggeloandroid</string>
+    <string name="OPERATOR_CREATION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_creation.php\?db=id99137_aggeloandroid</string>
+    <string name="OPERATOR_DELETION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_deletion.php\?db=id99137_aggeloandroid</string>
+
+    <string name="CUSTOMER_LOGIN_URL" translatable="false">https://test-cafeoino.000webhostapp.com/customer_login.php\?db=id99137_aggeloandroid</string>
+    <string name="CUSTOMER_CREATION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/customer_creation.php\?db=id99137_aggeloandroid</string>
+    <string name="CUSTOMER_DELETION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/customer_deletion.php\?db=id99137_aggeloandroid</string>
 </resources>

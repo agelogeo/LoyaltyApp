@@ -70,14 +70,20 @@ public class MainActivity extends AppCompatActivity
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.login_btn:
-                username = user.getText().toString();
-                if(oper_switch.isChecked()) {
-                    if ( pass.getText().length() == 0) {
-                        Toast.makeText(MainActivity.this, "Please enter password if you are an operator.", Toast.LENGTH_SHORT).show();
-                        break;
+                if (user.getText().length() == 0){
+                    Toast.makeText(MainActivity.this, "Please enter barcode or phone.", Toast.LENGTH_SHORT).show();
+                }else{
+                    username = user.getText().toString();
+                    if (oper_switch.isChecked()) {
+                        if (pass.getText().length() == 0) {
+                            Toast.makeText(MainActivity.this, "Please enter password if you are an operator.", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        password = pass.getText().toString();
+                        new AttemptLoginForOperator().execute();
+                    } else {
+                        new AttemptLoginForCustomer().execute();
                     }
-                    password = pass.getText().toString();
-                    new AttemptLoginForOperator().execute();
                 }
 
                 // here we have used, switch case, because on login activity you may //also want to show registration button, so if the user is new ! we can go the //registration activity , other than this we could also do this without switch //case.
@@ -129,14 +135,13 @@ public class MainActivity extends AppCompatActivity
                 if (success == 1) {
                     Log.d("Successfully Login!", json.toString());
 
-                    Intent ii = new Intent(MainActivity.this,BasicActivity.class);
+                    Intent ii = new Intent(MainActivity.this,OperatorActivity.class);
                     ii.putExtra("jsonResponse",json.toString());
                     finish();
                     startActivity(ii);
-                    return json.getString(TAG_MESSAGE);
+                    return "Successfully Login!";
                 }else{
-                    Toast.makeText(MainActivity.this,"Invalid username/password",Toast.LENGTH_LONG).show();
-                    return json.getString(TAG_MESSAGE);
+                    return "Invalid username/password";
 
                 }
             } catch (JSONException e) {
@@ -152,7 +157,76 @@ public class MainActivity extends AppCompatActivity
 
             pDialog.dismiss();
             if (message != null){
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class AttemptLoginForCustomer extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        boolean failure = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Attempting for login...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+            int success;
+
+            try {
+
+                List<NameValuePair> params = new ArrayList<>();
+                params.add(new BasicNameValuePair("username", username));
+
+                Log.d("request!", "starting");
+
+                JSONObject json = jsonParser.makeHttpRequest(
+                        getString(R.string.CUSTOMER_LOGIN_URL), "GET", params);
+                System.out.println(getString(R.string.CUSTOMER_LOGIN_URL));
+                System.out.println(params);
+                // checking  log for json response
+                //Log.d("Login attempt", json.toString());
+
+                // success tag for json
+                success = json.getInt(TAG_SUCCESS);
+                System.out.println("TAG SUCCESS : "+ success);
+                if (success == 1) {
+                    Log.d("Successfully Login!", json.toString());
+
+                    Intent ii = new Intent(MainActivity.this,CustomerActivity.class);
+                    ii.putExtra("jsonResponse",json.toString());
+                    finish();
+                    startActivity(ii);
+                    return "Successfully Login!";
+                }else{
+                    return "Invalid barcode/phone";
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(String message) {
+
+            pDialog.dismiss();
+            if (message != null){
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         }
     }

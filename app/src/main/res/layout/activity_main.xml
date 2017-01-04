@@ -60,7 +60,8 @@
             android:hint="Enter Password"
             android:imeOptions="actionDone"
             android:visibility="gone"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="textPassword" />
     </LinearLayout>
 
 </FrameLayout>

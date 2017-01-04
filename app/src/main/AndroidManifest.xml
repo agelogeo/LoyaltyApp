@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity
-            android:name=".BasicActivity"
+            android:name=".OperatorActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
@@ -26,7 +26,8 @@
         <activity
             android:name=".OperatorCreation"
             android:screenOrientation="portrait" />
-        <activity android:name=".OperatorDeletion"></activity>
+        <activity android:name=".OperatorDeletion" />
+        <activity android:name=".CustomerActivity"></activity>
     </application>
 
 </manifest>
