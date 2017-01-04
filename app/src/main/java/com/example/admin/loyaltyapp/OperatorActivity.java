@@ -22,20 +22,14 @@ import org.json.JSONObject;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
-public class OperatorActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler{
+public class OperatorActivity extends AppCompatActivity{
     private TextView welcomeView;
     private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn;
     private static int ADMIN_ACCESS_LEVEL = 1;
-    private ZXingScannerView mScannerView;
+
     private ImageView qr_reader;
     @Override
     public void onBackPressed() {
-        if( mScannerView != null)
-            if( !getWindow().getDecorView().getRootView().equals(R.layout.activity_operator)) {
-                OperatorActivity.this.recreate();
-                
-                return;
-            }
         DialogInterface.OnClickListener okListener =
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -63,9 +57,7 @@ public class OperatorActivity extends AppCompatActivity implements ZXingScannerV
         delete_operator_btn = (Button) findViewById(R.id.delete_operator_btn);
         db_btn = (Button) findViewById(R.id.db_btn);
 
-
-
-
+        qr_reader = (ImageView) findViewById(R.id.qr_scanner_View);
 
         Intent ii = getIntent();
         String jsonResponse = ii.getStringExtra("jsonResponse");
@@ -117,37 +109,12 @@ public class OperatorActivity extends AppCompatActivity implements ZXingScannerV
             }
         });
 
-
+        qr_reader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OperatorActivity.this,BarcodeActivity.class);
+                startActivity(i);
+            }
+        });
     }
-
-    public void onClickQR(View v){
-        mScannerView = new ZXingScannerView(this);
-        setContentView(mScannerView);
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void handleResult(Result result) {
-        //Do anything with result here :D
-        Log.w("handleResult", result.getText());
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Scan result");
-        builder.setMessage(result.getText());
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-        mScannerView.stopCamera();
-        setContentView(R.layout.activity_operator);
-        //Resume scanning
-        //mScannerView.resumeCameraPreview(this);
-    }
-
-
-
 }

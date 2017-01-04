@@ -55,8 +55,7 @@
                     app:srcCompat="@drawable/icon256"
                     android:id="@+id/qr_scanner_View"
                     android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:onClick="onClickQR"/>
+                    android:layout_height="50dp"/>
             </LinearLayout>
 
             <Button
