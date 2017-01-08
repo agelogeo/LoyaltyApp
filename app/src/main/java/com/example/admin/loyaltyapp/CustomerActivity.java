@@ -23,6 +23,7 @@ import java.net.URL;
 
 public class CustomerActivity extends AppCompatActivity {
     private TextView welcomeView,barcodeView;
+    private Customer user = new Customer();
     ImageView qrCodeImageview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,16 @@ public class CustomerActivity extends AppCompatActivity {
         System.out.println(jsonResponse);
         try {
             JSONObject json = new JSONObject(jsonResponse);
+            user.setId(json.getInt("id"));
+            user.setName(json.getString("name"));
+            user.setSurname(json.getString("surname"));
+            user.setPhone(json.getString("phone"));
+            user.setBarcode(json.getString("barcode"));
+            user.setStamps(json.getInt("stamps"));
+            user.setCoupons_used(json.getInt("coupons_used"));
+            user.setVisits(json.getInt("visits"));
+            user.setLast_visit(json.getString("last_visit"));
+
             welcomeView.setText(welcomeView.getText()+" "+json.getString("name")+" "+json.getString("surname"));
             barcodeView.setText(barcodeView.getText()+" "+json.getString("barcode"));
             GenerateBarCode(json.getString("barcode"));

@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity
     JSONParser jsonParser = new JSONParser();
 
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_MESSAGE = "message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

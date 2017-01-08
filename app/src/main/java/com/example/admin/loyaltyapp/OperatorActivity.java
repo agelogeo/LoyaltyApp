@@ -26,7 +26,7 @@ public class OperatorActivity extends AppCompatActivity{
     private TextView welcomeView;
     private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn;
     private static int ADMIN_ACCESS_LEVEL = 1;
-
+    private Operator user = new Operator() ;
     private ImageView qr_reader;
     @Override
     public void onBackPressed() {
@@ -61,10 +61,20 @@ public class OperatorActivity extends AppCompatActivity{
 
         Intent ii = getIntent();
         String jsonResponse = ii.getStringExtra("jsonResponse");
+
+
         System.out.println(jsonResponse);
         welcomeView=(TextView) findViewById(R.id.welcomeView);
         try {
             JSONObject json = new JSONObject(jsonResponse);
+            user.setId(json.getInt("id"));
+            user.setUsername(json.getString("username"));
+            user.setPassword(json.getString("password"));
+            user.setAccess_level(json.getInt("access_level"));
+            user.setFirst_name(json.getString("first_name"));
+            user.setLast_name(json.getString("last_name"));
+            user.setPhone(json.getString("phone"));
+
             welcomeView.setText(welcomeView.getText()+" "+json.getString("first_name")+" "+json.getString("last_name"));
             if(json.getInt("access_level")!=ADMIN_ACCESS_LEVEL){
                 db_btn.setVisibility(View.GONE);
