@@ -16,14 +16,14 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Login Fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:textSize="24sp"
             android:textAlignment="center"
             android:textStyle="normal|bold"
-            android:paddingTop="@dimen/activity_horizontal_margin" />
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:text="@string/loginFrag" />
 
         <EditText android:id="@+id/login_username"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:layout_alignLeft="@+id/login_password"
             android:ems="10"
             android:focusable="true"
-            android:hint="Enter barcode or phone"
+            android:hint="@string/inactiveSwitchHint"
             android:imeOptions="actionNext"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:gravity="center_vertical|center_horizontal" />
@@ -42,20 +42,20 @@
             android:layout_alignLeft="@+id/login_password"
             android:layout_alignRight="@+id/login_password"
             android:layout_below="@+id/login_password"
-            android:text="login"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:text="@string/loginBTN" />
 
         <Button
-            android:text="SIGN UP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/register_btn" />
+            android:id="@+id/register_btn"
+            android:text="@string/signupBTN" />
 
         <Switch
-            android:text="Are you an operator?"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/operator_switch" />
+            android:id="@+id/operator_switch"
+            android:text="@string/isOperator" />
 
         <EditText android:id="@+id/login_password"
             android:layout_width="match_parent"
@@ -63,11 +63,11 @@
             android:layout_below="@+id/login_username"
             android:layout_centerHorizontal="true"
             android:ems="10"
-            android:hint="Enter Password"
             android:imeOptions="actionDone"
             android:visibility="gone"
             android:gravity="center_vertical|center_horizontal"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:hint="@string/passEmptyHint" />
     </LinearLayout>
 
 </FrameLayout>

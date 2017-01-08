@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(oper_switch.isChecked()){
                     pass.setVisibility(View.VISIBLE);
-                    user.setHint("Enter username or phone");
+                    user.setHint(R.string.activeSwitchHint);
                 }else {
                     pass.setVisibility(View.GONE);
-                    user.setHint("Enter barcode or phone");
+                    user.setHint(R.string.inactiveSwitchHint);
                 }
 
             }
@@ -82,12 +82,12 @@ public class MainActivity extends AppCompatActivity
         switch (v.getId()) {
             case R.id.login_btn:
                 if (user.getText().length() == 0){
-                    Toast.makeText(MainActivity.this, "Please enter barcode or phone.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.inactiveSwitchHint, Toast.LENGTH_SHORT).show();
                 }else{
                     username = user.getText().toString();
                     if (oper_switch.isChecked()) {
                         if (pass.getText().length() == 0) {
-                            Toast.makeText(MainActivity.this, "Please enter password if you are an operator.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.passEmptyHint, Toast.LENGTH_SHORT).show();
                             break;
                         }
                         password = pass.getText().toString();
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Attempting for login...");
+            pDialog.setMessage(getString(R.string.attemptingLogin));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -150,9 +150,9 @@ public class MainActivity extends AppCompatActivity
                     ii.putExtra("jsonResponse",json.toString());
                     finish();
                     startActivity(ii);
-                    return "Successfully Login!";
+                    return getString(R.string.successfullyLogin);
                 }else{
-                    return "Invalid username/password";
+                    return getString(R.string.invalidNameOrPass);
 
                 }
             } catch (JSONException e) {

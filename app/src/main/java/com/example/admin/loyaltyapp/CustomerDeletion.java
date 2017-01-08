@@ -40,7 +40,7 @@ public class CustomerDeletion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(delete_Text.getText().length()==0){
-                    Toast.makeText(CustomerDeletion.this,"Please enter barcode or phone.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerDeletion.this,getString(R.string.inactiveSwitchHint),Toast.LENGTH_SHORT).show();
                     return;
                 }
                 params.clear();
@@ -62,7 +62,7 @@ public class CustomerDeletion extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(CustomerDeletion.this);
-            pDialog.setMessage("Deleting customer..");
+            pDialog.setMessage(getString(R.string.deletingCustomer));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -92,9 +92,9 @@ public class CustomerDeletion extends AppCompatActivity {
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
                     Log.d("Successfully Deletion!", json.toString());
-                    return "Customer has been deleted successfully.";
+                    return getString(R.string.customerDeleted);
                 }else{
-                    return "This account doesn't exist.";
+                    return getString(R.string.accountdoesnotexist);
 
                 }
             } catch (JSONException e) {

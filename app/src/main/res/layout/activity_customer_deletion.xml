@@ -21,13 +21,13 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
-                android:text="DELETE CUSTOMER"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView"
                 android:textStyle="normal|bold"
                 android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:text="@string/deleteCustomer" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -36,14 +36,14 @@
                 android:ems="10"
                 android:id="@+id/customer_delete_Text"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:hint="Enter barcode or phone" />
+                android:hint="@string/inactiveSwitchHint" />
 
             <Button
-                android:text="DELETE CUSTOMER"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/customer_delete_btn"
-                android:paddingTop="@dimen/activity_vertical_margin" />
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/deleteCustomerBTN" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

@@ -1,17 +1,85 @@
 <resources>
     <string name="app_name">Loyalty App</string>
     <string name="title_activity_navigation">NavigationActivity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="menu_login">Σύνδεση διαχειριστή</string>
     <string name="menu_signup">Εγγραφή διαχειριστή</string>
     <string name="deleteUser">Διαγραφή Διαχειριστή</string>
+
+    <!-- Alert Dialog for Exit from app -->
+    <string name="ExitMessageAlert">Are you sure , you want to sign off?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Main Activity  -->
+    <string name="activeSwitchHint">Please enter username or phone</string> <!-- Operator Deletion  -->
+    <string name="inactiveSwitchHint">Please enter barcode or phone</string> <!-- Customer Deletion  -->
+    <string name="passEmptyHint">Please enter password if you are an operator.</string>
+    <string name="attemptingLogin">Attempting for login...</string>
+    <string name="successfullyLogin">Successfully Login!</string>
+    <string name="invalidNameOrPass">Invalid username/password</string>
+
+    <string name="loginFrag">Login Fragment</string>
+    <string name="loginBTN">login</string>
+    <string name="signupBTN">SIGN UP</string>
+    <string name="isOperator">Are you an operator\?</string>
+
+    <!-- Customer Activity -->
+    <string name="yourBarcodeIs">Your barcode ID is :</string><!-- Customer Creation  -->
+    <string name="welcome">Welcome</string>
+    <string name="checkPoints">CHECK POINTS</string>
+    <string name="deleteThisAccount">DELETE THIS ACCOUNT</string>
+
+    <!-- Customer Creation Activity  -->
+    <string name="creatingCustomer">Creating new customer..</string>
+    <string name="customerCreated">Customer has been created successfully.</string>
+    <string name="barcodeExists">Barcode or Phone already exists.</string>
+
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="phone">Phone</string>
+    <string name="createCustomerBTN">CREATE CUSTOMER</string><!-- Operator Activity  -->
+    <string name="jumpToLoginBTN">JUMP TO LOGIN</string>
+    <string name="jumpToCheckBarcode">JUMP TO CHECK BARCODE</string>
+    <string name="Hello">Hello ,</string>
+
+    <!-- Customer Deletion Activity -->
+    <string name="deletingCustomer">Deleting customer..</string>
+    <string name="customerDeleted">Customer has been deleted successfully.</string>
+
+    <string name="deleteCustomer">DELETE CUSTOMER</string>
+    <string name="deleteCustomerBTN">DELETE CUSTOMER</string><!-- Operator Activity  -->
+
+    <!-- Operator Activity  -->
+    <string name="databaseBTN">DATABASE STATS</string>
+
+    <!-- Operation Creation Activity  -->
+    <string name="enterValuesToAllFields">Please enter values to all fields.</string> <!-- Customer Creation  -->
+    <string name="checkYourPassword">Check your password again.</string>
+    <string name="creatingOperator">Creating new operator..</string>
+    <string name="operatorCreated">Operator has been created successfully.</string>
+    <string name="NameOrPhoneExists">Username or Phone already exists.</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="password_again">Password again</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
+    <string name="newadmin">New administrator\?</string>
+    <string name="createOperatorBTN">CREATE OPERATOR</string><!-- Operator Activity  -->
+
+    <!-- Operator Deletion  Activity -->
+    <string name="deletingOperator">Deleting operator..</string>
+    <string name="operatorDeleted">Operator has been deleted successfully.</string>
+    <string name="accountdoesnotexist">This account doesn\'t exist.</string>
+    <string name="deleteOperator">DELETE OPERATOR</string>
+    <string name="deleteOperatorBTN">DELETE OPERATOR</string><!-- Operator Activity  -->
+    <string name="checkBarcodeBTN">CHECK BARCODE</string>
 
 
 </resources>

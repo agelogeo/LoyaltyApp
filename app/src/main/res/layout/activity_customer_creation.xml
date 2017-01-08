@@ -33,7 +33,7 @@
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/customer_name_Text"
-                    android:hint="Name" />
+                    android:hint="@string/name" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/customer_surname_Text"
-                    android:hint="Surname" />
+                    android:hint="@string/surname" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -49,29 +49,29 @@
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/customer_phone_Text"
-                    android:hint="Phone" />
+                    android:hint="@string/phone" />
 
                 <Button
-                    android:text="CREATE CUSTOMER"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/customer_create_btn" />
+                    android:id="@+id/customer_create_btn"
+                    android:text="@string/createCustomerBTN" />
 
             </LinearLayout>
 
             <Button
-                android:text="JUMP TO LOGIN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/jumpToLogin_btn"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:text="@string/jumpToLoginBTN" />
 
             <Button
-                android:text="JUMP TO CHECK BARCODE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/jumpToCheckBarcode_btn"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:text="@string/jumpToCheckBarcode" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -82,14 +82,14 @@
                 android:visibility="gone">
 
                 <TextView
-                    android:text="Hello , "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/profile_name_Text"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:text="@string/Hello" />
 
                 <TextView
-                    android:text="Your barcode ID is : "
+                    android:text="@string/yourBarcodeIs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/profile_barcode_Text"

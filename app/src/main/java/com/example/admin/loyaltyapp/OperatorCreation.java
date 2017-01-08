@@ -29,7 +29,6 @@ public class OperatorCreation extends AppCompatActivity {
 
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_MESSAGE = "message";
 
 
     @Override
@@ -59,7 +58,7 @@ public class OperatorCreation extends AppCompatActivity {
             public void onClick(View view) {
                 for(EditText et:TextList){
                     if(et.getText().length()==0){
-                        Toast.makeText(OperatorCreation.this,"Please enter values to all fields.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(OperatorCreation.this, R.string.enterValuesToAllFields,Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -74,7 +73,7 @@ public class OperatorCreation extends AppCompatActivity {
                         params.add(new BasicNameValuePair("access_level", "1"));
                     new AttemptCreateOperator().execute();
                 }else{
-                    Toast.makeText(OperatorCreation.this,"Check your password again.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(OperatorCreation.this, R.string.checkYourPassword,Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -97,7 +96,7 @@ public class OperatorCreation extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(OperatorCreation.this);
-            pDialog.setMessage("Creating new operator..");
+            pDialog.setMessage(getString(R.string.creatingOperator));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -127,9 +126,9 @@ public class OperatorCreation extends AppCompatActivity {
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
                     Log.d("Successfully Login!", json.toString());
-                    return "Operator has been created successfully.";
+                    return getString(R.string.operatorCreated);
                 }else{
-                    return "Username or Phone already exists.";
+                    return getString(R.string.NameOrPhoneExists);
 
                 }
             } catch (JSONException e) {

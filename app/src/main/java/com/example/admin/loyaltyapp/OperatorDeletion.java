@@ -39,7 +39,7 @@ public class OperatorDeletion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(delete_Text.getText().length()==0){
-                    Toast.makeText(OperatorDeletion.this,"Please enter username or phone.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OperatorDeletion.this,getString(R.string.activeSwitchHint),Toast.LENGTH_SHORT).show();
                     return;
                 }
                 params.clear();
@@ -61,7 +61,7 @@ public class OperatorDeletion extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(OperatorDeletion.this);
-            pDialog.setMessage("Deleting operator..");
+            pDialog.setMessage(getString(R.string.deletingOperator));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -91,9 +91,9 @@ public class OperatorDeletion extends AppCompatActivity {
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
                     Log.d("Successfully Deletion!", json.toString());
-                    return "Operator has been deleted successfully.";
+                    return getString(R.string.operatorDeleted);
                 }else{
-                    return "This account doesn't exist.";
+                    return getString(R.string.accountdoesnotexist);
 
                 }
             } catch (JSONException e) {

@@ -65,7 +65,7 @@ public class CustomerCreation extends AppCompatActivity {
             public void onClick(View view) {
                 for(EditText et:TextList){
                     if(et.getText().length()==0){
-                        Toast.makeText(CustomerCreation.this,"Please enter values to all fields.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(CustomerCreation.this,getString(R.string.enterValuesToAllFields),Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -92,7 +92,7 @@ public class CustomerCreation extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(CustomerCreation.this);
-            pDialog.setMessage("Creating new customer..");
+            pDialog.setMessage(getString(R.string.creatingCustomer));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -133,7 +133,7 @@ public class CustomerCreation extends AppCompatActivity {
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
                     Log.d("Successfully Login!", json.toString());
-                    toast_message = "Customer has been created successfully.";
+                    toast_message = getString(R.string.customerCreated);
                     profile_layout.setVisibility(View.VISIBLE);
                     TextView profile_name = (TextView) profile_layout.findViewById(R.id.profile_name_Text);
                     TextView profile_barcode_Text = (TextView) profile_layout.findViewById(R.id.profile_barcode_Text);
@@ -166,7 +166,7 @@ public class CustomerCreation extends AppCompatActivity {
                         });
                     }
                 }else{
-                    toast_message ="Barcode or Phone already exists.";
+                    toast_message =getString(R.string.barcodeExists);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

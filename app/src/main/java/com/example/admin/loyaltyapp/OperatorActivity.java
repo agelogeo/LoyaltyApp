@@ -39,9 +39,9 @@ public class OperatorActivity extends AppCompatActivity{
                 };
 
         new AlertDialog.Builder(OperatorActivity.this)
-                .setMessage("Are you sure , you want to sign off?")
-                .setPositiveButton("Yes",okListener)
-                .setNegativeButton("No", null)
+                .setMessage(R.string.ExitMessageAlert)
+                .setPositiveButton(R.string.yes,okListener)
+                .setNegativeButton(R.string.no, null)
                 .create()
                 .show();
     }
