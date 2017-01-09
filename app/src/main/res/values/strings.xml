@@ -80,6 +80,7 @@
     <string name="deleteOperator">DELETE OPERATOR</string>
     <string name="deleteOperatorBTN">DELETE OPERATOR</string><!-- Operator Activity  -->
     <string name="checkBarcodeBTN">CHECK BARCODE</string>
+    <string name="attemptCheck">Attempting for check barcode</string>
 
 
 </resources>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class OperatorActivity extends AppCompatActivity{
     private TextView welcomeView;
     private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn;
+    private EditText barcode_value;
     private static int ADMIN_ACCESS_LEVEL = 1;
     private Operator user = new Operator() ;
     private ImageView qr_reader;
@@ -56,7 +58,7 @@ public class OperatorActivity extends AppCompatActivity{
         delete_customer_btn = (Button) findViewById(R.id.delete_customer_btn);
         delete_operator_btn = (Button) findViewById(R.id.delete_operator_btn);
         db_btn = (Button) findViewById(R.id.db_btn);
-
+        barcode_value = (EditText) findViewById(R.id.barcode_value);
         qr_reader = (ImageView) findViewById(R.id.qr_scanner_View);
 
         Intent ii = getIntent();
@@ -124,6 +126,15 @@ public class OperatorActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent i = new Intent(OperatorActivity.this,BarcodeActivity.class);
                 startActivity(i);
+            }
+        });
+
+        check_barcode_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ii = new Intent(OperatorActivity.this,CheckBarcodeActivity.class);
+                ii.putExtra("barcode",barcode_value.getText().toString());
+                startActivity(ii);
             }
         });
     }

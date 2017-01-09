@@ -17,6 +17,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:text="ID : "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBarcodeView"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:text="Name : "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkNameView"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="Phone : "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkPhoneView"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="Stamps : "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkStampsView"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <Button
+                android:text="ADD STAMP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="REMOVE STAMP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button3"
+                android:layout_weight="1" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>
