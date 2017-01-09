@@ -25,7 +25,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class OperatorActivity extends AppCompatActivity{
     private TextView welcomeView;
-    private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn;
+    private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn,manage_coupons_btn;
     private EditText barcode_value;
     private static int ADMIN_ACCESS_LEVEL = 1;
     private Operator user = new Operator() ;
@@ -57,6 +57,7 @@ public class OperatorActivity extends AppCompatActivity{
         new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
         delete_customer_btn = (Button) findViewById(R.id.delete_customer_btn);
         delete_operator_btn = (Button) findViewById(R.id.delete_operator_btn);
+        manage_coupons_btn = (Button) findViewById(R.id.manage_coupons_btn);
         db_btn = (Button) findViewById(R.id.db_btn);
         barcode_value = (EditText) findViewById(R.id.barcode_value);
         qr_reader = (ImageView) findViewById(R.id.qr_scanner_View);
@@ -80,6 +81,7 @@ public class OperatorActivity extends AppCompatActivity{
             welcomeView.setText(welcomeView.getText()+" "+json.getString("first_name")+" "+json.getString("last_name"));
             if(json.getInt("access_level")!=ADMIN_ACCESS_LEVEL){
                 db_btn.setVisibility(View.GONE);
+                manage_coupons_btn.setVisibility(View.GONE);
                 new_operator_btn.setVisibility(View.GONE);
                 delete_operator_btn.setVisibility(View.GONE);
             }
@@ -135,6 +137,14 @@ public class OperatorActivity extends AppCompatActivity{
                 Intent ii = new Intent(OperatorActivity.this,CheckBarcodeActivity.class);
                 ii.putExtra("barcode",barcode_value.getText().toString());
                 startActivity(ii);
+            }
+        });
+
+        manage_coupons_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OperatorActivity.this,ManageCouponsActivity.class);
+                startActivity(i);
             }
         });
     }

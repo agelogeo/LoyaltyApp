@@ -38,6 +38,7 @@ public class CustomerActivity extends AppCompatActivity {
         System.out.println(jsonResponse);
         try {
             JSONObject json = new JSONObject(jsonResponse);
+
             user.setId(json.getInt("id"));
             user.setName(json.getString("name"));
             user.setSurname(json.getString("surname"));
