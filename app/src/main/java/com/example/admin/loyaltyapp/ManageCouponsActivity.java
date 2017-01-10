@@ -36,6 +36,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
     private Button create_btn,save_btn,delete_btn;
     ListView listView ;
     private List<NameValuePair> params = new ArrayList<>();
+    private Coupon EditCoupon;
     // Progress Dialog
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
@@ -142,7 +143,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
          * Once the background process is done we need to  Dismiss the progress dialog asap
          * **/
         protected void onPostExecute(final String message) {
-            ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
             pDialog.dismiss();
 
@@ -166,21 +167,24 @@ public class ManageCouponsActivity extends AppCompatActivity {
 
                     CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
                     listView.setAdapter(myAdapter);
-
+                    toast_message="Coupons recalled successfully.";
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            /*
+
                             JSONObject jsonResult = null;
                             try {
                                 jsonResult = new JSONObject(message);
                                 JSONArray results = (JSONArray) jsonResult.get("results");
-                                JSONObject result = results.getJSONObject(adapterList.get(position).getResult_indicator());
-
+                                nameView.setText( adapterList.get(position).getName() );
+                                requiredView.setText( "Required :"+" "+adapterList.get(position).getRequired_stamps() );
+                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
+                                save_btn.setVisibility(View.VISIBLE);
+                                delete_btn.setVisibility(View.VISIBLE);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            */
+
                         }
                     });
                 } else if(result.length()==0){
