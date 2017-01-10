@@ -107,8 +107,8 @@ public class CustomerCreation extends AppCompatActivity {
                 Log.d("request!", "starting");
 
                 JSONObject json = jsonParser.makeHttpRequest(
-                        getString(R.string.CUSTOMER_CREATION_URL), "GET", params);
-                System.out.println(getString(R.string.CUSTOMER_CREATION_URL));
+                        getString(R.string.WEBSITE_URL+R.string.CUSTOMER_CREATION_URL), "GET", params);
+                System.out.println(getString(R.string.WEBSITE_URL+R.string.CUSTOMER_CREATION_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());

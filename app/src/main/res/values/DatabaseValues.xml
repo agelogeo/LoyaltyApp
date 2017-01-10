@@ -2,16 +2,16 @@
 <resources>
     <string name="WEBSITE_URL" translatable="false">https://test-cafeoino.000webhostapp.com</string>
 
-    <string name="CHECK_BARCODE_URL" translatable="false">https://test-cafeoino.000webhostapp.com/check_barcode.php\?db=id99137_aggeloandroid</string>
+    <string name="CHECK_BARCODE_URL" translatable="false">/check_barcode.php\?db=id99137_aggeloandroid</string>
 
-    <string name="OPERATOR_LOGIN_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_login.php\?db=id99137_aggeloandroid</string>
-    <string name="OPERATOR_CREATION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_creation.php\?db=id99137_aggeloandroid</string>
-    <string name="OPERATOR_DELETION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/operator_deletion.php\?db=id99137_aggeloandroid</string>
+    <string name="OPERATOR_LOGIN_URL" translatable="false">/operator_login.php\?db=id99137_aggeloandroid</string>
+    <string name="OPERATOR_CREATION_URL" translatable="false">/operator_creation.php\?db=id99137_aggeloandroid</string>
+    <string name="OPERATOR_DELETION_URL" translatable="false">/operator_deletion.php\?db=id99137_aggeloandroid</string>
 
-    <string name="CUSTOMER_LOGIN_URL" translatable="false">https://test-cafeoino.000webhostapp.com/customer_login.php\?db=id99137_aggeloandroid</string>
-    <string name="CUSTOMER_CREATION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/customer_creation.php\?db=id99137_aggeloandroid</string>
-    <string name="CUSTOMER_DELETION_URL" translatable="false">https://test-cafeoino.000webhostapp.com/customer_deletion.php\?db=id99137_aggeloandroid</string>
+    <string name="CUSTOMER_LOGIN_URL" translatable="false">/customer_login.php\?db=id99137_aggeloandroid</string>
+    <string name="CUSTOMER_CREATION_URL" translatable="false">/customer_creation.php\?db=id99137_aggeloandroid</string>
+    <string name="CUSTOMER_DELETION_URL" translatable="false">/customer_deletion.php\?db=id99137_aggeloandroid</string>
 
-    <string name="GET_COUPONS_URL" translatable="false">https://test-cafeoino.000webhostapp.com/get_coupons.php\?db=id99137_aggeloandroid</string>
+    <string name="GET_COUPONS_URL" translatable="false">/get_coupons.php\?db=id99137_aggeloandroid</string>
 
 </resources>

@@ -127,8 +127,8 @@ public class ManageCouponsActivity extends AppCompatActivity {
             Log.d("request!", "starting");
 
             JSONObject json = jsonParser.makeHttpRequest(
-                    getString(R.string.GET_COUPONS_URL), "GET", params);
-            System.out.println(getString(R.string.GET_COUPONS_URL));
+                    getString(R.string.WEBSITE_URL+R.string.GET_COUPONS_URL), "GET", params);
+            System.out.println(getString(R.string.WEBSITE_URL+R.string.GET_COUPONS_URL));
             System.out.println(params);
             System.out.println(json.toString());
             // checking  log for json response
