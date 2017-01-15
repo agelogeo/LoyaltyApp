@@ -161,6 +161,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                         tempItem.setId(indicator.getInt("id"));
                         tempItem.setName(indicator.getString("name"));
                         tempItem.setRequired_stamps(indicator.getInt("required_stamps"));
+                        tempItem.setOkay(true);
                         adapterList.add(tempItem);
                     }
 
@@ -176,7 +177,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                                 jsonResult = new JSONObject(message);
                                 JSONArray results = (JSONArray) jsonResult.get("results");
                                 nameView.setText( adapterList.get(position).getName() );
-                                requiredView.setText( "Required :"+" "+adapterList.get(position).getRequired_stamps() );
+                                requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
                                 EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
                                 save_btn.setVisibility(View.VISIBLE);
                                 delete_btn.setVisibility(View.VISIBLE);

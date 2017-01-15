@@ -1,6 +1,7 @@
 package com.example.admin.loyaltyapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,12 @@ public class CouponAdapter extends ArrayAdapter<Coupon> {
 
         if (listitem != null) {
             name.setText(listitem.getName());
-            required.setText(required.getText()+" "+listitem.getRequired_stamps());
+            String re = "Required : ";
+            required.setText(re+" "+listitem.getRequired_stamps());
+            if(!listitem.isOkay()) {
+                name.setTextColor(Color.BLACK);
+                required.setTextColor(Color.BLACK);
+            }
         }
 
         // Return the completed view to render on screen

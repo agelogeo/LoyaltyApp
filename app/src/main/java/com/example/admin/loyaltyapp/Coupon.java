@@ -8,6 +8,7 @@ public class Coupon {
     private int id;
     private String name;
     private int required_stamps;
+    private boolean isOkay;
 
     public Coupon(int id, String name, int required_stamps) {
         this.id = id;
@@ -40,5 +41,14 @@ public class Coupon {
 
     public void setRequired_stamps(int required_stamps) {
         this.required_stamps = required_stamps;
+    }
+
+
+    public boolean isOkay() {
+        return isOkay;
+    }
+
+    public void setOkay(boolean okay) {
+        isOkay = okay;
     }
 }
