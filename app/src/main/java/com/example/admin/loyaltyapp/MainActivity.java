@@ -133,9 +133,8 @@ public class MainActivity extends AppCompatActivity
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(
-                        getString(R.string.WEBSITE_URL+R.string.OPERATOR_LOGIN_URL), "GET", params);
-                System.out.println(getString(R.string.WEBSITE_URL+R.string.OPERATOR_LOGIN_URL));
+                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_LOGIN_URL), "GET", params);
+                System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_LOGIN_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
