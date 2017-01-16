@@ -13,5 +13,6 @@
     <string name="CUSTOMER_DELETION_URL" translatable="false">/customer_deletion.php\?db=id99137_aggeloandroid</string>
 
     <string name="GET_COUPONS_URL" translatable="false">/get_coupons.php\?db=id99137_aggeloandroid</string>
+    <string name="CREATE_COUPON_URL" translatable="false">/coupon_creation.php\?db=id99137_aggeloandroid</string>
 
 </resources>
