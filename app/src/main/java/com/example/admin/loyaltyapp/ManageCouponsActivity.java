@@ -185,8 +185,13 @@ public class ManageCouponsActivity extends AppCompatActivity {
 
                             JSONObject jsonResult = null;
                             try {
+                                EditCoupon = new Coupon();
                                 jsonResult = new JSONObject(message);
                                 JSONArray results = (JSONArray) jsonResult.get("results");
+                                EditCoupon.setId(adapterList.get(position).getId());
+                                EditCoupon.setName(adapterList.get(position).getName());
+                                EditCoupon.setRequired_stamps(adapterList.get(position).getRequired_stamps());
+
                                 nameView.setText( adapterList.get(position).getName() );
                                 requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
                                 EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
