@@ -1,5 +1,6 @@
 package com.example.admin.loyaltyapp;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -83,13 +85,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nameView.getText().length()==0 || requiredView.getText().length()==0){
-                    Toast.makeText(ManageCouponsActivity.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                params.clear();
-                params.add(new BasicNameValuePair("name", nameView.getText().toString()));
-                new AttemptDeleteCoupon().execute();
+
             }
         });
 
@@ -123,7 +119,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ManageCouponsActivity.this);
-            pDialog.setMessage(getString(R.string.creatingCustomer));
+            pDialog.setMessage("Loading coupons");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -134,8 +130,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             // TODO Auto-generated method stub
             // here Check for success tag
-
-            Log.d("request!", "starting");
 
             JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), "GET", params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL));
@@ -164,8 +158,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
                 JSONArray result = output.getJSONArray("results");
                 if (result.length() > 0) {
                     Log.d("Get Coupons OK!", result.toString());
-
-
                     for (int j = 0; j < result.length(); j++) {
                         Coupon tempItem = new Coupon();
                         JSONObject indicator = result.getJSONObject(j);
@@ -182,10 +174,68 @@ public class ManageCouponsActivity extends AppCompatActivity {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
 
-                            JSONObject jsonResult = null;
+
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCouponsActivity.this);
+                            // ...Irrelevant code for customizing the buttons and title
+                            LayoutInflater inflater = ManageCouponsActivity.this.getLayoutInflater();
+                            View dialogView = inflater.inflate(R.layout.edit_coupon_dialog, null);
+                            dialogBuilder.setView(dialogView);
+                            dialogBuilder.setTitle("Edit Coupon");
+                            final AlertDialog alertDialog = dialogBuilder.create();
+                            // set the custom dialog components - text, image and button
+                            final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);
+                            edit_name.setText(adapterList.get(position).getName());
+                            final EditText edit_stamps = (EditText) dialogView.findViewById(R.id.dialog_edit_stamps);
+                            edit_stamps.setText(""+adapterList.get(position).getRequired_stamps());
+                            /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
+                            image.setImageResource(R.drawable.ic_launcher);
+                            */
+                            Button cancelButton = (Button) dialogView.findViewById(R.id.dialog_cancel_btn);
+                            Button deleteButton = (Button) dialogView.findViewById(R.id.dialog_delete_btn);
+                            Button saveButton = (Button) dialogView.findViewById(R.id.dialog_save_btn);
+
+                            // if button is clicked, close the custom dialog
+                            cancelButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                }
+                            });
+
+                            deleteButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if(edit_name.getText().length()==0 || edit_stamps.getText().length()==0){
+                                        Toast.makeText(ManageCouponsActivity.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    params.clear();
+                                    params.add(new BasicNameValuePair("name", edit_name.getText().toString()));
+                                    new AttemptDeleteCoupon().execute();
+                                    alertDialog.dismiss();
+                                }
+                            });
+
+                            saveButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if(edit_name.getText().equals(EditCoupon.getName()) &&  edit_stamps.getText().equals(EditCoupon.getRequired_stamps())){
+                                        Toast.makeText(ManageCouponsActivity.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    params.clear();
+                                    params.add(new BasicNameValuePair("id",String.valueOf(EditCoupon.getId())));
+                                    new AttemptSaveCoupon().execute();
+                                    alertDialog.dismiss();
+                                }
+                            });
+
+                            alertDialog.show();
+                           /* JSONObject jsonResult = null;
                             try {
-                                EditCoupon = new Coupon();
+                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
                                 jsonResult = new JSONObject(message);
                                 JSONArray results = (JSONArray) jsonResult.get("results");
                                 EditCoupon.setId(adapterList.get(position).getId());
@@ -194,12 +244,11 @@ public class ManageCouponsActivity extends AppCompatActivity {
 
                                 nameView.setText( adapterList.get(position).getName() );
                                 requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
-                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
                                 save_btn.setVisibility(View.VISIBLE);
                                 delete_btn.setVisibility(View.VISIBLE);
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
 
                         }
                     });
@@ -214,7 +263,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (message != null){
+            if (toast_message != null){
                 Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
@@ -232,7 +281,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ManageCouponsActivity.this);
-            pDialog.setMessage(getString(R.string.creatingCustomer));
+            pDialog.setMessage("Creating new coupon");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -319,7 +368,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (message != null){
+            if (toast_message != null){
                 Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
@@ -337,7 +386,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ManageCouponsActivity.this);
-            pDialog.setMessage(getString(R.string.creatingCustomer));
+            pDialog.setMessage("Deleting coupon");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -415,8 +464,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
                     });
                 } else if(result.length()==0){
                     toast_message = "No Coupons available.";
-
-
                 }else{
                     toast_message =getString(R.string.barcodeExists);
                 }
@@ -424,7 +471,109 @@ public class ManageCouponsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (message != null){
+            if (toast_message != null){
+                Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+    }
+
+    class AttemptSaveCoupon extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ManageCouponsActivity.this);
+            pDialog.setMessage("Deleting coupon");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+
+            Log.d("request!", "starting");
+
+            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL), "GET", params);
+            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL));
+            System.out.println(params);
+            System.out.println(json.toString());
+            // checking  log for json response
+            //Log.d("Login attempt", json.toString());
+
+            return json.toString();
+
+
+
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(final String message) {
+            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            String toast_message= null;
+            pDialog.dismiss();
+            params.clear();
+            new AttemptGetCoupons().execute();
+
+
+            try {
+                JSONObject output = new JSONObject(message);
+                JSONArray result = output.getJSONArray("results");
+                if (result.length() > 0) {
+                    Log.d("Get Coupons OK!", result.toString());
+
+
+                    for (int j = 0; j < result.length(); j++) {
+                        Coupon tempItem = new Coupon();
+                        JSONObject indicator = result.getJSONObject(j);
+                        tempItem.setId(indicator.getInt("id"));
+                        tempItem.setName(indicator.getString("name"));
+                        tempItem.setRequired_stamps(indicator.getInt("required_stamps"));
+                        tempItem.setOkay(true);
+                        adapterList.add(tempItem);
+                    }
+
+                    CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
+                    listView.setAdapter(myAdapter);
+                    toast_message="Coupons recalled successfully.";
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            JSONObject jsonResult = null;
+                            try {
+                                jsonResult = new JSONObject(message);
+                                JSONArray results = (JSONArray) jsonResult.get("results");
+                                nameView.setText( adapterList.get(position).getName() );
+                                requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
+                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
+                                save_btn.setVisibility(View.VISIBLE);
+                                delete_btn.setVisibility(View.VISIBLE);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                } else if(result.length()==0){
+                    toast_message = "No Coupons available.";
+                }else{
+                    toast_message =getString(R.string.barcodeExists);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (toast_message != null){
                 Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
