@@ -65,8 +65,26 @@
 			}
 		}
 		//COUPON CHANGE
-		else if($action=='coupon_update'){
-			
+		else if($action=='coupon_save'){
+			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['required']) ) {
+			  $response["error"] = 103;
+			  $response["message"] = "Required fields : id,name,required";
+			}else{
+				$id = $_GET['id'];
+				$name = $_GET['name'];
+				$required = $_GET['required'];
+
+				$sql2 = " UPDATE `coupons` SET `name`='$name',`required_stamps`='$required' WHERE `id`='$id'";
+				$result = $con->query($sql2);
+				$response["success"] = 1;
+				$response["message"] = $result;
+				$barcode = " SELECT * FROM coupons WHERE `id`='$id' ";
+				$result = $con->query($barcode);
+				$row = $result->fetch_assoc();
+				$response["id"]=$row[id];
+				$response["name"] = $row[name];
+				$response["required_stamps"] = $row[required_stamps];
+			}
 		}
 		//CUSTOMER LOGIN
 		else if($action=='customer_login'){

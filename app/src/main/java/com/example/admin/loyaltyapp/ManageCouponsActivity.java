@@ -52,8 +52,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
         nameView = (EditText) findViewById(R.id.coupon_name_view);
         requiredView = (EditText) findViewById(R.id.coupon_required_view);
         create_btn = (Button) findViewById(R.id.create_coupon_btn);
-        save_btn = (Button) findViewById(R.id.save_changes_btn);
-        delete_btn = (Button) findViewById(R.id.delete_coupon_btn);
 
         listView = (ListView) findViewById(R.id.coupons_list_view);
         new AttemptGetCoupons().execute();
@@ -73,21 +71,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
             }
         });
 
-        save_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(nameView.getText().length()==0 || requiredView.getText().length()==0){
-                    Toast.makeText(ManageCouponsActivity.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
 
     }
@@ -227,29 +210,14 @@ public class ManageCouponsActivity extends AppCompatActivity {
                                     }
                                     params.clear();
                                     params.add(new BasicNameValuePair("id",String.valueOf(EditCoupon.getId())));
+                                    params.add(new BasicNameValuePair("name",String.valueOf(edit_name.getText().toString())));
+                                    params.add(new BasicNameValuePair("required",String.valueOf(edit_stamps.getText().toString())));
                                     new AttemptSaveCoupon().execute();
                                     alertDialog.dismiss();
                                 }
                             });
 
                             alertDialog.show();
-                           /* JSONObject jsonResult = null;
-                            try {
-                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-                                jsonResult = new JSONObject(message);
-                                JSONArray results = (JSONArray) jsonResult.get("results");
-                                EditCoupon.setId(adapterList.get(position).getId());
-                                EditCoupon.setName(adapterList.get(position).getName());
-                                EditCoupon.setRequired_stamps(adapterList.get(position).getRequired_stamps());
-
-                                nameView.setText( adapterList.get(position).getName() );
-                                requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
-                                save_btn.setVisibility(View.VISIBLE);
-                                delete_btn.setVisibility(View.VISIBLE);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }*/
-
                         }
                     });
                 } else if(result.length()==0){
@@ -338,25 +306,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
                     CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
                     listView.setAdapter(myAdapter);
                     toast_message="Coupons recalled successfully.";
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            JSONObject jsonResult = null;
-                            try {
-                                jsonResult = new JSONObject(message);
-                                JSONArray results = (JSONArray) jsonResult.get("results");
-                                nameView.setText( adapterList.get(position).getName() );
-                                requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
-                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-                                save_btn.setVisibility(View.VISIBLE);
-                                delete_btn.setVisibility(View.VISIBLE);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
                 } else if(result.length()==0){
                     toast_message = "No Coupons available.";
 
@@ -443,25 +392,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                     CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
                     listView.setAdapter(myAdapter);
                     toast_message="Coupons recalled successfully.";
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                            JSONObject jsonResult = null;
-                            try {
-                                jsonResult = new JSONObject(message);
-                                JSONArray results = (JSONArray) jsonResult.get("results");
-                                nameView.setText( adapterList.get(position).getName() );
-                                requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
-                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-                                save_btn.setVisibility(View.VISIBLE);
-                                delete_btn.setVisibility(View.VISIBLE);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
                 } else if(result.length()==0){
                     toast_message = "No Coupons available.";
                 }else{
@@ -489,7 +420,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ManageCouponsActivity.this);
-            pDialog.setMessage("Deleting coupon");
+            pDialog.setMessage("Saving coupon");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -502,8 +433,8 @@ public class ManageCouponsActivity extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL), "GET", params);
-            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL));
+            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL), "GET", params);
+            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());
             // checking  log for json response
@@ -524,58 +455,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
             params.clear();
             new AttemptGetCoupons().execute();
 
-
-            try {
-                JSONObject output = new JSONObject(message);
-                JSONArray result = output.getJSONArray("results");
-                if (result.length() > 0) {
-                    Log.d("Get Coupons OK!", result.toString());
-
-
-                    for (int j = 0; j < result.length(); j++) {
-                        Coupon tempItem = new Coupon();
-                        JSONObject indicator = result.getJSONObject(j);
-                        tempItem.setId(indicator.getInt("id"));
-                        tempItem.setName(indicator.getString("name"));
-                        tempItem.setRequired_stamps(indicator.getInt("required_stamps"));
-                        tempItem.setOkay(true);
-                        adapterList.add(tempItem);
-                    }
-
-                    CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
-                    listView.setAdapter(myAdapter);
-                    toast_message="Coupons recalled successfully.";
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            JSONObject jsonResult = null;
-                            try {
-                                jsonResult = new JSONObject(message);
-                                JSONArray results = (JSONArray) jsonResult.get("results");
-                                nameView.setText( adapterList.get(position).getName() );
-                                requiredView.setText( ""+adapterList.get(position).getRequired_stamps() );
-                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-                                save_btn.setVisibility(View.VISIBLE);
-                                delete_btn.setVisibility(View.VISIBLE);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-                } else if(result.length()==0){
-                    toast_message = "No Coupons available.";
-                }else{
-                    toast_message =getString(R.string.barcodeExists);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            if (toast_message != null){
-                Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
-            }
         }
 
 
