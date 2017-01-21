@@ -10,6 +10,16 @@ public class Coupon {
     private int required_stamps;
     private boolean isOkay;
 
+    public boolean isManage() {
+        return isManage;
+    }
+
+    public void setManage(boolean manage) {
+        isManage = manage;
+    }
+
+    private boolean isManage;
+
     public Coupon(int id, String name, int required_stamps) {
         this.id = id;
         this.name = name;

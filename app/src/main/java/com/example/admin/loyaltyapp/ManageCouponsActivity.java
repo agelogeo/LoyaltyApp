@@ -52,7 +52,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
         nameView = (EditText) findViewById(R.id.coupon_name_view);
         requiredView = (EditText) findViewById(R.id.coupon_required_view);
         create_btn = (Button) findViewById(R.id.create_coupon_btn);
-
         listView = (ListView) findViewById(R.id.coupons_list_view);
         new AttemptGetCoupons().execute();
 
@@ -148,12 +147,14 @@ public class ManageCouponsActivity extends AppCompatActivity {
                         tempItem.setName(indicator.getString("name"));
                         tempItem.setRequired_stamps(indicator.getInt("required_stamps"));
                         tempItem.setOkay(true);
+                        tempItem.setManage(true);
                         adapterList.add(tempItem);
                     }
 
                     CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
                     listView.setAdapter(myAdapter);
                     toast_message="Coupons recalled successfully.";
+
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -184,10 +184,14 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                         tempItem.setId(indicator.getInt("id"));
                         tempItem.setName(indicator.getString("name"));
                         tempItem.setRequired_stamps(indicator.getInt("required_stamps"));
-                        if(user.getStamps()>=indicator.getInt("required_stamps"))
+                        if(user.getStamps()>=indicator.getInt("required_stamps") && indicator.getInt("required_stamps")>=0) {
                             tempItem.setOkay(true);
-                        else
+                            isEnough.add(true);
+                        }else {
                             tempItem.setOkay(false);
+                            isEnough.add(false);
+                        }
+                        tempItem.setManage(false);
                         adapterList.add(tempItem);
                     }
 
