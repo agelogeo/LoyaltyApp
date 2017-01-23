@@ -1,31 +1,24 @@
 package com.example.admin.loyaltyapp;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
-import com.google.zxing.Result;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
 
 public class OperatorActivity extends AppCompatActivity{
     private TextView welcomeView;
-    private Button check_barcode_btn,new_operator_btn,new_customer_btn,delete_customer_btn,delete_operator_btn,db_btn,manage_coupons_btn;
+    private Button check_barcode_btn,manage_customers_btn, manage_operators_btn,db_btn,manage_coupons_btn;
     private EditText barcode_value;
     private static int ADMIN_ACCESS_LEVEL = 1;
     private Operator user = new Operator() ;
@@ -53,10 +46,8 @@ public class OperatorActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operator);
         check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
-        new_operator_btn = (Button) findViewById(R.id.new_operator_btn);
-        new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
-        delete_customer_btn = (Button) findViewById(R.id.delete_customer_btn);
-        delete_operator_btn = (Button) findViewById(R.id.delete_operator_btn);
+        manage_customers_btn = (Button) findViewById(R.id.manage_customers_btn);
+        manage_operators_btn = (Button) findViewById(R.id.manage_operators_btn);
         manage_coupons_btn = (Button) findViewById(R.id.manage_coupons_btn);
         db_btn = (Button) findViewById(R.id.db_btn);
         barcode_value = (EditText) findViewById(R.id.barcode_value);
@@ -82,43 +73,25 @@ public class OperatorActivity extends AppCompatActivity{
             if(json.getInt("access_level")!=ADMIN_ACCESS_LEVEL){
                 db_btn.setVisibility(View.GONE);
                 manage_coupons_btn.setVisibility(View.GONE);
-                new_operator_btn.setVisibility(View.GONE);
-                delete_operator_btn.setVisibility(View.GONE);
+                manage_operators_btn.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        new_operator_btn.setOnClickListener(new View.OnClickListener() {
+        manage_operators_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(OperatorActivity.this,OperatorCreation.class);
+                Intent i = new Intent(OperatorActivity.this,ManageOperators.class);
                 startActivity(i);
             }
         });
 
-        new_customer_btn.setOnClickListener(new View.OnClickListener() {
+        manage_customers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(OperatorActivity.this,CustomerCreation.class);
-                i.putExtra("operator",true);
-                startActivity(i);
-            }
-        });
-
-        delete_operator_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(OperatorActivity.this,OperatorDeletion.class);
-                startActivity(i);
-            }
-        });
-
-        delete_customer_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(OperatorActivity.this,CustomerDeletion.class);
+                Intent i = new Intent(OperatorActivity.this,ManageCustomers.class);
                 startActivity(i);
             }
         });
