@@ -4,7 +4,7 @@ package com.example.admin.loyaltyapp;
  * Created by Admin on 8/1/2017.
  */
 
-public class Operator extends HumanInterface {
+public class Operator {
     private int id;
     private String username;
     private String password;
