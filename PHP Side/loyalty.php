@@ -3,7 +3,7 @@
 	$user = "id99137_agelo1995";
 	$password = "";
 	$db = $_GET['db'];
-	
+
 	$con = mysqli_connect($host,$user,$password,$db);
 	//Error for database parameter
 	if(!$con){
@@ -12,7 +12,7 @@
 	}else{
 		$action = $_GET['action'];
 		//GET COUPONS
-		if($action=='get_coupons'){			
+		if($action=='get_coupons'){
 			$sql = " SELECT * FROM coupons";
 			$result = $con->query($sql);
 			$stack = array();
@@ -20,7 +20,7 @@
 			if ($result->num_rows > 0) {
 				while($row = $result->fetch_assoc()) {
 					$d[] = $row;
-				}	
+				}
 			} else {
 				$response["error"] = 102;
 				$response["message"] = "No rows available.";
@@ -35,13 +35,13 @@
 			}else{
 				$name = $_GET['name'];
 				$required = $_GET['required'];
-				
+
 				$sql2 = " INSERT INTO `coupons`(`name`, `required_stamps`) VALUES ('$name','$required')";
 				$result = $con->query($sql2);
 				$response["success"] = 1;
 				$response["message"] = $result;
 				$barcode = " SELECT * FROM coupons WHERE `name`='$name' ";
-				$result = $con->query($barcode);	
+				$result = $con->query($barcode);
 				$row = $result->fetch_assoc();
 				$response["id"]=$row[id];
 				$response["name"] = $row[name];
@@ -52,7 +52,7 @@
 		else if($action=='coupon_deletion'){
 			if (empty($_GET['name'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : name";	  
+			  $response["message"] = "Required fields : name";
 			}else{
 				$name = $_GET['name'];
 				$sql2 = " DELETE FROM `coupons` WHERE `name`='$name'";
@@ -92,12 +92,12 @@
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : username";
 			}else{
-				$username = $_GET['username'];		
+				$username = $_GET['username'];
 				$sql = " SELECT * FROM customers WHERE `barcode`='$username' OR `phone`='$username'";
 				$result = $con->query($sql);
 				$stack = array();
 				if ($result->num_rows == 1) {
-					$row = $result->fetch_assoc();				
+					$row = $result->fetch_assoc();
 					// output data of each row
 					$response["success"] = 1;
 					$response["id"]=$row[id];
@@ -119,27 +119,27 @@
 		else if($action=='customer_creation'){
 			if (empty($_GET['name'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : name"; 
+			  $response["message"] = "Required fields : name";
 			  mysqli_close($con);
 			  die(json_encode($response));
-				  
+
 			}else{
 				$name = $_GET['name'];
 				$surname = $_GET['surname'];
 				$phone = $_GET['phone'];
 				$barcode = " INSERT INTO customers (`name`, `surname`, `phone`, `barcode`) VALUES ('$name','$surname','$phone',(SELECT FLOOR(rand() * 90000 + 10000)))";
-				$check = $con->query($barcode);	
+				$check = $con->query($barcode);
 				$i = 0;
 				while(!$check && $i<50){
 					$barcode = " INSERT INTO customers (`name`, `surname`, `phone`, `barcode`) VALUES ('$name','$surname','$phone',(SELECT FLOOR(rand() * 90000 + 10000)))";
-					$check = $con->query($barcode);				
+					$check = $con->query($barcode);
 					$i++;
 				}
 				if( $check ){
 					$response["success"] = 1;
 					$response["message"] = $check;
 					$barcode = " SELECT * FROM customers WHERE `phone`='$phone' ";
-					$result = $con->query($barcode);	
+					$result = $con->query($barcode);
 					$row = $result->fetch_assoc();
 					$response["id"]=$row[id];
 					$response["name"] = $row[name];
@@ -160,7 +160,7 @@
 		else if($action=='customer_deletion'){
 			if (empty($_GET['username'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : username"; 
+			  $response["message"] = "Required fields : username";
 			}else{
 				$username = $_GET['username'];
 				$sql2 = " DELETE FROM `customers` WHERE `barcode`='$username' OR `phone`='$username'";
@@ -176,15 +176,15 @@
 		else if($action=='operator_login'){
 			if (empty($_GET['username']) || empty($_GET['password'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : username,password";  
+			  $response["message"] = "Required fields : username,password";
 			}else{
 				$username = $_GET['username'];
-				$password = $_GET['password'];			
+				$password = $_GET['password'];
 				$sql = " SELECT * FROM operators WHERE (`username`='$username' AND `password`='$password') OR (`phone`='$username' AND `password`='$password')";
 				$result = $con->query($sql);
 				$stack = array();
 				if ($result->num_rows == 1) {
-					$row = $result->fetch_assoc();				
+					$row = $result->fetch_assoc();
 					// output data of each row
 					$response["success"] = 1;
 					$response["id"]=$row[id];
@@ -193,7 +193,7 @@
 					$response["access_level"]=$row[access_level];
 					$response["first_name"]=$row[first_name];
 					$response["last_name"]=$row[last_name];
-					$response["phone"]=$row[phone];	
+					$response["phone"]=$row[phone];
 				} else {
 					$response["error"] = 102;
 					$response["message"] = "No rows available.";
@@ -210,7 +210,7 @@
 				$password = $_GET['password'];
 				$first_name = $_GET['first_name'];
 				$last_name = $_GET['last_name'];
-				$phone = $_GET['phone'];			
+				$phone = $_GET['phone'];
 				if( empty($_GET['access_level']) ){
 					$sql2 = " INSERT INTO `operators`(`username`, `password`, `first_name`, `last_name`, `phone`) VALUES ('$username','$password','$first_name','$last_name','$phone')";
 					$result = $con->query($sql2);
@@ -229,7 +229,7 @@
 		else if($action=='operator_deletion'){
 			if (empty($_GET['username'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : username"; 
+			  $response["message"] = "Required fields : username";
 			}else{
 				$username = $_GET['username'];
 				$sql2 = " DELETE FROM `operators` WHERE `username`='$username' OR `phone`='$username'";
@@ -239,6 +239,56 @@
 					$response["message"] = "true";
 				else
 					$response["message"] = "false";
+			}
+		}
+		//CUSTOMER SEARCH
+		else if($action=='search_customer'){
+			if(empty($_GET['term'])){
+				$response["message"] = "";
+			}else{
+				$term = $_GET['term'];
+				if(empty($_GET['double'])){
+					$sql = " SELECT * FROM `customers` WHERE `phone` LIKE '$term%' OR `barcode` LIKE '$term%' OR `name` LIKE '$term%' OR `surname` LIKE '$term%'";
+				}else{
+					$sql = " SELECT * FROM `customers` WHERE `phone` LIKE '%$term%' OR `barcode` LIKE '%$term%' OR `name` LIKE '$term%' OR `surname` LIKE '$term%'";
+				}
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
+			}
+		}
+		//OPERATOR SEARCH
+		else if($action=='search_operator'){
+			if(empty($_GET['term'])){
+				$response["message"] = "";
+			}else{
+				$term = $_GET['term'];
+				if(empty($_GET['double'])){
+					$sql = " SELECT * FROM `operators` WHERE `phone` LIKE '$term%' OR `username` LIKE '$term%' OR `first_name` LIKE '$term%' OR `last_name` LIKE '$term%'";
+				}else{
+					$sql = " SELECT * FROM `operators` WHERE `phone` LIKE '%$term%' OR `username` LIKE '%$term%' OR `first_name` LIKE '$term%' OR `last_name` LIKE '$term%'";
+				}
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
 			}
 		}
 		//Error for Action parameter

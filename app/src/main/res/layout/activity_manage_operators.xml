@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_operator_deletion"
     android:layout_width="match_parent"
@@ -8,42 +8,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.admin.loyaltyapp.OperatorDeletion">
+    tools:context="com.example.admin.loyaltyapp.ManageOperators">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+    <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/activity_vertical_margin">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:textStyle="normal|bold"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:text="@string/deleteOperator" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/delete_Text"
+                android:id="@+id/operator_edit_Text"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                android:hint="@string/activeSwitchHint" />
+                android:hint="Search for an operator. . ." />
 
             <Button
+                android:text="@string/createOperatorBTN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/delete_btn"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="@string/deleteOperatorBTN" />
+                android:id="@+id/new_operator_btn"
+                />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/operators_listview" />
+
         </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

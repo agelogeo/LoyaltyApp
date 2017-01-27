@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dialog_customer">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Name"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/TextView"
+                android:textSize="14sp"
+                android:layout_width="50dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/edit_customer_name"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Surname"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Surname"
+                android:ems="10"
+                android:id="@+id/edit_customer_surname"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Phone"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Phone"
+                android:ems="10"
+                android:id="@+id/edit_customer_phone"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Barcode"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Barcode"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:id="@+id/edit_customer_barcode"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Stamps"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Stamps"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:id="@+id/edit_customer_stamps"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Coupons Used"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Coupons Used"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:id="@+id/edit_customer_coupons_used"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Visits"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Total Visits"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:id="@+id/edit_customer_visits"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Last Visit"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView12"
+                android:layout_weight="1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Last Visit"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:id="@+id/edit_customer_last_visit"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:text="Cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_customer_cancel_btn"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="Delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_customer_delete_btn"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="Save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_customer_save_btn"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

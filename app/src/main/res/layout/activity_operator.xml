@@ -76,46 +76,19 @@
             android:layout_marginTop="28dp"
             android:paddingTop="@dimen/activity_horizontal_margin">
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <Button
+                android:text="Manage Operators"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:id="@+id/manage_operators_btn"
+                android:layout_weight="1" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/new_customer_btn"
-                    android:text="@string/createCustomerBTN"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:text="@string/createOperatorBTN"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/new_operator_btn"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
+            <Button
+                android:text="Manage Customers"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:text="@string/deleteCustomerBTN"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/delete_customer_btn"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:text="@string/deleteOperatorBTN"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/delete_operator_btn"
-                    android:layout_weight="1" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/manage_customers_btn"
+                android:layout_weight="1" />
 
             <Button
                 android:layout_width="match_parent"

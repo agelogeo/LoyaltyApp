@@ -27,9 +27,9 @@
         <activity
             android:name=".OperatorCreation"
             android:screenOrientation="portrait" />
-        <activity android:name=".OperatorDeletion" />
+        <activity android:name=".ManageOperators" />
         <activity android:name=".CustomerActivity" />
-        <activity android:name=".CustomerDeletion" />
+        <activity android:name=".ManageCustomers" />
         <activity android:name=".CustomerCreation" />
         <activity android:name=".CheckBarcodeActivity" />
         <activity android:name=".BarcodeActivity" />

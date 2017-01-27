@@ -4,7 +4,7 @@ package com.example.admin.loyaltyapp;
  * Created by Admin on 8/1/2017.
  */
 
-public class Customer extends HumanInterface{
+public class Customer {
     private int id;
     private String name;
     private String surname;
