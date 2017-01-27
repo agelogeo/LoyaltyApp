@@ -1,9 +1,10 @@
 <resources>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+    <style name="Loyalty" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/AppColor</item>
+        <item name="colorPrimaryDark">@color/AppColor</item>
+        <item name="colorAccent">@color/AppColor</item>
+        <item name="android:colorPrimary">@color/AppColor</item>
+        <item name="android:colorPrimaryDark">@color/AppColor</item>
+        <item name="android:colorAccent">@color/AppColor</item>
     </style>
 </resources>

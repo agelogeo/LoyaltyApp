@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(oper_switch.isChecked()){
                     pass.setVisibility(View.VISIBLE);
-                    user.setHint(R.string.activeSwitchHint);
+                    user.setHint("Username or Phone");
                 }else {
                     pass.setVisibility(View.GONE);
-                    user.setHint(R.string.inactiveSwitchHint);
+                    user.setHint("Barcode or Phone");
                 }
 
             }
@@ -82,12 +82,12 @@ public class MainActivity extends AppCompatActivity
         switch (v.getId()) {
             case R.id.login_btn:
                 if (user.getText().length() == 0){
-                    Toast.makeText(MainActivity.this, R.string.inactiveSwitchHint, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Barcode or Phone", Toast.LENGTH_SHORT).show();
                 }else{
                     username = user.getText().toString();
                     if (oper_switch.isChecked()) {
                         if (pass.getText().length() == 0) {
-                            Toast.makeText(MainActivity.this, R.string.passEmptyHint, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,"Password", Toast.LENGTH_SHORT).show();
                             break;
                         }
                         password = pass.getText().toString();
