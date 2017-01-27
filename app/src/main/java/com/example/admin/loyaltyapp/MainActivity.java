@@ -4,6 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseNavigationDrawer
         implements View.OnClickListener {
 
     private EditText user, pass;
@@ -43,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
         oper_switch = (Switch) findViewById(R.id.operator_switch);
@@ -74,6 +82,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+
     }
 
     @Override
@@ -102,6 +111,8 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
+
 
     class AttemptLoginForOperator extends AsyncTask<String, String, String> {
         /**
@@ -201,9 +212,8 @@ public class MainActivity extends AppCompatActivity
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(
-                        getString(R.string.WEBSITE_URL+R.string.CUSTOMER_LOGIN_URL), "GET", params);
-                System.out.println(getString(R.string.WEBSITE_URL+R.string.CUSTOMER_LOGIN_URL));
+                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), "GET", params);
+                System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
@@ -241,27 +251,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }

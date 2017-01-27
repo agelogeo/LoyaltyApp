@@ -34,6 +34,25 @@
             android:gravity="center_vertical|center_horizontal"
             android:textAlignment="textStart" />
 
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/operator_switch"
+            android:text="@string/isOperator" />
+
+        <EditText android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_username"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:imeOptions="actionDone"
+            android:visibility="gone"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:textAlignment="textStart" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -68,24 +87,6 @@
 
         </LinearLayout>
 
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/operator_switch"
-            android:text="@string/isOperator" />
-
-        <EditText android:id="@+id/login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_username"
-            android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:imeOptions="actionDone"
-            android:visibility="gone"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:textAlignment="textStart" />
     </LinearLayout>
 
 </ScrollView>

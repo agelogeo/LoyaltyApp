@@ -2,9 +2,19 @@ package com.example.admin.loyaltyapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class OperatorActivity extends AppCompatActivity{
+public class OperatorActivity extends BaseNavigationDrawer{
     private TextView welcomeView;
     private Button check_barcode_btn,manage_customers_btn, manage_operators_btn,db_btn,manage_coupons_btn;
     private EditText barcode_value;
@@ -45,6 +55,7 @@ public class OperatorActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operator);
+
         check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
         manage_customers_btn = (Button) findViewById(R.id.manage_customers_btn);
         manage_operators_btn = (Button) findViewById(R.id.manage_operators_btn);
