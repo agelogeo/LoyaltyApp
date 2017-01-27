@@ -12,7 +12,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -20,6 +22,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final LinearLayout pass_layout = (LinearLayout) findViewById(R.id.pass_layout);
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
         oper_switch = (Switch) findViewById(R.id.operator_switch);
@@ -59,13 +64,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(oper_switch.isChecked()){
-                    pass.setVisibility(View.VISIBLE);
+                    pass_layout.setVisibility(View.VISIBLE);
                     user.setHint("Username or Phone");
                 }else {
-                    pass.setVisibility(View.GONE);
+                    pass_layout.setVisibility(View.GONE);
                     user.setHint("Barcode or Phone");
                 }
 
+            }
+        });
+
+        ImageButton pass_view = (ImageButton) findViewById(R.id.show_pass_btn);
+        pass_view.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch ( event.getAction() ) {
+                    case MotionEvent.ACTION_DOWN:
+                        pass.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                }
+                return true;
             }
         });
         bLogin = (Button)findViewById(R.id.login_btn);

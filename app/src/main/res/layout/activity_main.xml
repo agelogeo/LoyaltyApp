@@ -40,18 +40,35 @@
             android:id="@+id/operator_switch"
             android:text="@string/isOperator" />
 
-        <EditText android:id="@+id/login_password"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_username"
-            android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:imeOptions="actionDone"
-            android:visibility="gone"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:textAlignment="textStart" />
+            android:layout_height="match_parent"
+            android:id="@+id/pass_layout"
+            android:visibility="gone">
+
+            <EditText android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_username"
+                android:layout_centerHorizontal="true"
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:visibility="visible"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:textAlignment="textStart"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_action_name"
+                android:id="@+id/show_pass_btn"
+                android:background="@color/Trans"
+                android:scaleType="fitXY" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
