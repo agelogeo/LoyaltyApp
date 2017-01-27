@@ -2,10 +2,8 @@
 <resources>
 
 
+
     <color name="White">#ffffff</color>
-
-
-
     <color name="Trans">#00000000</color>
     <color name="AppColor">#a11313</color>
 

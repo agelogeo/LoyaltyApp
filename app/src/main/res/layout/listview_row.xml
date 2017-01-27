@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/pen_symbol"
         android:id="@+id/pen_icon"
         android:layout_weight="0.30"
-        android:tint="@color/White" />
+        android:tint="@color/AppColor" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/credit_card_symbol"
         android:id="@+id/credit_card_icon"
         android:layout_weight="0.4"
-        android:tint="@color/White" />
+        android:tint="@color/AppColor" />
 
     <TextView
         android:layout_width="wrap_content"

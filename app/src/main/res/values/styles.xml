@@ -1,10 +1,14 @@
 <resources>
 
 
-    <style name="Loyalty" parent="Theme.AppCompat.Light.NoActionBar" >
+    <style name="Loyalty" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/AppColor</item>
         <item name="colorPrimaryDark">@color/AppColor</item>
         <item name="colorAccent">@color/AppColor</item>
     </style>
+
+    <style name="Loyalty.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Loyalty.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

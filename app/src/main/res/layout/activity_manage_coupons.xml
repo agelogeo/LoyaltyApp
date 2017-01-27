@@ -40,21 +40,27 @@
                 android:text="CREATE COUPON"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/create_coupon_btn" />
+                android:id="@+id/create_coupon_btn"
+                android:background="@drawable/red_style_button"
+                android:textColor="@color/AppColor" />
 
             <Button
                 android:text="SAVE CHANGES"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/save_changes_btn"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="@drawable/red_style_button"
+                android:textColor="@color/AppColor" />
 
             <Button
                 android:text="DELETE COUPON"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/delete_coupon_btn"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="@drawable/red_style_button"
+                android:textColor="@color/AppColor" />
 
         </LinearLayout>
     </ScrollView>

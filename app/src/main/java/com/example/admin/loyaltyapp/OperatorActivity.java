@@ -3,11 +3,11 @@ package com.example.admin.loyaltyapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class OperatorActivity extends AppCompatActivity{
+public class OperatorActivity extends BaseNavigationDrawer{
     private TextView welcomeView;
     private Button check_barcode_btn,manage_customers_btn, manage_operators_btn,db_btn,manage_coupons_btn;
     private EditText barcode_value;
@@ -41,10 +41,10 @@ public class OperatorActivity extends AppCompatActivity{
                 .show();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_operator);
         check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
         manage_customers_btn = (Button) findViewById(R.id.manage_customers_btn);
         manage_operators_btn = (Button) findViewById(R.id.manage_operators_btn);

@@ -4,7 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -12,6 +22,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -44,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final LinearLayout pass_layout = (LinearLayout) findViewById(R.id.pass_layout);
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
         oper_switch = (Switch) findViewById(R.id.operator_switch);
@@ -51,13 +64,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(oper_switch.isChecked()){
-                    pass.setVisibility(View.VISIBLE);
+                    pass_layout.setVisibility(View.VISIBLE);
                     user.setHint("Username or Phone");
                 }else {
-                    pass.setVisibility(View.GONE);
+                    pass_layout.setVisibility(View.GONE);
                     user.setHint("Barcode or Phone");
                 }
 
+            }
+        });
+
+        ImageButton pass_view = (ImageButton) findViewById(R.id.show_pass_btn);
+        pass_view.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch ( event.getAction() ) {
+                    case MotionEvent.ACTION_DOWN:
+                        pass.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                }
+                return true;
             }
         });
         bLogin = (Button)findViewById(R.id.login_btn);
@@ -72,6 +100,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(ii);
             }
         });
+
 
 
     }
@@ -102,6 +131,8 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
+
 
     class AttemptLoginForOperator extends AsyncTask<String, String, String> {
         /**
@@ -201,9 +232,8 @@ public class MainActivity extends AppCompatActivity
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(
-                        getString(R.string.WEBSITE_URL+R.string.CUSTOMER_LOGIN_URL), "GET", params);
-                System.out.println(getString(R.string.WEBSITE_URL+R.string.CUSTOMER_LOGIN_URL));
+                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), "GET", params);
+                System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
@@ -241,27 +271,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }

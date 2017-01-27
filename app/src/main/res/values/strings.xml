@@ -82,6 +82,7 @@
     <string name="checkBarcodeBTN">CHECK BARCODE</string>
     <string name="attemptCheck">Attempting for check barcode</string>
     <string name="manageCouponsBTN">MANAGE COUPONS</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 
 </resources>
