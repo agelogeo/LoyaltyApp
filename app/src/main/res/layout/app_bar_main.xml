@@ -20,11 +20,15 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Loyalty.PopupOverlay"
-            />
+            android:title=" "/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/activity_main"
-        android:id="@+id/layout_container" />
+
+    <include layout="@layout/activity_operator"
+        android:id="@+id/operator_login_container" />
+
+
+
 
 </LinearLayout>

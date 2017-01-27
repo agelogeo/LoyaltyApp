@@ -55,7 +55,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/customer_create_btn"
-                    android:text="@string/createCustomerBTN" />
+                    android:text="@string/createCustomerBTN"
+                    android:textColor="@color/AppColor"
+                    android:background="@drawable/red_style_button" />
 
             </LinearLayout>
 
@@ -64,14 +66,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/jumpToLogin_btn"
                 android:visibility="gone"
-                android:text="@string/jumpToLoginBTN" />
+                android:text="@string/jumpToLoginBTN"
+                android:background="@drawable/red_style_button"
+                android:textColor="@color/AppColor" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/jumpToCheckBarcode_btn"
                 android:visibility="gone"
-                android:text="@string/jumpToCheckBarcode" />
+                android:text="@string/jumpToCheckBarcode"
+                android:textColor="@color/AppColor"
+                android:background="@drawable/red_style_button" />
 
             <LinearLayout
                 android:orientation="vertical"

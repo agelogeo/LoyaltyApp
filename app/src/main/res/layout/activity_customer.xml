@@ -59,13 +59,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/check_points_btn"
-                android:text="@string/checkPoints" />
+                android:text="@string/checkPoints"
+                android:textColor="@color/AppColor"
+                android:background="@drawable/red_style_button" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/delete_own_customer"
-                android:text="@string/deleteThisAccount" />
+                android:text="@string/deleteThisAccount"
+                android:background="@drawable/red_style_button"
+                android:textColor="@color/AppColor" />
 
         </LinearLayout>
 

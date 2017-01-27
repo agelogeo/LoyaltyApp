@@ -204,21 +204,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_customer_cancel_btn"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@drawable/red_style_button"
+                android:textColor="@color/AppColor" />
 
             <Button
                 android:text="Delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_customer_delete_btn"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="@color/AppColor"
+                android:background="@drawable/red_style_button" />
 
             <Button
                 android:text="Save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_customer_save_btn"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="@color/AppColor"
+                android:background="@drawable/red_style_button" />
         </LinearLayout>
 
     </LinearLayout>

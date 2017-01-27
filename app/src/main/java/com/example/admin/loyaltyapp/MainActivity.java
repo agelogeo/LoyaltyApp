@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends BaseNavigationDrawer
+public class MainActivity extends AppCompatActivity
         implements View.OnClickListener {
 
     private EditText user, pass;
@@ -51,7 +51,7 @@ public class MainActivity extends BaseNavigationDrawer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         user = (EditText)findViewById(R.id.login_username);
         pass = (EditText)findViewById(R.id.login_password);
         oper_switch = (Switch) findViewById(R.id.operator_switch);

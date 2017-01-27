@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/new_customer_btn"
             android:text="@string/createCustomerBTN"
-            />
+            android:textColor="@color/AppColor"
+            android:background="@drawable/red_style_button" />
 
         <ListView
             android:layout_width="match_parent"
