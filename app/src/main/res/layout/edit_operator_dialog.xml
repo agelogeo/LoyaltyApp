@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dialog_customer">
@@ -8,6 +9,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/loyalty_app"
+            android:id="@+id/imageView5" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -159,7 +166,11 @@
                 android:id="@+id/edit_operator_cancel_btn"
                 android:layout_weight="1"
                 android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+                android:background="@drawable/red_style_button_dialog"
+                android:backgroundTint="@android:color/darker_gray"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp" />
 
             <Button
                 android:text="Delete"
@@ -167,8 +178,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_operator_delete_btn"
                 android:layout_weight="1"
-                android:background="@drawable/red_style_button"
-                android:textColor="@color/AppColor" />
+                android:background="@drawable/red_style_button_dialog"
+                android:textColor="@color/AppColor"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="@android:color/darker_gray" />
 
             <Button
                 android:text="Save"
@@ -176,8 +191,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_operator_save_btn"
                 android:layout_weight="1"
-                android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+                android:textColor="@color/White"
+                android:background="@drawable/red_style_button_dialog"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
         </LinearLayout>
 
     </LinearLayout>

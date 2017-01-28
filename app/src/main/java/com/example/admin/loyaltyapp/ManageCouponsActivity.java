@@ -168,7 +168,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                             LayoutInflater inflater = ManageCouponsActivity.this.getLayoutInflater();
                             View dialogView = inflater.inflate(R.layout.edit_coupon_dialog, null);
                             dialogBuilder.setView(dialogView);
-                            dialogBuilder.setTitle("Edit Coupon");
+                            //dialogBuilder.setTitle("Edit Coupon");
                             final AlertDialog alertDialog = dialogBuilder.create();
                             // set the custom dialog components - text, image and button
                             final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);

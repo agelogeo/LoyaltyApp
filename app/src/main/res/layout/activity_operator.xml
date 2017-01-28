@@ -84,7 +84,8 @@
                 android:id="@+id/manage_operators_btn"
                 android:layout_weight="1"
                 android:background="@drawable/red_style_button"
-                android:textColor="@color/AppColor" />
+                android:textColor="@color/AppColor"
+                android:layout_marginBottom="2dp" />
 
             <Button
                 android:text="Manage Customers"
@@ -93,7 +94,8 @@
                 android:id="@+id/manage_customers_btn"
                 android:layout_weight="1"
                 android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+                android:background="@drawable/red_style_button"
+                android:layout_marginBottom="2dp" />
 
             <Button
                 android:layout_width="match_parent"
@@ -101,7 +103,8 @@
                 android:id="@+id/manage_coupons_btn"
                 android:text="@string/manageCouponsBTN"
                 android:background="@drawable/red_style_button"
-                android:textColor="@color/AppColor" />
+                android:textColor="@color/AppColor"
+                android:layout_marginBottom="2dp" />
 
             <Button
                 android:layout_width="match_parent"

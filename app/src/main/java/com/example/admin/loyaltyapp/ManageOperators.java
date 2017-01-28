@@ -96,7 +96,7 @@ public class ManageOperators extends AppCompatActivity {
                 LayoutInflater inflater = ManageOperators.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_operator_dialog, null);
                 dialogBuilder.setView(dialogView);
-                dialogBuilder.setTitle("Edit Operator");
+                //dialogBuilder.setTitle("Edit Operator");
                 final AlertDialog alertDialog = dialogBuilder.create();
 
                 EditText edit_operator_username = (EditText) dialogView.findViewById(R.id.edit_operator_username);

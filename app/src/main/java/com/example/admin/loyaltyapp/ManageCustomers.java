@@ -99,7 +99,7 @@ public class ManageCustomers extends AppCompatActivity {
                 LayoutInflater inflater = ManageCustomers.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_customer_dialog, null);
                 dialogBuilder.setView(dialogView);
-                dialogBuilder.setTitle("Edit Customer");
+                //dialogBuilder.setTitle("Edit Customer");
                 final AlertDialog alertDialog = dialogBuilder.create();
 
                 EditText edit_customer_name = (EditText) dialogView.findViewById(R.id.edit_customer_name);
