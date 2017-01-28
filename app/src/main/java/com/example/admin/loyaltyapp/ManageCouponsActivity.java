@@ -76,22 +76,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
 
     }
 
-    public void Dialog(){
-        DialogInterface.OnClickListener okListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ManageCouponsActivity.super.onBackPressed();
-                    }
-                };
-
-        new AlertDialog.Builder(ManageCouponsActivity.this)
-                .setMessage(R.string.ExitMessageAlert)
-                .setPositiveButton(R.string.yes,okListener)
-                .setNegativeButton(R.string.no, null)
-                .create()
-                .show();
-    }
 
     class AttemptGetCoupons extends AsyncTask<String, String, String> {
         /**
@@ -256,6 +240,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+
 
         }
 

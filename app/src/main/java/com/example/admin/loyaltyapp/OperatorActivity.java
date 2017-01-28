@@ -4,14 +4,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,20 +28,37 @@ public class OperatorActivity extends BaseNavigationDrawer{
     private ImageView qr_reader;
     @Override
     public void onBackPressed() {
-        DialogInterface.OnClickListener okListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        OperatorActivity.super.onBackPressed();
-                    }
-                };
 
-        new AlertDialog.Builder(OperatorActivity.this)
-                .setMessage(R.string.ExitMessageAlert)
-                .setPositiveButton(R.string.yes,okListener)
-                .setNegativeButton(R.string.no, null)
-                .create()
-                .show();
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OperatorActivity.this);
+        // ...Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = OperatorActivity.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.quit_dialog, null);
+        dialogBuilder.setView(dialogView);
+        //dialogBuilder.setTitle("Edit Coupon");
+        final AlertDialog alertDialog = dialogBuilder.create();
+        // set the custom dialog components - text, image and button
+
+        Button noButton = (Button) dialogView.findViewById(R.id.dialog_no_btn);
+        Button yesButton = (Button) dialogView.findViewById(R.id.dialog_yes_btn);
+
+        // if button is clicked, close the custom dialog
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                OperatorActivity.super.onBackPressed();
+            }
+        });
+
+        alertDialog.show();
+
     }
 
 
