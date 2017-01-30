@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -34,6 +35,7 @@ public class ManageOperators extends AppCompatActivity {
     private EditText operator_edit_Text;
     private Button new_operator_btn;
     private boolean doubleWildCard = false;
+    private EditText username,password,password_again,first_name,last_name,phone;
     private ListView listView;
     private JSONArray JSONresponse;
     JSONParser jsonParser = new JSONParser();
@@ -51,8 +53,77 @@ public class ManageOperators extends AppCompatActivity {
         new_operator_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ManageOperators.this,OperatorCreation.class);
-                startActivity(i);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageOperators.this);
+                // ...Irrelevant code for customizing the buttons and title
+                LayoutInflater inflater = ManageOperators.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.edit_operator_dialog, null);
+                dialogBuilder.setView(dialogView);
+                //dialogBuilder.setTitle("Edit Operator");
+                final AlertDialog alertDialog = dialogBuilder.create();
+
+                final ArrayList<EditText> TextList = new ArrayList<>();
+                username = (EditText) dialogView.findViewById(R.id.edit_operator_username);
+                password = (EditText) dialogView.findViewById(R.id.edit_operator_password);
+                password_again = (EditText) dialogView.findViewById(R.id.edit_operator_password_again);
+                first_name = (EditText) dialogView.findViewById(R.id.edit_operator_first_name);
+                last_name = (EditText) dialogView.findViewById(R.id.edit_operator_last_name);
+                phone = (EditText) dialogView.findViewById(R.id.edit_operator_phone);
+                TextList.add(username);
+                TextList.add(password);
+                TextList.add(password_again);
+                TextList.add(first_name);
+                TextList.add(last_name);
+                TextList.add(phone);
+
+                final Switch new_admin_switch = (Switch) dialogView.findViewById(R.id.new_administrator_switch);
+                Button create_operator_btn = (Button) dialogView.findViewById(R.id.edit_operator_create_btn);
+                Button cancel_operator_btn = (Button) dialogView.findViewById(R.id.edit_operator_cancel_btn);
+                Button save_operator_btn = (Button) dialogView.findViewById(R.id.edit_operator_save_btn);
+                Button delete_operator_btn = (Button) dialogView.findViewById(R.id.edit_operator_delete_btn);
+
+                save_operator_btn.setVisibility(View.GONE);
+                delete_operator_btn.setVisibility(View.GONE);
+                create_operator_btn.setVisibility(View.VISIBLE);
+                new_admin_switch.setVisibility(View.VISIBLE);
+
+                cancel_operator_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                create_operator_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        for(EditText et:TextList){
+                            if(et.getText().length()==0){
+                                Toast.makeText(ManageOperators.this, R.string.enterValuesToAllFields,Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }
+                        params.clear();
+                        if(password.getText().toString().equals(password_again.getText().toString())) {
+                            params.add(new BasicNameValuePair("username", username.getText().toString()));
+                            params.add(new BasicNameValuePair("password", password.getText().toString()));
+                            params.add(new BasicNameValuePair("first_name", first_name.getText().toString()));
+                            params.add(new BasicNameValuePair("last_name", last_name.getText().toString()));
+                            params.add(new BasicNameValuePair("phone", phone.getText().toString()));
+                            if (new_admin_switch.isChecked())
+                                params.add(new BasicNameValuePair("access_level", "1"));
+                            new ManageOperators.AttemptCreateOperator().execute();
+                            alertDialog.dismiss();
+                        }else{
+                            Toast.makeText(ManageOperators.this, R.string.checkYourPassword,Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+
+                    }
+                });
+
+                alertDialog.show();
+
             }
         });
 
@@ -125,9 +196,19 @@ public class ManageOperators extends AppCompatActivity {
                             /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
                             image.setImageResource(R.drawable.ic_launcher);
                             */
+
+                final Switch new_admin_switch = (Switch) dialogView.findViewById(R.id.new_administrator_switch);
+                Button create_operator_btn = (Button) dialogView.findViewById(R.id.edit_operator_create_btn);
                 Button cancelButton = (Button) dialogView.findViewById(R.id.edit_operator_cancel_btn);
                 Button deleteButton = (Button) dialogView.findViewById(R.id.edit_operator_delete_btn);
                 Button saveButton = (Button) dialogView.findViewById(R.id.edit_operator_save_btn);
+
+                saveButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
+                create_operator_btn.setVisibility(View.GONE);
+                new_admin_switch.setVisibility(View.GONE);
+
+
 
                 // if button is clicked, close the custom dialog
                 cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +251,71 @@ public class ManageOperators extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+    }
+
+    class AttemptCreateOperator extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        boolean failure = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ManageOperators.this);
+            pDialog.setMessage(getString(R.string.creatingOperator));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+            int success;
+
+            try {
+
+
+
+                Log.d("request!", "starting");
+
+                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL), "GET", params);
+                System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL));
+                System.out.println(params);
+                // checking  log for json response
+                //Log.d("Login attempt", json.toString());
+
+                // success tag for json
+                success = json.getInt(TAG_SUCCESS);
+                System.out.println("TAG SUCCESS : "+ success);
+                if (success == 1 && json.getString("message").equals("true")) {
+                    Log.d("Successfully Login!", json.toString());
+                    return getString(R.string.operatorCreated);
+                }else{
+                    return getString(R.string.NameOrPhoneExists);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(String message) {
+
+            pDialog.dismiss();
+            if (message != null){
+                Toast.makeText(ManageOperators.this,"Operator has been created.",Toast.LENGTH_SHORT).show();
+                /*Intent i = new Intent(ManageOperators.this,OperatorCreation.class);
+                i.putExtra("message",message);
+                startActivity(i);*/
+            }
+        }
     }
 
     class AttemptSearchOperator extends AsyncTask<String, String, String> {

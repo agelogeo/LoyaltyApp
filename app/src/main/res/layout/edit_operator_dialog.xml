@@ -35,10 +35,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Name"
                 android:ems="10"
                 android:id="@+id/edit_operator_username"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Name" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,10 +58,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:text="Password"
                 android:ems="10"
                 android:id="@+id/edit_operator_password"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Password" />
         </LinearLayout>
 
         <LinearLayout
@@ -79,11 +79,11 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password Again"
                 android:ems="10"
                 android:id="@+id/edit_operator_password_again"
                 android:layout_weight="1"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:hint="Password Again" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,10 +102,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="First Name"
                 android:ems="10"
                 android:id="@+id/edit_operator_first_name"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="First Name" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,10 +124,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Last Name"
                 android:ems="10"
                 android:id="@+id/edit_operator_last_name"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Last Name" />
         </LinearLayout>
 
         <LinearLayout
@@ -146,10 +146,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Phone"
                 android:ems="10"
                 android:id="@+id/edit_operator_phone"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Phone" />
         </LinearLayout>
 
         <Switch
