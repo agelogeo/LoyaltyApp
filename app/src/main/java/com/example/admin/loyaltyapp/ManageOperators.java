@@ -2,6 +2,7 @@ package com.example.admin.loyaltyapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -160,43 +161,13 @@ public class ManageOperators extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
                 final Operator tempOp = OperatorsArray.get(position);
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageOperators.this);
-                // ...Irrelevant code for customizing the buttons and title
                 LayoutInflater inflater = ManageOperators.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_operator_dialog, null);
                 dialogBuilder.setView(dialogView);
-                //dialogBuilder.setTitle("Edit Operator");
                 final AlertDialog alertDialog = dialogBuilder.create();
-
-                EditText edit_operator_username = (EditText) dialogView.findViewById(R.id.edit_operator_username);
-                EditText edit_operator_password = (EditText) dialogView.findViewById(R.id.edit_operator_password);
-                EditText edit_operator_password_again = (EditText) dialogView.findViewById(R.id.edit_operator_password_again);
-                EditText edit_operator_first_name = (EditText) dialogView.findViewById(R.id.edit_operator_first_name);
-                EditText edit_operator_last_name = (EditText) dialogView.findViewById(R.id.edit_operator_last_name);
-                EditText edit_operator_phone = (EditText) dialogView.findViewById(R.id.edit_operator_phone);
-
-                try {
-                    edit_operator_username.setText(JSONresponse.getJSONObject(position).getString("username"));
-                    edit_operator_password.setText(JSONresponse.getJSONObject(position).getString("password"));
-                    edit_operator_password_again.setText(JSONresponse.getJSONObject(position).getString("password"));
-                    edit_operator_first_name.setText(JSONresponse.getJSONObject(position).getString("first_name"));
-                    edit_operator_last_name.setText(JSONresponse.getJSONObject(position).getString("last_name"));
-                    edit_operator_phone.setText(JSONresponse.getJSONObject(position).getString("phone"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                // set the custom dialog components - text, image and button
-                /*final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);
-                edit_name.setText(adapterList.get(position).getName());
-                final EditText edit_stamps = (EditText) dialogView.findViewById(R.id.dialog_edit_stamps);
-                edit_stamps.setText(""+adapterList.get(position).getRequired_stamps());*/
-                            /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                            image.setImageResource(R.drawable.ic_launcher);
-                            */
 
                 final Switch new_admin_switch = (Switch) dialogView.findViewById(R.id.new_administrator_switch);
                 Button create_operator_btn = (Button) dialogView.findViewById(R.id.edit_operator_create_btn);
@@ -207,7 +178,31 @@ public class ManageOperators extends AppCompatActivity {
                 saveButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
                 create_operator_btn.setVisibility(View.GONE);
-                new_admin_switch.setVisibility(View.GONE);
+                new_admin_switch.setVisibility(View.VISIBLE);
+
+                final EditText edit_operator_username = (EditText) dialogView.findViewById(R.id.edit_operator_username);
+                final EditText edit_operator_password = (EditText) dialogView.findViewById(R.id.edit_operator_password);
+                final EditText edit_operator_password_again = (EditText) dialogView.findViewById(R.id.edit_operator_password_again);
+                final EditText edit_operator_first_name = (EditText) dialogView.findViewById(R.id.edit_operator_first_name);
+                final EditText edit_operator_last_name = (EditText) dialogView.findViewById(R.id.edit_operator_last_name);
+                final EditText edit_operator_phone = (EditText) dialogView.findViewById(R.id.edit_operator_phone);
+
+                try {
+                    if(JSONresponse.getJSONObject(position).getInt("access_level")==1)
+                        new_admin_switch.setChecked(true);
+
+                    edit_operator_username.setText(JSONresponse.getJSONObject(position).getString("username"));
+                    edit_operator_password.setText(JSONresponse.getJSONObject(position).getString("password"));
+                    edit_operator_password_again.setText(JSONresponse.getJSONObject(position).getString("password"));
+                    edit_operator_first_name.setText(JSONresponse.getJSONObject(position).getString("first_name"));
+                    edit_operator_last_name.setText(JSONresponse.getJSONObject(position).getString("last_name"));
+                    edit_operator_phone.setText(JSONresponse.getJSONObject(position).getString("phone"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
 
 
 
@@ -236,22 +231,42 @@ public class ManageOperators extends AppCompatActivity {
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*if(edit_name.getText().equals(EditCoupon.getName()) &&  edit_stamps.getText().equals(EditCoupon.getRequired_stamps())){
-                            Toast.makeText(ManageCouponsActivity.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
+                        if(     edit_operator_username.getText().toString().equals(tempOp.getUsername()) &&
+                                edit_operator_password.getText().toString().equals(tempOp.getPassword()) &&
+                                edit_operator_password_again.getText().toString().equals(tempOp.getPassword()) &&
+                                isAdmin(new_admin_switch)==tempOp.getAccess_level() &&
+                                edit_operator_first_name.getText().toString().equals(tempOp.getFirst_name()) &&
+                                edit_operator_last_name.getText().toString().equals(tempOp.getLast_name()) &&
+                                edit_operator_phone.getText().toString().equals(tempOp.getPhone())){
+                            Toast.makeText(ManageOperators.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(!edit_operator_password.getText().toString().equals(edit_operator_password_again.getText().toString()) ){
+                            Toast.makeText(ManageOperators.this,"Passwords don't match.",Toast.LENGTH_SHORT).show();
                             return;
                         }
                         params.clear();
-                        params.add(new BasicNameValuePair("id",String.valueOf(EditCoupon.getId())));
-                        params.add(new BasicNameValuePair("name",String.valueOf(edit_name.getText().toString())));
-                        params.add(new BasicNameValuePair("required",String.valueOf(edit_stamps.getText().toString())));
-                        new ManageCouponsActivity.AttemptSaveCoupon().execute();
-                        alertDialog.dismiss();*/
+                        params.add(new BasicNameValuePair("id",String.valueOf(tempOp.getId())));
+                        params.add(new BasicNameValuePair("username",edit_operator_username.getText().toString()));
+                        params.add(new BasicNameValuePair("password",edit_operator_password.getText().toString()));
+                        params.add(new BasicNameValuePair("access_level",String.valueOf(isAdmin(new_admin_switch))));
+                        params.add(new BasicNameValuePair("first_name",edit_operator_first_name.getText().toString()));
+                        params.add(new BasicNameValuePair("last_name",edit_operator_last_name.getText().toString()));
+                        params.add(new BasicNameValuePair("phone",edit_operator_phone.getText().toString()));
+                        new ManageOperators.AttemptSaveOperator().execute();
+                        alertDialog.dismiss();
                     }
                 });
 
                 alertDialog.show();
             }
         });
+    }
+
+    public int isAdmin ( Switch admin_switch){
+        if(admin_switch.isChecked())
+            return 1;
+        return 2;
     }
 
     class AttemptCreateOperator extends AsyncTask<String, String, String> {
@@ -446,5 +461,54 @@ public class ManageOperators extends AppCompatActivity {
                 Toast.makeText(ManageOperators.this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    class AttemptSaveOperator extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ManageOperators.this);
+            pDialog.setMessage("Saving operator");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+
+            Log.d("request!", "starting");
+
+            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_OPERATOR_URL), "GET", params);
+            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_OPERATOR_URL));
+            System.out.println(params);
+            System.out.println(json.toString());
+            // checking  log for json response
+            //Log.d("Login attempt", json.toString());
+
+            return json.toString();
+
+
+
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(final String message) {
+            /*final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            String toast_message= null;*/
+            pDialog.dismiss();
+            params.clear();
+
+        }
+
+
     }
 }
