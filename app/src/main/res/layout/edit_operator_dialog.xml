@@ -8,7 +8,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -102,7 +104,6 @@
                 android:inputType="textPersonName"
                 android:text="First Name"
                 android:ems="10"
-                android:focusableInTouchMode="false"
                 android:id="@+id/edit_operator_first_name"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -125,7 +126,6 @@
                 android:inputType="textPersonName"
                 android:text="Last Name"
                 android:ems="10"
-                android:focusableInTouchMode="false"
                 android:id="@+id/edit_operator_last_name"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -148,10 +148,16 @@
                 android:inputType="textPersonName"
                 android:text="Phone"
                 android:ems="10"
-                android:focusableInTouchMode="false"
                 android:id="@+id/edit_operator_phone"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <Switch
+            android:text="New administrator ? "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_administrator_switch"
+            android:visibility="gone" />
 
         <LinearLayout
             android:orientation="horizontal"
