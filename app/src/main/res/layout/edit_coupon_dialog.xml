@@ -89,6 +89,16 @@
             android:layout_marginRight="5dp" />
 
         <Button
+            android:text="CREATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_create_btn"
+            android:layout_weight="1"
+            android:background="@drawable/red_style_button_dialog"
+            android:textColor="@color/White"
+            android:visibility="gone" />
+
+        <Button
             android:text="Save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
