@@ -35,6 +35,7 @@ public class ManageOperators extends AppCompatActivity {
     private EditText operator_edit_Text;
     private Button new_operator_btn;
     private boolean doubleWildCard = false;
+    private ArrayList<Operator> OperatorsArray = new ArrayList<>();
     private EditText username,password,password_again,first_name,last_name,phone;
     private ListView listView;
     private JSONArray JSONresponse;
@@ -160,7 +161,7 @@ public class ManageOperators extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-
+                final Operator tempOp = OperatorsArray.get(position);
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageOperators.this);
                 // ...Irrelevant code for customizing the buttons and title
@@ -221,14 +222,14 @@ public class ManageOperators extends AppCompatActivity {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*if(edit_name.getText().length()==0 || edit_stamps.getText().length()==0){
-                            Toast.makeText(ManageCustomers.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
+                        if(tempOp.getId()<=0){
+                            Toast.makeText(ManageOperators.this,"Error with operator ID.",Toast.LENGTH_SHORT).show();
                             return;
                         }
                         params.clear();
-                        params.add(new BasicNameValuePair("name", edit_name.getText().toString()));
-                        new AttemptDeleteCustomer().execute();
-                        alertDialog.dismiss();*/
+                        params.add(new BasicNameValuePair("id", String.valueOf(tempOp.getId()) ));
+                        new AttemptDeleteOperator().execute();
+                        alertDialog.dismiss();
                     }
                 });
 
@@ -359,9 +360,17 @@ public class ManageOperators extends AppCompatActivity {
                 JSONArray jsonResult = obj.getJSONArray("results");
                 JSONresponse = jsonResult;
                 String[] values = new String[jsonResult.length()];
+                OperatorsArray.clear();
                 for (int i = 0; i < jsonResult.length(); i++) {
                     String label = jsonResult.getJSONObject(i).getString("first_name")+" "+jsonResult.getJSONObject(i).getString("last_name");
                     values[i] = label;
+                    OperatorsArray.add(new Operator(jsonResult.getJSONObject(i).getInt("id"),
+                                                    jsonResult.getJSONObject(i).getString("username"),
+                                                    jsonResult.getJSONObject(i).getString("password"),
+                                                    jsonResult.getJSONObject(i).getInt("access_level"),
+                                                    jsonResult.getJSONObject(i).getString("first_name"),
+                                                    jsonResult.getJSONObject(i).getString("last_name"),
+                                                    jsonResult.getJSONObject(i).getString("phone")));
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
