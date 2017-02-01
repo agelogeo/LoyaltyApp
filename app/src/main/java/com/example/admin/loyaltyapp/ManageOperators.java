@@ -345,6 +345,9 @@ public class ManageOperators extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            String[] pre_values2 = new String[]{"Please wait.."};
+            ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, pre_values2);
+            listView.setAdapter(pre_adapter);
             /*pDialog = new ProgressDialog(ManageCustomers.this);
             pDialog.setMessage("");
             pDialog.setIndeterminate(false);
@@ -391,6 +394,11 @@ public class ManageOperators extends AppCompatActivity {
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
+                if(OperatorsArray.isEmpty()){
+                    String[] values2 = new String[]{"No results."};
+                    ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, values2);
+                    listView.setAdapter(pre_adapter);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
