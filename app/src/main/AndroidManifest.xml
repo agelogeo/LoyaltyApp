@@ -33,7 +33,7 @@
         <activity android:name=".CustomerCreation" />
         <activity android:name=".CheckBarcodeActivity" />
         <activity android:name=".BarcodeActivity" />
-        <activity android:name=".ManageCouponsActivity" />
+        <activity android:name=".ManageCoupons" />
     </application>
 
 </manifest>

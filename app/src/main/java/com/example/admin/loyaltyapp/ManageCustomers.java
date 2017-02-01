@@ -162,14 +162,14 @@ public class ManageCustomers extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         /*if(edit_name.getText().equals(EditCoupon.getName()) &&  edit_stamps.getText().equals(EditCoupon.getRequired_stamps())){
-                            Toast.makeText(ManageCouponsActivity.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ManageCoupons.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
                             return;
                         }
                         params.clear();
                         params.add(new BasicNameValuePair("id",String.valueOf(EditCoupon.getId())));
                         params.add(new BasicNameValuePair("name",String.valueOf(edit_name.getText().toString())));
                         params.add(new BasicNameValuePair("required",String.valueOf(edit_stamps.getText().toString())));
-                        new ManageCouponsActivity.AttemptSaveCoupon().execute();
+                        new ManageCoupons.AttemptSaveCoupon().execute();
                         alertDialog.dismiss();*/
                     }
                 });

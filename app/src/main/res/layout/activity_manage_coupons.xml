@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.admin.loyaltyapp.ManageCouponsActivity"
+    tools:context="com.example.admin.loyaltyapp.ManageCoupons"
     android:orientation="vertical">
 
     <ScrollView
@@ -19,22 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/coupon_name_view"
-                android:hint="Name" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/coupon_required_view"
-                android:hint="Required Stamps" />
 
             <Button
                 android:text="CREATE COUPON"

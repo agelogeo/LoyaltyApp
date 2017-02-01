@@ -225,6 +225,7 @@ public class ManageOperators extends AppCompatActivity {
                         params.add(new BasicNameValuePair("id", String.valueOf(tempOp.getId()) ));
                         new AttemptDeleteOperator().execute();
                         alertDialog.dismiss();
+                        listView.setAdapter(null);
                     }
                 });
 
@@ -255,6 +256,7 @@ public class ManageOperators extends AppCompatActivity {
                         params.add(new BasicNameValuePair("phone",edit_operator_phone.getText().toString()));
                         new ManageOperators.AttemptSaveOperator().execute();
                         alertDialog.dismiss();
+                        listView.setAdapter(null);
                     }
                 });
 
@@ -457,6 +459,7 @@ public class ManageOperators extends AppCompatActivity {
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();
+            params.clear();
             if (message != null){
                 Toast.makeText(ManageOperators.this, message, Toast.LENGTH_LONG).show();
             }

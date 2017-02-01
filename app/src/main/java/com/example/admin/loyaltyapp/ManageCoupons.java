@@ -1,11 +1,6 @@
 package com.example.admin.loyaltyapp;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -29,13 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManageCouponsActivity extends AppCompatActivity {
+public class ManageCoupons extends AppCompatActivity {
     private EditText nameView,requiredView;
     private Button create_btn,save_btn,delete_btn;
     ListView listView ;
@@ -51,8 +39,6 @@ public class ManageCouponsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_coupons);
 
 
-        nameView = (EditText) findViewById(R.id.coupon_name_view);
-        requiredView = (EditText) findViewById(R.id.coupon_required_view);
         create_btn = (Button) findViewById(R.id.create_coupon_btn);
         listView = (ListView) findViewById(R.id.coupons_list_view);
         new AttemptGetCoupons().execute();
@@ -60,14 +46,51 @@ public class ManageCouponsActivity extends AppCompatActivity {
         create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nameView.getText().length()==0 || requiredView.getText().length()==0){
-                    Toast.makeText(ManageCouponsActivity.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                params.clear();
-                params.add(new BasicNameValuePair("name", nameView.getText().toString()));
-                params.add(new BasicNameValuePair("required", requiredView.getText().toString()));
-                new AttemptCreateCoupon().execute();
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCoupons.this);
+                // ...Irrelevant code for customizing the buttons and title
+                LayoutInflater inflater = ManageCoupons.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.edit_coupon_dialog, null);
+                dialogBuilder.setView(dialogView);
+                //dialogBuilder.setTitle("Edit Coupon");
+                final AlertDialog alertDialog = dialogBuilder.create();
+                // set the custom dialog components - text, image and button
+                final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);
+                final EditText edit_stamps = (EditText) dialogView.findViewById(R.id.dialog_edit_stamps);
+                Button cancelButton = (Button) dialogView.findViewById(R.id.dialog_cancel_btn);
+                Button deleteButton = (Button) dialogView.findViewById(R.id.dialog_delete_btn);
+                Button createButton = (Button) dialogView.findViewById(R.id.dialog_create_btn);
+                Button saveButton = (Button) dialogView.findViewById(R.id.dialog_save_btn);
+
+                saveButton.setVisibility(View.GONE);
+                deleteButton.setVisibility(View.GONE);
+                createButton.setVisibility(View.VISIBLE);
+
+                // if button is clicked, close the custom dialog
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                createButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(edit_name.getText().length()==0 || edit_stamps.getText().length()==0){
+                            Toast.makeText(ManageCoupons.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        params.clear();
+                        params.add(new BasicNameValuePair("name", edit_name.getText().toString()));
+                        params.add(new BasicNameValuePair("required", edit_stamps.getText().toString()));
+                        new AttemptCreateCoupon().execute();
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+
+
 
             }
         });
@@ -86,7 +109,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ManageCouponsActivity.this);
+            pDialog = new ProgressDialog(ManageCoupons.this);
             pDialog.setMessage("Loading coupons");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -137,7 +160,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                         adapterList.add(tempItem);
                     }
 
-                    CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
+                    CouponAdapter myAdapter = new CouponAdapter(ManageCoupons.this, adapterList);
                     listView.setAdapter(myAdapter);
                     toast_message="Coupons recalled successfully.";
 
@@ -147,9 +170,9 @@ public class ManageCouponsActivity extends AppCompatActivity {
                             EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
 
 
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCouponsActivity.this);
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCoupons.this);
                             // ...Irrelevant code for customizing the buttons and title
-                            LayoutInflater inflater = ManageCouponsActivity.this.getLayoutInflater();
+                            LayoutInflater inflater = ManageCoupons.this.getLayoutInflater();
                             View dialogView = inflater.inflate(R.layout.edit_coupon_dialog, null);
                             dialogBuilder.setView(dialogView);
                             //dialogBuilder.setTitle("Edit Coupon");
@@ -166,6 +189,11 @@ public class ManageCouponsActivity extends AppCompatActivity {
                             Button deleteButton = (Button) dialogView.findViewById(R.id.dialog_delete_btn);
                             Button saveButton = (Button) dialogView.findViewById(R.id.dialog_save_btn);
 
+                            Button createButton = (Button) dialogView.findViewById(R.id.dialog_create_btn);
+                            createButton.setVisibility(View.GONE);
+                            deleteButton.setVisibility(View.VISIBLE);
+                            saveButton.setVisibility(View.VISIBLE);
+
                             // if button is clicked, close the custom dialog
                             cancelButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -178,7 +206,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     if(edit_name.getText().length()==0 || edit_stamps.getText().length()==0){
-                                        Toast.makeText(ManageCouponsActivity.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ManageCoupons.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                     params.clear();
@@ -192,7 +220,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     if(edit_name.getText().equals(EditCoupon.getName()) &&  edit_stamps.getText().equals(EditCoupon.getRequired_stamps())){
-                                        Toast.makeText(ManageCouponsActivity.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ManageCoupons.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                     params.clear();
@@ -219,7 +247,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
             }
 
             if (toast_message != null){
-                Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
+                Toast.makeText(ManageCoupons.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -235,7 +263,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ManageCouponsActivity.this);
+            pDialog = new ProgressDialog(ManageCoupons.this);
             pDialog.setMessage("Creating new coupon");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -291,7 +319,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                         adapterList.add(tempItem);
                     }
 
-                    CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
+                    CouponAdapter myAdapter = new CouponAdapter(ManageCoupons.this, adapterList);
                     listView.setAdapter(myAdapter);
                     toast_message="Coupons recalled successfully.";
                 } else if(result.length()==0){
@@ -306,7 +334,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
             }
 
             if (toast_message != null){
-                Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
+                Toast.makeText(ManageCoupons.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -322,7 +350,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ManageCouponsActivity.this);
+            pDialog = new ProgressDialog(ManageCoupons.this);
             pDialog.setMessage("Deleting coupon");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -377,7 +405,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
                         adapterList.add(tempItem);
                     }
 
-                    CouponAdapter myAdapter = new CouponAdapter(ManageCouponsActivity.this, adapterList);
+                    CouponAdapter myAdapter = new CouponAdapter(ManageCoupons.this, adapterList);
                     listView.setAdapter(myAdapter);
                     toast_message="Coupons recalled successfully.";
 
@@ -391,7 +419,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
             }
 
             if (toast_message != null){
-                Toast.makeText(ManageCouponsActivity.this, toast_message, Toast.LENGTH_LONG).show();
+                Toast.makeText(ManageCoupons.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -407,7 +435,7 @@ public class ManageCouponsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ManageCouponsActivity.this);
+            pDialog = new ProgressDialog(ManageCoupons.this);
             pDialog.setMessage("Saving coupon");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
