@@ -32,12 +32,13 @@ public class ManageCustomers extends AppCompatActivity {
     private List<NameValuePair> params = new ArrayList<>();
     // Progress Dialog
     private ProgressDialog pDialog;
-    private EditText delete_Text;
+    private EditText customer_edit_text;
     private Button delete_btn;
     private boolean doubleWildCard = false;
     private ListView listView;
     private JSONArray JSONresponse;
     private Button new_customer_btn;
+    private ArrayList<Customer> CustomersArray = new ArrayList<>();
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
     @Override
@@ -46,7 +47,7 @@ public class ManageCustomers extends AppCompatActivity {
         setContentView(R.layout.activity_manage_customers);
         listView  = (ListView) findViewById(R.id.customers_listview);
 
-        delete_Text = (EditText) findViewById(R.id.customer_edit_Text);
+        customer_edit_text = (EditText) findViewById(R.id.customer_edit_Text);
 
 
         new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
@@ -59,7 +60,7 @@ public class ManageCustomers extends AppCompatActivity {
             }
         });
 
-        delete_Text.addTextChangedListener(new TextWatcher() {
+        customer_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -70,7 +71,7 @@ public class ManageCustomers extends AppCompatActivity {
                 final String sString = charSequence.toString();
                 if(sString.length()!=0) {
                     params.clear();
-                    params.add(new BasicNameValuePair("term", delete_Text.getText().toString()));
+                    params.add(new BasicNameValuePair("term", customer_edit_text.getText().toString()));
                     if(doubleWildCard)
                         params.add(new BasicNameValuePair("double","true"));
                     new AttemptSearchCustomer().execute();
@@ -90,7 +91,7 @@ public class ManageCustomers extends AppCompatActivity {
     public void ListViewItemClickListener(final ListView listView){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                // EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
 
 
@@ -120,6 +121,8 @@ public class ManageCustomers extends AppCompatActivity {
                     edit_customer_coupons_used.setText(JSONresponse.getJSONObject(position).getString("coupons_used"));
                     edit_customer_visists.setText(JSONresponse.getJSONObject(position).getString("visits"));
                     edit_customer_last_visit.setText(JSONresponse.getJSONObject(position).getString("last_visit"));
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -147,14 +150,10 @@ public class ManageCustomers extends AppCompatActivity {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*if(edit_name.getText().length()==0 || edit_stamps.getText().length()==0){
-                            Toast.makeText(ManageCustomers.this,"Please fill up fields.",Toast.LENGTH_SHORT).show();
-                            return;
-                        }
                         params.clear();
-                        params.add(new BasicNameValuePair("name", edit_name.getText().toString()));
+                        params.add(new BasicNameValuePair("id", String.valueOf(CustomersArray.get(position).getId())));
                         new AttemptDeleteCustomer().execute();
-                        alertDialog.dismiss();*/
+                        alertDialog.dismiss();
                     }
                 });
 
@@ -191,11 +190,6 @@ public class ManageCustomers extends AppCompatActivity {
             String[] pre_values2 = new String[]{"Please wait.."};
             ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageCustomers.this, android.R.layout.simple_list_item_1, android.R.id.text1, pre_values2);
             listView.setAdapter(pre_adapter);
-            /*pDialog = new ProgressDialog(ManageCustomers.this);
-            pDialog.setMessage("");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();*/
         }
 
         @Override
@@ -226,6 +220,17 @@ public class ManageCustomers extends AppCompatActivity {
                 for (int i = 0; i < jsonResult.length(); i++) {
                     String label = jsonResult.getJSONObject(i).getString("name")+" "+jsonResult.getJSONObject(i).getString("surname");
                     values[i] = label;
+                    CustomersArray.add(new Customer(jsonResult.getJSONObject(i).getInt("id"),
+                            jsonResult.getJSONObject(i).getString("name"),
+                            jsonResult.getJSONObject(i).getString("surname"),
+                            jsonResult.getJSONObject(i).getString("phone"),
+                            jsonResult.getJSONObject(i).getString("barcode"),
+                            jsonResult.getJSONObject(i).getInt("stamps"),
+                            jsonResult.getJSONObject(i).getInt("coupons_used"),
+                            jsonResult.getJSONObject(i).getInt("visits"),
+                            jsonResult.getJSONObject(i).getString("last_visit")
+                    ));
+
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageCustomers.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
@@ -237,11 +242,6 @@ public class ManageCustomers extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            /*
-            pDialog.dismiss();
-            if (message != null){
-                Toast.makeText(ManageCustomers.this, message, Toast.LENGTH_LONG).show();
-            }*/
         }
     }
 

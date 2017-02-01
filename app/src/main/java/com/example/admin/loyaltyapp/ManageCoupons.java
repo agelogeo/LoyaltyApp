@@ -210,7 +210,7 @@ public class ManageCoupons extends AppCompatActivity {
                                         return;
                                     }
                                     params.clear();
-                                    params.add(new BasicNameValuePair("name", edit_name.getText().toString()));
+                                    params.add(new BasicNameValuePair("id", String.valueOf(EditCoupon.getId())));
                                     new AttemptDeleteCoupon().execute();
                                     alertDialog.dismiss();
                                 }
