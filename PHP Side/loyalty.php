@@ -1,7 +1,7 @@
 <?php
 	$host = "localhost";
 	$user = "id99137_agelo1995";
-	$password = "";
+	$password = "Ney-8392";
 	$db = $_GET['db'];
 
 	$con = mysqli_connect($host,$user,$password,$db);
@@ -196,9 +196,9 @@
 		}
 		//CUSTOMER SAVE
 		else if($action=='customer_save'){
-			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['surname']) || empty($_GET['barcode']) || empty($_GET['phone']) || empty($_GET['stamps']) || empty($_GET['coupons_used']) || empty($_GET['visits']) ) {
+			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['surname']) || empty($_GET['phone'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : id,name,surname,barcode,phone,stamps,coupons_used,visits";
+			  $response["message"] = "Required fields : id,name,surname,phone";
 			}else{
 				$id = $_GET['id'];
 				$name = $_GET['name'];

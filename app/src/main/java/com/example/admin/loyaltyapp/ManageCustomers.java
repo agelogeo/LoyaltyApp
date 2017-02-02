@@ -186,7 +186,7 @@ public class ManageCustomers extends AppCompatActivity {
                         params.add(new BasicNameValuePair("stamps",edit_customer_stamps.getText().toString()));
                         params.add(new BasicNameValuePair("coupons_used",edit_customer_coupons_used.getText().toString()));
                         params.add(new BasicNameValuePair("visits",edit_customer_visists.getText().toString()));
-                        //params.add(new BasicNameValuePair("last_visit",edit_customer_last_visit.getText().toString()));
+                        params.add(new BasicNameValuePair("last_visit",edit_customer_last_visit.getText().toString()));
                         new ManageCustomers.AttemptSaveCustomer().execute();
                         alertDialog.dismiss();
                         listView.setAdapter(null);
