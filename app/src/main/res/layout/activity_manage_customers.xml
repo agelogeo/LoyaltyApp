@@ -33,6 +33,16 @@
             android:textColor="@color/AppColor"
             android:background="@drawable/red_style_button" />
 
+        <TextView
+            android:text="Please wait.."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/customerWaitText"
+            android:textStyle="normal|bold"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:visibility="gone" />
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

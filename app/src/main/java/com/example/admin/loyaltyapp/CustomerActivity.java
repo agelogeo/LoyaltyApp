@@ -9,7 +9,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,19 +86,35 @@ public class CustomerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        DialogInterface.OnClickListener okListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        CustomerActivity.super.onBackPressed();
-                    }
-                };
 
-        new AlertDialog.Builder(CustomerActivity.this)
-                .setMessage(R.string.ExitMessageAlert)
-                .setPositiveButton(R.string.yes,okListener)
-                .setNegativeButton(R.string.no, null)
-                .create()
-                .show();
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CustomerActivity.this);
+        // ...Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = CustomerActivity.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.quit_dialog, null);
+        dialogBuilder.setView(dialogView);
+        //dialogBuilder.setTitle("Edit Coupon");
+        final AlertDialog alertDialog = dialogBuilder.create();
+        // set the custom dialog components - text, image and button
+
+        Button noButton = (Button) dialogView.findViewById(R.id.dialog_no_btn);
+        Button yesButton = (Button) dialogView.findViewById(R.id.dialog_yes_btn);
+
+        // if button is clicked, close the custom dialog
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                CustomerActivity.super.onBackPressed();
+            }
+        });
+
+        alertDialog.show();
     }
 }

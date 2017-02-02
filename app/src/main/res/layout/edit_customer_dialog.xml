@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dialog_customer">
@@ -7,7 +8,15 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/loyalty_app"
+            android:id="@+id/imageView3" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -93,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Barcode"
+                android:text="Auto-generated"
                 android:ems="10"
                 android:focusableInTouchMode="false"
                 android:id="@+id/edit_customer_barcode"
@@ -116,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Stamps"
+                android:text="Auto-generated"
                 android:ems="10"
                 android:focusableInTouchMode="false"
                 android:id="@+id/edit_customer_stamps"
@@ -139,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Coupons Used"
+                android:text="Auto-generated"
                 android:ems="10"
                 android:focusableInTouchMode="false"
                 android:id="@+id/edit_customer_coupons_used"
@@ -162,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Total Visits"
+                android:text="Auto-generated"
                 android:ems="10"
                 android:focusableInTouchMode="false"
                 android:id="@+id/edit_customer_visits"
@@ -185,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Last Visit"
+                android:text="Auto-generated"
                 android:ems="10"
                 android:focusableInTouchMode="false"
                 android:id="@+id/edit_customer_last_visit"
@@ -205,8 +214,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_customer_cancel_btn"
                 android:layout_weight="1"
-                android:background="@drawable/red_style_button"
-                android:textColor="@color/AppColor" />
+                android:textColor="@color/AppColor"
+                android:background="@drawable/red_style_button_dialog"
+                android:backgroundTint="@android:color/darker_gray"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp" />
 
             <Button
                 android:text="Delete"
@@ -215,7 +228,21 @@
                 android:id="@+id/edit_customer_delete_btn"
                 android:layout_weight="1"
                 android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+                android:background="@drawable/red_style_button_dialog"
+                android:backgroundTint="@android:color/darker_gray"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:text="CREATE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_customer_create_btn"
+                android:layout_weight="1"
+                android:textColor="@color/White"
+                android:background="@drawable/red_style_button_dialog"
+                android:visibility="gone" />
 
             <Button
                 android:text="Save"
@@ -223,8 +250,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_customer_save_btn"
                 android:layout_weight="1"
-                android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+                android:textColor="@color/White"
+                android:background="@drawable/red_style_button_dialog"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp" />
         </LinearLayout>
 
     </LinearLayout>
