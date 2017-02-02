@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -25,6 +26,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class ManageOperators extends AppCompatActivity {
     private EditText username,password,password_again,first_name,last_name,phone;
     private ListView listView;
     private JSONArray JSONresponse;
+    private TextView waitText ;
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
     @Override
@@ -49,7 +52,7 @@ public class ManageOperators extends AppCompatActivity {
 
         operator_edit_Text = (EditText) findViewById(R.id.operator_edit_Text);
         listView  = (ListView) findViewById(R.id.operators_listview);
-
+        waitText = (TextView) findViewById(R.id.operatorWaitText);
 
         new_operator_btn = (Button) findViewById(R.id.new_operator_btn);
         new_operator_btn.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +141,7 @@ public class ManageOperators extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 final String sString = charSequence.toString();
+                waitText.setVisibility(View.VISIBLE);
                 if(sString.length()!=0) {
                     params.clear();
                     params.add(new BasicNameValuePair("term", operator_edit_Text.getText().toString()));
@@ -145,6 +149,7 @@ public class ManageOperators extends AppCompatActivity {
                         params.add(new BasicNameValuePair("double","true"));
                     new AttemptSearchOperator().execute();
                 }else {
+                    waitText.setVisibility(View.GONE);
                     listView.setAdapter(null);
                 }
             }
@@ -345,9 +350,9 @@ public class ManageOperators extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            String[] pre_values2 = new String[]{"Please wait.."};
-            ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, pre_values2);
-            listView.setAdapter(pre_adapter);
+            waitText.setText("Please wait..");
+            OperatorsArray.clear();
+
             /*pDialog = new ProgressDialog(ManageCustomers.this);
             pDialog.setMessage("");
             pDialog.setIndeterminate(false);
@@ -395,9 +400,10 @@ public class ManageOperators extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
                 if(OperatorsArray.isEmpty()){
-                    String[] values2 = new String[]{"No results."};
-                    ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, values2);
-                    listView.setAdapter(pre_adapter);
+                    waitText.setVisibility(View.VISIBLE);
+                    waitText.setText("No matches.");
+                }else{
+                    waitText.setVisibility(View.GONE);
                 }
 
             } catch (JSONException e) {

@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -33,6 +34,7 @@ public class ManageCustomers extends AppCompatActivity {
     // Progress Dialog
     private ProgressDialog pDialog;
     private EditText customer_edit_text;
+    private TextView waitText ;
     private Button delete_btn;
     private boolean doubleWildCard = false;
     private ListView listView;
@@ -48,7 +50,7 @@ public class ManageCustomers extends AppCompatActivity {
         listView  = (ListView) findViewById(R.id.customers_listview);
 
         customer_edit_text = (EditText) findViewById(R.id.customer_edit_Text);
-
+        waitText = (TextView) findViewById(R.id.customerWaitText);
 
         new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
         new_customer_btn.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +71,7 @@ public class ManageCustomers extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 final String sString = charSequence.toString();
+                waitText.setVisibility(View.VISIBLE);
                 if(sString.length()!=0) {
                     params.clear();
                     params.add(new BasicNameValuePair("term", customer_edit_text.getText().toString()));
@@ -76,6 +79,7 @@ public class ManageCustomers extends AppCompatActivity {
                         params.add(new BasicNameValuePair("double","true"));
                     new AttemptSearchCustomer().execute();
                 }else {
+                    waitText.setVisibility(View.GONE);
                     listView.setAdapter(null);
                 }
             }
@@ -93,7 +97,7 @@ public class ManageCustomers extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                // EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-
+                final Customer tempC = CustomersArray.get(position);
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCustomers.this);
                 // ...Irrelevant code for customizing the buttons and title
@@ -103,14 +107,14 @@ public class ManageCustomers extends AppCompatActivity {
                 //dialogBuilder.setTitle("Edit Customer");
                 final AlertDialog alertDialog = dialogBuilder.create();
 
-                EditText edit_customer_name = (EditText) dialogView.findViewById(R.id.edit_customer_name);
-                EditText edit_customer_surname = (EditText) dialogView.findViewById(R.id.edit_customer_surname);
-                EditText edit_customer_phone = (EditText) dialogView.findViewById(R.id.edit_customer_phone);
-                EditText edit_customer_barcode = (EditText) dialogView.findViewById(R.id.edit_customer_barcode);
-                EditText edit_customer_stamps = (EditText) dialogView.findViewById(R.id.edit_customer_stamps);
-                EditText edit_customer_coupons_used = (EditText) dialogView.findViewById(R.id.edit_customer_coupons_used);
-                EditText edit_customer_visists = (EditText) dialogView.findViewById(R.id.edit_customer_visits);
-                EditText edit_customer_last_visit = (EditText) dialogView.findViewById(R.id.edit_customer_last_visit);
+                final EditText edit_customer_name = (EditText) dialogView.findViewById(R.id.edit_customer_name);
+                final EditText edit_customer_surname = (EditText) dialogView.findViewById(R.id.edit_customer_surname);
+                final EditText edit_customer_phone = (EditText) dialogView.findViewById(R.id.edit_customer_phone);
+                final EditText edit_customer_barcode = (EditText) dialogView.findViewById(R.id.edit_customer_barcode);
+                final EditText edit_customer_stamps = (EditText) dialogView.findViewById(R.id.edit_customer_stamps);
+                final EditText edit_customer_coupons_used = (EditText) dialogView.findViewById(R.id.edit_customer_coupons_used);
+                final EditText edit_customer_visists = (EditText) dialogView.findViewById(R.id.edit_customer_visits);
+                final EditText edit_customer_last_visit = (EditText) dialogView.findViewById(R.id.edit_customer_last_visit);
 
                 try {
                     edit_customer_name.setText(JSONresponse.getJSONObject(position).getString("name"));
@@ -160,16 +164,32 @@ public class ManageCustomers extends AppCompatActivity {
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*if(edit_name.getText().equals(EditCoupon.getName()) &&  edit_stamps.getText().equals(EditCoupon.getRequired_stamps())){
-                            Toast.makeText(ManageCoupons.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
+                        if(     edit_customer_name.getText().toString().equals(tempC.getName()) &&
+                                edit_customer_surname.getText().toString().equals(tempC.getSurname()) &&
+                                edit_customer_phone.getText().toString().equals(tempC.getPhone()) &&
+                                edit_customer_barcode.getText().toString().equals(tempC.getBarcode()) &&
+                                edit_customer_stamps.getText().toString().equals(String.valueOf(tempC.getStamps())) &&
+                                edit_customer_coupons_used.getText().toString().equals(String.valueOf(tempC.getCoupons_used())) &&
+                                edit_customer_visists.getText().toString().equals(String.valueOf(tempC.getVisits())) &&
+                                edit_customer_last_visit.getText().toString().equals(String.valueOf(tempC.getLast_visit()))
+                                ){
+                            Toast.makeText(ManageCustomers.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
                             return;
                         }
+
                         params.clear();
-                        params.add(new BasicNameValuePair("id",String.valueOf(EditCoupon.getId())));
-                        params.add(new BasicNameValuePair("name",String.valueOf(edit_name.getText().toString())));
-                        params.add(new BasicNameValuePair("required",String.valueOf(edit_stamps.getText().toString())));
-                        new ManageCoupons.AttemptSaveCoupon().execute();
-                        alertDialog.dismiss();*/
+                        params.add(new BasicNameValuePair("id",String.valueOf(tempC.getId())));
+                        params.add(new BasicNameValuePair("name",edit_customer_name.getText().toString()));
+                        params.add(new BasicNameValuePair("surname",edit_customer_surname.getText().toString()));
+                        params.add(new BasicNameValuePair("barcode",edit_customer_barcode.getText().toString()));
+                        params.add(new BasicNameValuePair("phone",edit_customer_phone.getText().toString()));
+                        params.add(new BasicNameValuePair("stamps",edit_customer_stamps.getText().toString()));
+                        params.add(new BasicNameValuePair("coupons_used",edit_customer_coupons_used.getText().toString()));
+                        params.add(new BasicNameValuePair("visits",edit_customer_visists.getText().toString()));
+                        //params.add(new BasicNameValuePair("last_visit",edit_customer_last_visit.getText().toString()));
+                        new ManageCustomers.AttemptSaveCustomer().execute();
+                        alertDialog.dismiss();
+                        listView.setAdapter(null);
                     }
                 });
 
@@ -187,9 +207,7 @@ public class ManageCustomers extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            String[] pre_values2 = new String[]{"Please wait.."};
-            ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageCustomers.this, android.R.layout.simple_list_item_1, android.R.id.text1, pre_values2);
-            listView.setAdapter(pre_adapter);
+            waitText.setText("Please wait..");
         }
 
         @Override
@@ -217,6 +235,7 @@ public class ManageCustomers extends AppCompatActivity {
                 JSONArray jsonResult = obj.getJSONArray("results");
                 JSONresponse = jsonResult;
                 String[] values = new String[jsonResult.length()];
+                CustomersArray.clear();
                 for (int i = 0; i < jsonResult.length(); i++) {
                     String label = jsonResult.getJSONObject(i).getString("name")+" "+jsonResult.getJSONObject(i).getString("surname");
                     values[i] = label;
@@ -234,11 +253,12 @@ public class ManageCustomers extends AppCompatActivity {
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageCustomers.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
-                /*if(OperatorsArray.isEmpty()){
-                    String[] values2 = new String[]{"No results."};
-                    ArrayAdapter<String> pre_adapter = new ArrayAdapter<>(ManageOperators.this, android.R.layout.simple_list_item_1, android.R.id.text1, values2);
-                    listView.setAdapter(pre_adapter);
-                }*/
+                if(CustomersArray.isEmpty()){
+                    waitText.setVisibility(View.VISIBLE);
+                    waitText.setText("No matches.");
+                }else{
+                    waitText.setVisibility(View.GONE);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -305,5 +325,54 @@ public class ManageCustomers extends AppCompatActivity {
                 Toast.makeText(ManageCustomers.this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    class AttemptSaveCustomer extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ManageCustomers.this);
+            pDialog.setMessage("Saving customer");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+
+            Log.d("request!", "starting");
+
+            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_CUSTOMER_URL), "GET", params);
+            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_CUSTOMER_URL));
+            System.out.println(params);
+            System.out.println(json.toString());
+            // checking  log for json response
+            //Log.d("Login attempt", json.toString());
+
+            return json.toString();
+
+
+
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(final String message) {
+            /*final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            String toast_message= null;*/
+            pDialog.dismiss();
+            params.clear();
+
+        }
+
+
     }
 }

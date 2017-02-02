@@ -50,12 +50,12 @@
 		}
 		//COUPON DELETION
 		else if($action=='coupon_deletion'){
-			if (empty($_GET['name'])) {
+			if (empty($_GET['id'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : name";
+			  $response["message"] = "Required fields : id";
 			}else{
-				$name = $_GET['name'];
-				$sql2 = " DELETE FROM `coupons` WHERE `name`='$name'";
+				$id = $_GET['id'];
+				$sql2 = " DELETE FROM `coupons` WHERE `id`='$id'";
 				$response["success"] = 1;
 				$result = $con->query($sql2);
 				if(mysqli_affected_rows($con)!=0)
@@ -120,9 +120,6 @@
 			if (empty($_GET['name'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : name";
-			  mysqli_close($con);
-			  die(json_encode($response));
-
 			}else{
 				$name = $_GET['name'];
 				$surname = $_GET['surname'];
@@ -158,12 +155,12 @@
 		}
 		//CUSTOMER DELETION
 		else if($action=='customer_deletion'){
-			if (empty($_GET['username'])) {
+			if (empty($_GET['id'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : username";
+			  $response["message"] = "Required fields : id";
 			}else{
-				$username = $_GET['username'];
-				$sql2 = " DELETE FROM `customers` WHERE `barcode`='$username' OR `phone`='$username'";
+				$id = $_GET['id'];
+				$sql2 = " DELETE FROM `customers` WHERE `id`='$id'";
 				$response["success"] = 1;
 				$result = $con->query($sql2);
 				if(mysqli_affected_rows($con)!=0)
@@ -199,24 +196,35 @@
 		}
 		//CUSTOMER SAVE
 		else if($action=='customer_save'){
-			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['required']) ) {
+			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['surname']) || empty($_GET['barcode']) || empty($_GET['phone']) || empty($_GET['stamps']) || empty($_GET['coupons_used']) || empty($_GET['visits']) ) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : id,name,required";
+			  $response["message"] = "Required fields : id,name,surname,barcode,phone,stamps,coupons_used,visits";
 			}else{
 				$id = $_GET['id'];
 				$name = $_GET['name'];
-				$required = $_GET['required'];
+				$surname = $_GET['surname'];
+				$barcode = $_GET['barcode'];
+				$phone = $_GET['phone'];
+				$stamps = $_GET['stamps'];
+				$coupons_used = $_GET['coupons_used'];
+				$visits = $_GET['visits'];
 
-				$sql2 = " UPDATE `coupons` SET `name`='$name',`required_stamps`='$required' WHERE `id`='$id'";
+				$sql2 = " UPDATE `customers` SET `name`='$name',`surname`='$surname',`barcode`='$barcode',`phone`='$phone',`stamps`='$stamps',`coupons_used`='$coupons_used',`visits`='$visits' WHERE `id`='$id'";
 				$result = $con->query($sql2);
 				$response["success"] = 1;
 				$response["message"] = $result;
-				$barcode = " SELECT * FROM coupons WHERE `id`='$id' ";
+				$barcode = " SELECT * FROM customers WHERE `id`='$id' ";
 				$result = $con->query($barcode);
 				$row = $result->fetch_assoc();
 				$response["id"]=$row[id];
 				$response["name"] = $row[name];
-				$response["required_stamps"] = $row[required_stamps];
+				$response["surname"] = $row[surname];
+				$response["phone"] = $row[phone];
+				$response["barcode"] = $row[barcode];
+				$response["stamps"]=$row[stamps];
+				$response["coupons_used"]=$row[coupons_used];
+				$response["visits"]=$row[visits];
+				$response["last_visit"]=$row[last_visit];
 			}
 		}
 		//OPERATOR LOGIN
