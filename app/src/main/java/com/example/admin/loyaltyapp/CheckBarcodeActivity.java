@@ -119,7 +119,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                     user.setLast_visit("last_visit");
 
                     id.setText(id.getText() + " " + user.getBarcode());
-                    name.setText(name.getText() + " " + user.getName());
+                    name.setText(name.getText() + " " + user.getName() +" "+ user.getSurname());
                     phone.setText(phone.getText() + " " + user.getPhone());
                     stamps.setText(stamps.getText() + " " + user.getStamps());
 

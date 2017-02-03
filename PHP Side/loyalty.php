@@ -1,7 +1,7 @@
 <?php
 	$host = "localhost";
 	$user = "id99137_agelo1995";
-	$password = "Ney-8392";
+	$password = "";
 	$db = $_GET['db'];
 
 	$con = mysqli_connect($host,$user,$password,$db);
@@ -88,13 +88,15 @@
 		}
 		//COUPON CHANGE
 		else if($action=='coupon_change'){
-			if($operation=='add'){
-				if(empty($_GET(['value']) || empty($_GET(['id']){
+			if(empty($_GET['value']) || empty($_GET['id']) || empty($_GET['operation'])){
 					$response["error"] = 105;
-					$response["message"] = 'value or id parameter invalid.';
-				}else{
-					$value = $_GET(['value']);
-					$id = $_GET(['id']);
+					$response["message"] = "value,id,operation parameter invalid.";
+			}
+			else{
+				$operation = $_GET['operation'];
+				if($operation=='add'){
+					$value = $_GET['value'];
+					$id = $_GET['id'];
 					$sql = " UPDATE `customers` SET `last_visit`=(SELECT CURDATE()),`visits`=`visits`+1,`stamps`=`stamps`+'$value' WHERE `id`='$id'";
 					$result = $con->query($sql);
 					$response["success"] = 1;
@@ -112,13 +114,9 @@
 					$response["visits"]=$row[visits];
 					$response["last_visit"]=$row[last_visit];
 				}
-			}else if($operation=='remove'){
-				if(empty($_GET(['value']) || empty($_GET(['id']){
-					$response["error"] = 105;
-					$response["message"] = 'value or id parameter invalid.';
-				}else{
-					$value = $_GET(['value']);
-					$id = $_GET(['id']);
+				else if($operation=='remove'){
+					$value = $_GET['value'];
+					$id = $_GET['id'];
 					$sql = " UPDATE `customers` SET `stamps`=`stamps`-'$value' WHERE `id`='$id'";
 					$result = $con->query($sql);
 					$response["success"] = 1;
@@ -136,9 +134,10 @@
 					$response["visits"]=$row[visits];
 					$response["last_visit"]=$row[last_visit];
 				}
-			}else{
-				$response["error"] = 104;
-				$response["message"] = 'operation parameter invalid.';
+				else{
+					$response["error"] = 104;
+					$response["message"] = 'operation parameter invalid.';
+				}
 			}
 		}
 		//COUPON CREDIT
