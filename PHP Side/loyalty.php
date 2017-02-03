@@ -86,6 +86,65 @@
 				$response["required_stamps"] = $row[required_stamps];
 			}
 		}
+		//COUPON CHANGE
+		else if($action=='coupon_change'){
+			if($operation=='add'){
+				if(empty($_GET(['value']) || empty($_GET(['id']){
+					$response["error"] = 105;
+					$response["message"] = 'value or id parameter invalid.';
+				}else{
+					$value = $_GET(['value']);
+					$id = $_GET(['id']);
+					$sql = " UPDATE `customers` SET `last_visit`=(SELECT CURDATE()),`visits`=`visits`+1,`stamps`=`stamps`+'$value' WHERE `id`='$id'";
+					$result = $con->query($sql);
+					$response["success"] = 1;
+					$response["message"] = $result;
+					$barcode = " SELECT * FROM customers WHERE `id`='$id' ";
+					$result = $con->query($barcode);
+					$row = $result->fetch_assoc();
+					$response["id"]=$row[id];
+					$response["name"] = $row[name];
+					$response["surname"] = $row[surname];
+					$response["phone"] = $row[phone];
+					$response["barcode"] = $row[barcode];
+					$response["stamps"]=$row[stamps];
+					$response["coupons_used"]=$row[coupons_used];
+					$response["visits"]=$row[visits];
+					$response["last_visit"]=$row[last_visit];
+				}
+			}else if($operation=='remove'){
+				if(empty($_GET(['value']) || empty($_GET(['id']){
+					$response["error"] = 105;
+					$response["message"] = 'value or id parameter invalid.';
+				}else{
+					$value = $_GET(['value']);
+					$id = $_GET(['id']);
+					$sql = " UPDATE `customers` SET `stamps`=`stamps`-'$value' WHERE `id`='$id'";
+					$result = $con->query($sql);
+					$response["success"] = 1;
+					$response["message"] = $result;
+					$barcode = " SELECT * FROM customers WHERE `id`='$id' ";
+					$result = $con->query($barcode);
+					$row = $result->fetch_assoc();
+					$response["id"]=$row[id];
+					$response["name"] = $row[name];
+					$response["surname"] = $row[surname];
+					$response["phone"] = $row[phone];
+					$response["barcode"] = $row[barcode];
+					$response["stamps"]=$row[stamps];
+					$response["coupons_used"]=$row[coupons_used];
+					$response["visits"]=$row[visits];
+					$response["last_visit"]=$row[last_visit];
+				}
+			}else{
+				$response["error"] = 104;
+				$response["message"] = 'operation parameter invalid.';
+			}
+		}
+		//COUPON CREDIT
+		else if($action=='coupon_credit'){
+
+		}
 		//CUSTOMER LOGIN
 		else if($action=='customer_login'){
 			if (empty($_GET['username'])) {
