@@ -16,4 +16,7 @@
     <string name="CREATE_COUPON_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=coupon_creation</string>
     <string name="DELETE_COUPON_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=coupon_deletion</string>
     <string name="SAVE_COUPON_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=coupon_save</string>
+
+    <string name="CHANGE_STAMP_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=stamp_change</string>
+
 </resources>

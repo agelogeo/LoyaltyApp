@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_check_barcode"
     android:layout_width="match_parent"
@@ -11,73 +12,153 @@
     android:orientation="vertical"
     tools:context="com.example.admin.loyaltyapp.CheckBarcodeActivity">
 
-    <ScrollView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="492dp">
+
+        <TextView
+            android:text="ID : "
+            android:layout_width="29dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView13"
+            tools:layout_editor_absoluteY="0dp"
+            android:textSize="18sp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintLeft_toRightOf="@+id/checkPhoneView"
+            android:layout_marginLeft="24dp" />
+
+        <TextView
+            android:text="ID : "
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBarcodeView"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteY="0dp"
+            app:layout_constraintLeft_toRightOf="@+id/textView13" />
+
+        <TextView
+            android:text="Name : "
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkNameView"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@+id/textView15"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/checkPhoneView" />
+
+        <TextView
+            android:text="Phone : "
+            android:layout_width="48dp"
+            android:layout_height="22dp"
+            android:id="@+id/textView14"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:text="Phone : "
+            android:layout_width="160dp"
+            android:layout_height="22dp"
+            android:id="@+id/checkPhoneView"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteY="0dp"
+            app:layout_constraintLeft_toRightOf="@+id/textView14"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp" />
+
+        <TextView
+            android:text="Name : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:text="Stamps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/checkStampsView"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintHorizontal_bias="0.98" />
+
+        <TextView
+            android:text="18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkStampsView"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/checkNameView"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintHorizontal_bias="0.96"
+            android:textStyle="normal|bold"
+            android:textColor="@color/AppColor"
+            android:layout_marginTop="8dp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:text="ID : "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBarcodeView"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:textAlignment="textEnd" />
-
-            <TextView
-                android:text="Name : "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkNameView"
-                android:layout_weight="1"
-                android:textSize="18sp" />
-
-            <TextView
-                android:text="Phone : "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkPhoneView"
-                android:layout_weight="1"
-                android:textSize="18sp" />
-
-            <TextView
-                android:text="Stamps : "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkStampsView"
-                android:layout_weight="1"
-                android:textSize="18sp" />
-
-            <Button
-                android:text="ADD STAMP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2"
-                android:layout_weight="1"
-                android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+            android:orientation="horizontal"
+            android:layout_width="327dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="9dp"
+            android:layout_marginTop="88dp"
+            app:layout_constraintTop_toBottomOf="@+id/checkNameView"
+            android:id="@+id/linearLayout2">
 
             <Button
                 android:text="REMOVE STAMP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button3"
+                android:layout_height="match_parent"
+                android:id="@+id/remove_stamp_btn"
                 android:layout_weight="1"
                 android:textColor="@color/AppColor"
-                android:background="@drawable/red_style_button" />
+                android:background="@drawable/red_style_button_dialog"
+                android:backgroundTint="@android:color/darker_gray"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:gravity="center" />
 
+            <Button
+                android:text="ADD STAMP"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/add_stamp_btn"
+                android:layout_weight="1"
+                android:textColor="@color/White"
+                android:background="@drawable/red_style_button_dialog"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:gravity="center" />
         </LinearLayout>
-    </ScrollView>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/check_coupons_list" />
+        <ListView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/check_coupons_list"
+            tools:layout_editor_absoluteX="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
 
 </LinearLayout>

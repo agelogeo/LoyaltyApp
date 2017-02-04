@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     private ArrayList<Boolean> isEnough;
     private static final String TAG_SUCCESS = "success";
     private TextView id,name,phone,stamps;
+    private Button add_stamp,remove_stamp;
+    private final int value = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +45,12 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         phone=(TextView) findViewById(R.id.checkPhoneView);
         stamps=(TextView) findViewById(R.id.checkStampsView);
         listView = (ListView) findViewById(R.id.check_coupons_list);
+        add_stamp = (Button) findViewById(R.id.add_stamp_btn);
+        remove_stamp = (Button) findViewById(R.id.remove_stamp_btn);
 
         Intent ii = getIntent();
         barcode = ii.getStringExtra("barcode");
         new AttemptCheckBarcode().execute();
-        new AttemptGetCoupons().execute();
     }
 
     class AttemptCheckBarcode extends AsyncTask<String, String, String> {
@@ -109,6 +113,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
             if(message!=null) {
                 try {
                     JSONObject json = new JSONObject(message);
+                    user.setId(json.getInt("id"));
                     user.setName(json.getString("name"));
                     user.setSurname(json.getString("surname"));
                     user.setPhone(json.getString("phone"));
@@ -118,14 +123,34 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                     user.setVisits(json.getInt("visits"));
                     user.setLast_visit("last_visit");
 
-                    id.setText(id.getText() + " " + user.getBarcode());
-                    name.setText(name.getText() + " " + user.getName());
-                    phone.setText(phone.getText() + " " + user.getPhone());
-                    stamps.setText(stamps.getText() + " " + user.getStamps());
+                    id.setText(user.getBarcode());
+                    name.setText(user.getName() +" "+ user.getSurname());
+                    phone.setText(user.getPhone());
+                    stamps.setText(String.valueOf(user.getStamps()));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                add_stamp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        params.clear();
+                        params.add(new BasicNameValuePair("id",String.valueOf(user.getId())));
+                        params.add(new BasicNameValuePair("operation","add"));
+                        params.add(new BasicNameValuePair("value",String.valueOf(value)));
+                        new AttemptAddStamp().execute();
+                    }
+                });
+
+                remove_stamp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+
+                new AttemptGetCoupons().execute();
             }
 
         }
@@ -224,6 +249,67 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
                 }else{
                     toast_message =getString(R.string.barcodeExists);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (message != null){
+                Toast.makeText(CheckBarcodeActivity.this, toast_message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+    }
+
+    class AttemptAddStamp extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+
+            Log.d("request!", "starting");
+
+            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), "GET", params);
+            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
+            System.out.println(params);
+            System.out.println(json.toString());
+            // checking  log for json response
+            //Log.d("Login attempt", json.toString());
+
+            return json.toString();
+
+
+
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(final String message) {
+            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            String toast_message= null;
+            pDialog.dismiss();
+
+            isEnough = new ArrayList<>();
+
+            try {
+                JSONObject output = new JSONObject(message);
+
+                if (output.getInt("success") == 1) {
+                    Log.d("Coupon Change OK!", output.toString());
+                    new AttemptCheckBarcode().execute();
+                } else if(output.getInt("success")!=1){
+                    toast_message = "Error on stamp change";
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
