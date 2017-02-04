@@ -87,7 +87,7 @@
 			}
 		}
 		//COUPON CHANGE
-		else if($action=='coupon_change'){
+		else if($action=='stamp_change'){
 			if(empty($_GET['value']) || empty($_GET['id']) || empty($_GET['operation'])){
 					$response["error"] = 105;
 					$response["message"] = "value,id,operation parameter invalid.";
