@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -34,62 +37,51 @@ public class JSONParser {
     }
 
 
-    public JSONObject getJSONFromUrl(final String url) {
+    public String getJSONFromUrl(final String url,List<NameValuePair> params) {
 
-        // Making HTTP request
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+
         try {
+            String paramString = URLEncodedUtils.format(params, "utf-8");
+            URL urlink = new URL(url+"&"+ paramString);
+            System.out.println("URLINK: " +urlink);
+            connection = (HttpURLConnection) urlink.openConnection();
+            connection.connect();
 
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
 
-            // Executing POST request & storing the response from server  locally.
-            HttpResponse httpResponse = httpClient.execute(httpPost);
+            InputStream stream = connection.getInputStream();
 
-            HttpEntity httpEntity = httpResponse.getEntity();
+            reader = new BufferedReader(new InputStreamReader(stream));
 
-            is = httpEntity.getContent();
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line+"\n");
+                //Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+
+            }
+
+            return buffer.toString();
+
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        try {
-
-
-            // Create a BufferedReader
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
-            // Declaring string builder
-            StringBuilder str = new StringBuilder();
-            //  string to store the JSON object.
-            String strLine = null;
-
-            // Building while we have string !equal null.
-            while ((strLine = reader.readLine()) != null) {
-                str.append(strLine + "\n");
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
             }
-
-            // Close inputstream.
-            is.close();
-            // string builder data conversion  to string.
-            json = str.toString();
-        } catch (Exception e) {
-            Log.e("Error", " something wrong with converting result " + e.toString());
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        // Try block used for pasrseing String to a json object
-        try {
-            jsonObj = new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e("json Parsering", "" + e.toString());
-        }
-
-        // Returning json Object.
-        return jsonObj;
+        return null;
 
     }
 
@@ -118,6 +110,7 @@ public class JSONParser {
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 String paramString = URLEncodedUtils.format(params, "utf-8");
                 url +=  "&"+ paramString;
+                System.out.println("URL: " +url);
                 HttpGet httpGet = new HttpGet(url);
                 HttpResponse httpResponse = httpClient.execute(httpGet);
                 HttpEntity httpEntity = httpResponse.getEntity();

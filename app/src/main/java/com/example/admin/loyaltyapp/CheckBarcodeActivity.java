@@ -47,7 +47,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.check_coupons_list);
         add_stamp = (Button) findViewById(R.id.add_stamp_btn);
         remove_stamp = (Button) findViewById(R.id.remove_stamp_btn);
-
+        dialogStart();
         Intent ii = getIntent();
         barcode = ii.getStringExtra("barcode");
         new AttemptCheckBarcode().execute();
@@ -61,11 +61,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(CheckBarcodeActivity.this);
-            pDialog.setMessage("Attempting for login...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+
         }
 
         @Override
@@ -81,13 +77,14 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), "GET", params);
+                String jsonString = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
 
                 // success tag for json
+                JSONObject json = new JSONObject(jsonString);
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1) {
@@ -132,6 +129,8 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                new AttemptGetCoupons().execute();
+
                 add_stamp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -146,11 +145,15 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                 remove_stamp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        params.clear();
+                        params.add(new BasicNameValuePair("id",String.valueOf(user.getId())));
+                        params.add(new BasicNameValuePair("operation","remove"));
+                        params.add(new BasicNameValuePair("value",String.valueOf(value)));
+                        new AttemptRemoveStamp().execute();
                     }
                 });
 
-                new AttemptGetCoupons().execute();
+
             }
 
         }
@@ -271,6 +274,76 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            dialogStart();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            // TODO Auto-generated method stub
+            // here Check for success tag
+
+            Log.d("request!", "starting");
+            String jsonString = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), params);
+            //System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
+            // checking  log for json response
+            //Log.d("Login attempt", json.toString());
+
+            // success tag for json
+            JSONObject json = null;
+            try {
+                json = new JSONObject(jsonString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // checking  log for json response
+            //Log.d("Login attempt", json.toString());
+
+            return json.toString();
+
+
+
+        }
+        /**
+         * Once the background process is done we need to  Dismiss the progress dialog asap
+         * **/
+        protected void onPostExecute(final String message) {
+            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            String toast_message= null;
+            pDialog.dismiss();
+
+            isEnough = new ArrayList<>();
+
+            try {
+                JSONObject output = new JSONObject(message);
+
+                if (output.getInt("success") == 1) {
+                    Log.d("Add stamp OK", output.toString());
+                    new AttemptCheckBarcode().execute();
+                } else if(output.getInt("success")!=1){
+                    toast_message = "Error on stamp change";
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (toast_message != null){
+                Toast.makeText(CheckBarcodeActivity.this, toast_message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+    }
+
+    class AttemptRemoveStamp extends AsyncTask<String, String, String> {
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
         @Override
@@ -321,5 +394,13 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void dialogStart (){
+        pDialog = new ProgressDialog(CheckBarcodeActivity.this);
+        pDialog.setMessage("Please wait..");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 }
