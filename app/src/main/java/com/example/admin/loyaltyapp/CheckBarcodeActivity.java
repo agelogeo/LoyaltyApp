@@ -84,15 +84,25 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                 //Log.d("Login attempt", json.toString());
 
                 // success tag for json
-                success = json.getInt(TAG_SUCCESS);
-                System.out.println("TAG SUCCESS : "+ success);
-                if (success == 1) {
-                    Log.d("Successfully Login!", json.toString());
 
-                    return json.toString();
-                }else{
-                    Toast.makeText(CheckBarcodeActivity.this, "Invalid barcode/phone", Toast.LENGTH_SHORT).show();
-                    return null;
+                if(!json.has(TAG_SUCCESS)){
+                    //Toast.makeText(CheckBarcodeActivity.this, "Invalid barcode/phone", Toast.LENGTH_SHORT).show();
+                    finish();
+                    pDialog.dismiss();
+                }
+                else{
+                    success = json.getInt(TAG_SUCCESS);
+
+                    System.out.println("TAG SUCCESS : "+ success);
+                    if (success == 1) {
+                        Log.d("Successfully Login!", json.toString());
+
+                        return json.toString();
+                    }else{
+                        Toast.makeText(CheckBarcodeActivity.this, "Invalid barcode/phone", Toast.LENGTH_SHORT).show();
+
+                        return null;
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

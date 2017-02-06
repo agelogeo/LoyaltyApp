@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import org.json.JSONException;
@@ -123,9 +124,13 @@ public class OperatorActivity extends BaseNavigationDrawer{
         check_barcode_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ii = new Intent(OperatorActivity.this,CheckBarcodeActivity.class);
-                ii.putExtra("barcode",barcode_value.getText().toString());
-                startActivity(ii);
+                if(barcode_value.getText().length()==0)
+                    Toast.makeText(OperatorActivity.this,"Please fill the field above.",Toast.LENGTH_SHORT).show();
+                else {
+                    Intent ii = new Intent(OperatorActivity.this,CheckBarcodeActivity.class);
+                    ii.putExtra("barcode", barcode_value.getText().toString());
+                    startActivity(ii);
+                }
             }
         });
 
