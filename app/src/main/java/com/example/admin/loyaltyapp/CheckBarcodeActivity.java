@@ -77,14 +77,13 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
                 Log.d("request!", "starting");
 
-                String jsonString = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), params);
+                JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
                 // checking  log for json response
                 //Log.d("Login attempt", json.toString());
 
                 // success tag for json
-                JSONObject json = new JSONObject(jsonString);
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1) {
@@ -177,7 +176,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL));
             System.out.println(params);
             System.out.println(json.toString());
@@ -225,7 +224,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
                     CouponAdapter myAdapter = new CouponAdapter(CheckBarcodeActivity.this, adapterList);
                     listView.setAdapter(myAdapter);
-                    toast_message="Coupons recalled successfully.";
+                    //toast_message="Coupons recalled successfully.";
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -257,7 +256,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (message != null){
+            if (toast_message != null){
                 Toast.makeText(CheckBarcodeActivity.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }
@@ -283,23 +282,13 @@ public class CheckBarcodeActivity extends AppCompatActivity {
             // here Check for success tag
 
             Log.d("request!", "starting");
-            String jsonString = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), params);
+            JSONObject jsonString = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), params);
             //System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
             // checking  log for json response
             //Log.d("Login attempt", json.toString());
 
-            // success tag for json
-            JSONObject json = null;
-            try {
-                json = new JSONObject(jsonString);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
-
-            return json.toString();
+            return jsonString.toString();
 
 
 
@@ -344,6 +333,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            dialogStart();
         }
 
         @Override
@@ -353,7 +343,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
             System.out.println(params);
             System.out.println(json.toString());
@@ -388,7 +378,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (message != null){
+            if (toast_message != null){
                 Toast.makeText(CheckBarcodeActivity.this, toast_message, Toast.LENGTH_LONG).show();
             }
         }

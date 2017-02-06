@@ -304,7 +304,7 @@ public class ManageOperators extends AppCompatActivity {
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL), "GET", params);
+                JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL));
                 System.out.println(params);
                 // checking  log for json response
@@ -368,7 +368,7 @@ public class ManageOperators extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_OPERATOR_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_OPERATOR_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_OPERATOR_URL));
             System.out.println(params);
 
@@ -445,7 +445,7 @@ public class ManageOperators extends AppCompatActivity {
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_DELETION_URL), "GET", params);
+                JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_DELETION_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_DELETION_URL));
                 System.out.println(params);
                 // checking  log for json response
@@ -503,7 +503,7 @@ public class ManageOperators extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_OPERATOR_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_OPERATOR_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_OPERATOR_URL));
             System.out.println(params);
             System.out.println(json.toString());

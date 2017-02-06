@@ -37,7 +37,7 @@ public class JSONParser {
     }
 
 
-    public String getJSONFromUrl(final String url,List<NameValuePair> params) {
+    public JSONObject getJSONFromUrl(final String url,List<NameValuePair> params) {
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -62,8 +62,15 @@ public class JSONParser {
                 //Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
             }
+            JSONObject jsonObj = null;
+            try {
+                jsonObj = new JSONObject(buffer.toString());
+            } catch (JSONException e) {
 
-            return buffer.toString();
+            }
+
+
+            return jsonObj;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -86,7 +93,7 @@ public class JSONParser {
     }
 
 
-
+/*
     public JSONObject makeHttpRequest(String url, String method,
                                       List<NameValuePair> params) {
 
@@ -149,6 +156,6 @@ public class JSONParser {
 
         return jsonObj;
 
-    }
+    }*/
 
 }

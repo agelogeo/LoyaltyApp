@@ -218,7 +218,7 @@ public class ManageCustomers extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_CUSTOMER_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_CUSTOMER_URL),  params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_CUSTOMER_URL));
             System.out.println(params);
 
@@ -293,7 +293,7 @@ public class ManageCustomers extends AppCompatActivity {
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_DELETION_URL), "GET", params);
+                JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_DELETION_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_DELETION_URL));
                 System.out.println(params);
                 // checking  log for json response
@@ -350,7 +350,7 @@ public class ManageCustomers extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_CUSTOMER_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_CUSTOMER_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_CUSTOMER_URL));
             System.out.println(params);
             System.out.println(json.toString());

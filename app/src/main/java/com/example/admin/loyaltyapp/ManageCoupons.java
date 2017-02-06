@@ -122,7 +122,7 @@ public class ManageCoupons extends AppCompatActivity {
             // TODO Auto-generated method stub
             // here Check for success tag
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL));
             System.out.println(params);
             System.out.println(json.toString());
@@ -279,7 +279,7 @@ public class ManageCoupons extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.CREATE_COUPON_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CREATE_COUPON_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CREATE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());
@@ -365,7 +365,7 @@ public class ManageCoupons extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());
@@ -449,7 +449,7 @@ public class ManageCoupons extends AppCompatActivity {
 
             Log.d("request!", "starting");
 
-            JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL), "GET", params);
+            JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());

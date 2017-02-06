@@ -114,7 +114,7 @@ public class OperatorCreation extends AppCompatActivity {
 
                 Log.d("request!", "starting");
 
-                JSONObject json = jsonParser.makeHttpRequest(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL), "GET", params);
+                JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL),  params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL));
                 System.out.println(params);
                 // checking  log for json response
