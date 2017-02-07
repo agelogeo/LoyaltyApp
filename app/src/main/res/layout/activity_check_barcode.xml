@@ -23,9 +23,9 @@
                     android:id="@+id/textView13"
                     tools:layout_editor_absoluteY="0dp"
                     android:textSize="18sp"
-                    android:layout_marginStart="24dp"
-                    app:layout_constraintLeft_toRightOf="@+id/checkPhoneView"
-                    android:layout_marginLeft="24dp" />
+                    app:layout_constraintRight_toLeftOf="@+id/checkBarcodeView"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp" />
 
                 <TextView
                     android:text="ID : "
@@ -35,7 +35,7 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     tools:layout_editor_absoluteY="0dp"
-                    app:layout_constraintLeft_toRightOf="@+id/textView13" />
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
                     android:text="Name : "
@@ -168,17 +168,18 @@
                     app:layout_constraintLeft_toRightOf="@+id/textView20"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/checkVisitsView" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="327dp"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    tools:layout_editor_absoluteX="9dp"
-                    android:layout_marginTop="88dp"
-                    app:layout_constraintTop_toBottomOf="@+id/checkNameView"
-                    android:id="@+id/linearLayout2">
+                    android:id="@+id/linearLayout2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/checkLastVisitView">
 
                         <Button
                             android:text="REMOVE STAMP"
