@@ -32,7 +32,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     JSONParser jsonParser = new JSONParser();
     private ArrayList<Boolean> isEnough;
     private static final String TAG_SUCCESS = "success";
-    private TextView id,name,phone,stamps;
+    private TextView id,name,phone,stamps,coupons,visits,last_visit;
     private Button add_stamp,remove_stamp;
     private final int value = 1;
 
@@ -44,6 +44,10 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         name=(TextView) findViewById(R.id.checkNameView);
         phone=(TextView) findViewById(R.id.checkPhoneView);
         stamps=(TextView) findViewById(R.id.checkStampsView);
+        coupons=(TextView) findViewById(R.id.checkCouponsView);
+        visits=(TextView) findViewById(R.id.checkVisitsView);
+        last_visit=(TextView) findViewById(R.id.checkLastVisitView);
+
         listView = (ListView) findViewById(R.id.check_coupons_list);
         add_stamp = (Button) findViewById(R.id.add_stamp_btn);
         remove_stamp = (Button) findViewById(R.id.remove_stamp_btn);
@@ -127,12 +131,16 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                     user.setStamps(json.getInt("stamps"));
                     user.setCoupons_used(json.getInt("coupons_used"));
                     user.setVisits(json.getInt("visits"));
-                    user.setLast_visit("last_visit");
+                    user.setLast_visit(json.getString("last_visit"));
 
                     id.setText(user.getBarcode());
                     name.setText(user.getName() +" "+ user.getSurname());
                     phone.setText(user.getPhone());
                     stamps.setText(String.valueOf(user.getStamps()));
+                    coupons.setText(String.valueOf(user.getCoupons_used()));
+                    visits.setText(String.valueOf(user.getVisits()));
+                    last_visit.setText(user.getLast_visit());
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
