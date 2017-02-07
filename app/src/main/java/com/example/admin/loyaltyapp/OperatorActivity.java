@@ -27,13 +27,10 @@ public class OperatorActivity extends BaseNavigationDrawer{
     public void onBackPressed() {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OperatorActivity.this);
-        // ...Irrelevant code for customizing the buttons and title
         LayoutInflater inflater = OperatorActivity.this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.quit_dialog, null);
         dialogBuilder.setView(dialogView);
-        //dialogBuilder.setTitle("Edit Coupon");
         final AlertDialog alertDialog = dialogBuilder.create();
-        // set the custom dialog components - text, image and button
 
         Button noButton = (Button) dialogView.findViewById(R.id.dialog_no_btn);
         Button yesButton = (Button) dialogView.findViewById(R.id.dialog_yes_btn);

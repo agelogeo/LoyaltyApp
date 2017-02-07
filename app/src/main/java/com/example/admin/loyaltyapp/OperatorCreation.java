@@ -24,9 +24,7 @@ public class OperatorCreation extends AppCompatActivity {
     private Switch new_admin_switch;
     private Button create_operator_btn;
     private List<NameValuePair> params = new ArrayList<>();
-    // Progress Dialog
     private ProgressDialog pDialog;
-
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
 
@@ -87,10 +85,6 @@ public class OperatorCreation extends AppCompatActivity {
     }
 
     class AttemptCreateOperator extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        boolean failure = false;
 
         @Override
         protected void onPreExecute() {
@@ -104,23 +98,17 @@ public class OperatorCreation extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
+
             int success;
 
             try {
-
-
 
                 Log.d("request!", "starting");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL),  params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
-                // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
@@ -136,9 +124,7 @@ public class OperatorCreation extends AppCompatActivity {
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();

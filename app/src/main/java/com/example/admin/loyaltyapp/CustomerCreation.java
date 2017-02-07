@@ -33,7 +33,6 @@ public class CustomerCreation extends AppCompatActivity {
     private EditText first_name,last_name,phone;
     private Button customer_create_btn;
     private List<NameValuePair> params = new ArrayList<>();
-    // Progress Dialog
     private ProgressDialog pDialog;
     private boolean isOperatorTheCreator ;
 
@@ -82,10 +81,6 @@ public class CustomerCreation extends AppCompatActivity {
     }
 
     class AttemptCreateCustomer extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        boolean failure = false;
         ImageView qrCodeImageview ;
 
         @Override
@@ -101,25 +96,18 @@ public class CustomerCreation extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
-
-                Log.d("request!", "starting");
+            Log.d("request!", "starting create customer");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_CREATION_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_CREATION_URL));
             System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
                 return json.toString();
 
 
 
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
             int success;
             JSONObject json ;

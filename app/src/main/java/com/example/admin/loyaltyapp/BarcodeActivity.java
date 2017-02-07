@@ -35,7 +35,5 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
         ii.putExtra("barcode",result.getText());
         finish();
         startActivity(ii);
-        //Resume scanning
-        //mScannerView.resumeCameraPreview(this);
     }
 }

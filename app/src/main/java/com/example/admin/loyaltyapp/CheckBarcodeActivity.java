@@ -26,7 +26,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     private String barcode;
     private Customer user = new Customer();
     private List<NameValuePair> params = new ArrayList<>();
-    // Progress Dialog
     private ProgressDialog pDialog;
     ListView listView ;
     JSONParser jsonParser = new JSONParser();
@@ -58,9 +57,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     }
 
     class AttemptCheckBarcode extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
+
 
         @Override
         protected void onPreExecute() {
@@ -70,8 +67,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
             int success;
 
             try {
@@ -79,15 +74,11 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                 List<NameValuePair> params = new ArrayList<>();
                 params.add(new BasicNameValuePair("username",barcode));
 
-                Log.d("request!", "starting");
+                Log.d("request!", "starting check barcode");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
-
-                // success tag for json
 
                 if(!json.has(TAG_SUCCESS)){
                     //Toast.makeText(CheckBarcodeActivity.this, "Invalid barcode/phone", Toast.LENGTH_SHORT).show();
@@ -114,12 +105,9 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
-            //pDialog.dismiss();
             if(message!=null) {
                 try {
                     JSONObject json = new JSONObject(message);
@@ -177,10 +165,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     }
 
     class AttemptGetCoupons extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -189,17 +173,13 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
-            Log.d("request!", "starting");
+            Log.d("request!", "starting get coupons");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
 
@@ -242,24 +222,11 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
                     CouponAdapter myAdapter = new CouponAdapter(CheckBarcodeActivity.this, adapterList);
                     listView.setAdapter(myAdapter);
-                    //toast_message="Coupons recalled successfully.";
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Toast.makeText(CheckBarcodeActivity.this,"Ok click",Toast.LENGTH_SHORT).show();
-/*
-                            JSONObject jsonResult = null;
-                            try {
-                                jsonResult = new JSONObject(message);
-                                JSONArray results = (JSONArray) jsonResult.get("results");
-                                nameView.setText( adapterList.get(position).getName() );
-                                requiredView.setText( "Required :"+" "+adapterList.get(position).getRequired_stamps() );
-                                EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-                                save_btn.setVisibility(View.VISIBLE);
-                                delete_btn.setVisibility(View.VISIBLE);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }*/
+
 
                         }
                     });
@@ -283,10 +250,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     }
 
     class AttemptAddStamp extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -296,24 +259,16 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
-            Log.d("request!", "starting");
+            Log.d("request!", "starting add stamp");
             JSONObject jsonString = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), params);
-            //System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
-
 
             return jsonString.toString();
 
 
 
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
             final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
@@ -343,10 +298,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     }
 
     class AttemptRemoveStamp extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -356,8 +307,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
             Log.d("request!", "starting");
 
@@ -365,17 +314,13 @@ public class CheckBarcodeActivity extends AppCompatActivity {
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
 
 
 
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
             final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;

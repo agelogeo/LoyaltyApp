@@ -24,12 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageCoupons extends AppCompatActivity {
-    private EditText nameView,requiredView;
-    private Button create_btn,save_btn,delete_btn;
+    private Button create_btn;
     ListView listView ;
     private List<NameValuePair> params = new ArrayList<>();
     private Coupon EditCoupon;
-    // Progress Dialog
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
 
@@ -47,13 +45,10 @@ public class ManageCoupons extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCoupons.this);
-                // ...Irrelevant code for customizing the buttons and title
                 LayoutInflater inflater = ManageCoupons.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_coupon_dialog, null);
                 dialogBuilder.setView(dialogView);
-                //dialogBuilder.setTitle("Edit Coupon");
                 final AlertDialog alertDialog = dialogBuilder.create();
-                // set the custom dialog components - text, image and button
                 final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);
                 final EditText edit_stamps = (EditText) dialogView.findViewById(R.id.dialog_edit_stamps);
                 Button cancelButton = (Button) dialogView.findViewById(R.id.dialog_cancel_btn);
@@ -101,10 +96,6 @@ public class ManageCoupons extends AppCompatActivity {
 
 
     class AttemptGetCoupons extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -119,24 +110,18 @@ public class ManageCoupons extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
 
 
 
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
             final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
@@ -171,20 +156,15 @@ public class ManageCoupons extends AppCompatActivity {
 
 
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCoupons.this);
-                            // ...Irrelevant code for customizing the buttons and title
                             LayoutInflater inflater = ManageCoupons.this.getLayoutInflater();
                             View dialogView = inflater.inflate(R.layout.edit_coupon_dialog, null);
                             dialogBuilder.setView(dialogView);
-                            //dialogBuilder.setTitle("Edit Coupon");
                             final AlertDialog alertDialog = dialogBuilder.create();
-                            // set the custom dialog components - text, image and button
                             final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);
                             edit_name.setText(adapterList.get(position).getName());
                             final EditText edit_stamps = (EditText) dialogView.findViewById(R.id.dialog_edit_stamps);
                             edit_stamps.setText(""+adapterList.get(position).getRequired_stamps());
-                            /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                            image.setImageResource(R.drawable.ic_launcher);
-                            */
+
                             Button cancelButton = (Button) dialogView.findViewById(R.id.dialog_cancel_btn);
                             Button deleteButton = (Button) dialogView.findViewById(R.id.dialog_delete_btn);
                             Button saveButton = (Button) dialogView.findViewById(R.id.dialog_save_btn);
@@ -255,10 +235,6 @@ public class ManageCoupons extends AppCompatActivity {
     }
 
     class AttemptCreateCoupon extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -268,32 +244,21 @@ public class ManageCoupons extends AppCompatActivity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-
-
         }
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
-
-            Log.d("request!", "starting");
+            Log.d("request!", "starting creating coupon");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CREATE_COUPON_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CREATE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
 
-
-
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
             final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
@@ -306,8 +271,6 @@ public class ManageCoupons extends AppCompatActivity {
                 JSONObject output = new JSONObject(message);
                 JSONArray result = output.getJSONArray("results");
                 if (result.length() > 0) {
-                    Log.d("Get Coupons OK!", result.toString());
-
 
                     for (int j = 0; j < result.length(); j++) {
                         Coupon tempItem = new Coupon();
@@ -342,10 +305,6 @@ public class ManageCoupons extends AppCompatActivity {
     }
 
     class AttemptDeleteCoupon extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -360,26 +319,17 @@ public class ManageCoupons extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
-
-            Log.d("request!", "starting");
+            Log.d("request!", "starting delete coupon");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.DELETE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
 
-
-
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
             final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
@@ -427,10 +377,6 @@ public class ManageCoupons extends AppCompatActivity {
     }
 
     class AttemptSaveCoupon extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -444,29 +390,18 @@ public class ManageCoupons extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
-            Log.d("request!", "starting");
+            Log.d("request!", "starting save coupon");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL), params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_COUPON_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
-
-
-
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
-            String toast_message= null;
             pDialog.dismiss();
             params.clear();
             new AttemptGetCoupons().execute();

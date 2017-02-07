@@ -41,15 +41,10 @@ public class MainActivity extends AppCompatActivity
 
     private EditText user, pass;
     private Button bLogin,signup;
-    // Progress Dialog
     private ProgressDialog pDialog;
     private Switch oper_switch;
-    // JSON parser class
-
     String username,password;
-
     JSONParser jsonParser = new JSONParser();
-
     private static final String TAG_SUCCESS = "success";
 
     @Override
@@ -107,7 +102,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.login_btn:
                 if (user.getText().length() == 0){
@@ -125,8 +119,6 @@ public class MainActivity extends AppCompatActivity
                         new AttemptLoginForCustomer().execute();
                     }
                 }
-
-                // here we have used, switch case, because on login activity you may //also want to show registration button, so if the user is new ! we can go the //registration activity , other than this we could also do this without switch //case.
             default:
                 break;
         }
@@ -135,11 +127,6 @@ public class MainActivity extends AppCompatActivity
 
 
     class AttemptLoginForOperator extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        boolean failure = false;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -152,8 +139,6 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
             int success;
 
             try {
@@ -167,10 +152,7 @@ public class MainActivity extends AppCompatActivity
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_LOGIN_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_LOGIN_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
-                // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1) {
@@ -191,9 +173,7 @@ public class MainActivity extends AppCompatActivity
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();
@@ -204,11 +184,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     class AttemptLoginForCustomer extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        boolean failure = false;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -221,8 +196,6 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
             int success;
 
             try {
@@ -230,15 +203,12 @@ public class MainActivity extends AppCompatActivity
                 List<NameValuePair> params = new ArrayList<>();
                 params.add(new BasicNameValuePair("username", username));
 
-                Log.d("request!", "starting");
+                Log.d("request!", "starting login for customer");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
-                // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1) {
@@ -259,9 +229,7 @@ public class MainActivity extends AppCompatActivity
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();

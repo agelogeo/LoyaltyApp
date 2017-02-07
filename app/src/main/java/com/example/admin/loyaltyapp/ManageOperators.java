@@ -33,7 +33,6 @@ import java.util.List;
 
 public class ManageOperators extends AppCompatActivity {
     private List<NameValuePair> params = new ArrayList<>();
-    // Progress Dialog
     private ProgressDialog pDialog;
     private EditText operator_edit_Text;
     private Button new_operator_btn;
@@ -59,11 +58,9 @@ public class ManageOperators extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageOperators.this);
-                // ...Irrelevant code for customizing the buttons and title
                 LayoutInflater inflater = ManageOperators.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_operator_dialog, null);
                 dialogBuilder.setView(dialogView);
-                //dialogBuilder.setTitle("Edit Operator");
                 final AlertDialog alertDialog = dialogBuilder.create();
 
                 final ArrayList<EditText> TextList = new ArrayList<>();
@@ -277,10 +274,6 @@ public class ManageOperators extends AppCompatActivity {
     }
 
     class AttemptCreateOperator extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        boolean failure = false;
 
         @Override
         protected void onPreExecute() {
@@ -294,23 +287,17 @@ public class ManageOperators extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
+
             int success;
 
             try {
 
-
-
-                Log.d("request!", "starting");
+                Log.d("request!", "starting creating operator");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_CREATION_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
-                // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
@@ -326,25 +313,18 @@ public class ManageOperators extends AppCompatActivity {
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();
             if (message != null){
                 Toast.makeText(ManageOperators.this,"Operator has been created.",Toast.LENGTH_SHORT).show();
-                /*Intent i = new Intent(ManageOperators.this,OperatorCreation.class);
-                i.putExtra("message",message);
-                startActivity(i);*/
+
             }
         }
     }
 
     class AttemptSearchOperator extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
 
 
         @Override
@@ -353,18 +333,11 @@ public class ManageOperators extends AppCompatActivity {
             waitText.setText("Please wait..");
             OperatorsArray.clear();
 
-            /*pDialog = new ProgressDialog(ManageCustomers.this);
-            pDialog.setMessage("");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();*/
         }
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
-            int success;
+
 
             Log.d("request!", "starting");
 
@@ -409,19 +382,10 @@ public class ManageOperators extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            /*
-            pDialog.dismiss();
-            if (message != null){
-                Toast.makeText(ManageCustomers.this, message, Toast.LENGTH_LONG).show();
-            }*/
         }
     }
 
     class AttemptDeleteOperator extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        boolean failure = false;
 
         @Override
         protected void onPreExecute() {
@@ -435,23 +399,15 @@ public class ManageOperators extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
             int success;
 
             try {
-
-
-
                 Log.d("request!", "starting");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_DELETION_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.OPERATOR_DELETION_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
-                // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
@@ -467,9 +423,7 @@ public class ManageOperators extends AppCompatActivity {
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();
@@ -481,9 +435,6 @@ public class ManageOperators extends AppCompatActivity {
     }
 
     class AttemptSaveOperator extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
 
 
         @Override
@@ -498,8 +449,6 @@ public class ManageOperators extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
             Log.d("request!", "starting");
 
@@ -507,20 +456,14 @@ public class ManageOperators extends AppCompatActivity {
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_OPERATOR_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
             return json.toString();
 
 
 
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
-            /*final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
-            String toast_message= null;*/
             pDialog.dismiss();
             params.clear();
 

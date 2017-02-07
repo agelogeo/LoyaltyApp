@@ -31,11 +31,9 @@ import java.util.List;
 public class ManageCustomers extends AppCompatActivity {
 
     private List<NameValuePair> params = new ArrayList<>();
-    // Progress Dialog
     private ProgressDialog pDialog;
     private EditText customer_edit_text;
     private TextView waitText ;
-    private Button delete_btn;
     private boolean doubleWildCard = false;
     private ListView listView;
     private JSONArray JSONresponse;
@@ -96,15 +94,12 @@ public class ManageCustomers extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-               // EditCoupon = new Coupon(adapterList.get(position).getId(),adapterList.get(position).getName(),adapterList.get(position).getRequired_stamps());
-                final Customer tempC = CustomersArray.get(position);
 
+                final Customer tempC = CustomersArray.get(position);
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManageCustomers.this);
-                // ...Irrelevant code for customizing the buttons and title
                 LayoutInflater inflater = ManageCustomers.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_customer_dialog, null);
                 dialogBuilder.setView(dialogView);
-                //dialogBuilder.setTitle("Edit Customer");
                 final AlertDialog alertDialog = dialogBuilder.create();
 
                 final EditText edit_customer_name = (EditText) dialogView.findViewById(R.id.edit_customer_name);
@@ -131,14 +126,6 @@ public class ManageCustomers extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                // set the custom dialog components - text, image and button
-                /*final EditText edit_name = (EditText) dialogView.findViewById(R.id.dialog_edit_name);
-                edit_name.setText(adapterList.get(position).getName());
-                final EditText edit_stamps = (EditText) dialogView.findViewById(R.id.dialog_edit_stamps);
-                edit_stamps.setText(""+adapterList.get(position).getRequired_stamps());*/
-                            /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                            image.setImageResource(R.drawable.ic_launcher);
-                            */
                 Button cancelButton = (Button) dialogView.findViewById(R.id.edit_customer_cancel_btn);
                 Button deleteButton = (Button) dialogView.findViewById(R.id.edit_customer_delete_btn);
                 Button saveButton = (Button) dialogView.findViewById(R.id.edit_customer_save_btn);
@@ -199,10 +186,6 @@ public class ManageCustomers extends AppCompatActivity {
     }
 
     class AttemptSearchCustomer extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -212,11 +195,7 @@ public class ManageCustomers extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
-            int success;
-
-            Log.d("request!", "starting");
+            Log.d("request!", "starting search customer");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_CUSTOMER_URL),  params);
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SEARCH_CUSTOMER_URL));
@@ -224,13 +203,10 @@ public class ManageCustomers extends AppCompatActivity {
 
             return json.toString();
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             try {
-                // parse the json result returned from the service
                 JSONObject obj = new JSONObject(message);
                 JSONArray jsonResult = obj.getJSONArray("results");
                 JSONresponse = jsonResult;
@@ -266,10 +242,6 @@ public class ManageCustomers extends AppCompatActivity {
     }
 
     class AttemptDeleteCustomer extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -283,23 +255,15 @@ public class ManageCustomers extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
             int success;
 
             try {
-
-
-
-                Log.d("request!", "starting");
+                Log.d("request!", "starting delete customer");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_DELETION_URL), params);
                 System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_DELETION_URL));
                 System.out.println(params);
-                // checking  log for json response
-                //Log.d("Login attempt", json.toString());
 
-                // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 System.out.println("TAG SUCCESS : "+ success);
                 if (success == 1 && json.getString("message").equals("true")) {
@@ -315,9 +279,7 @@ public class ManageCustomers extends AppCompatActivity {
 
             return null;
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(String message) {
 
             pDialog.dismiss();
@@ -328,10 +290,6 @@ public class ManageCustomers extends AppCompatActivity {
     }
 
     class AttemptSaveCustomer extends AsyncTask<String, String, String> {
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-
 
         @Override
         protected void onPreExecute() {
@@ -345,8 +303,6 @@ public class ManageCustomers extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // here Check for success tag
 
             Log.d("request!", "starting");
 
@@ -354,20 +310,14 @@ public class ManageCustomers extends AppCompatActivity {
             System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.SAVE_CUSTOMER_URL));
             System.out.println(params);
             System.out.println(json.toString());
-            // checking  log for json response
-            //Log.d("Login attempt", json.toString());
 
-            return json.toString();
+             return json.toString();
 
 
 
         }
-        /**
-         * Once the background process is done we need to  Dismiss the progress dialog asap
-         * **/
+
         protected void onPostExecute(final String message) {
-            /*final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
-            String toast_message= null;*/
             pDialog.dismiss();
             params.clear();
 
