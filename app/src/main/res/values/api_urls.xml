@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="OPERATOR_LOGIN_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=operator_login</string>
-    <string name="OPERATOR_CREATION_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=operator_creation</string>
-    <string name="OPERATOR_DELETION_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=operator_deletion</string>
-    <string name="SEARCH_OPERATOR_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=search_operator</string>
-    <string name="SAVE_OPERATOR_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=operator_save</string>
+    <string name="OPERATOR_LOGIN_URL" translatable="false">&amp;action=operator_login</string>
+    <string name="OPERATOR_CREATION_URL" translatable="false">&amp;action=operator_creation</string>
+    <string name="OPERATOR_DELETION_URL" translatable="false">&amp;action=operator_deletion</string>
+    <string name="SEARCH_OPERATOR_URL" translatable="false">&amp;action=search_operator</string>
+    <string name="SAVE_OPERATOR_URL" translatable="false">&amp;action=operator_save</string>
 
-    <string name="CUSTOMER_LOGIN_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=customer_login</string>
-    <string name="CUSTOMER_CREATION_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=customer_creation</string>
-    <string name="CUSTOMER_DELETION_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=customer_deletion</string>
-    <string name="SEARCH_CUSTOMER_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=search_customer</string>
-    <string name="SAVE_CUSTOMER_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=customer_save</string>
+    <string name="CUSTOMER_LOGIN_URL" translatable="false">&amp;action=customer_login</string>
+    <string name="CUSTOMER_CREATION_URL" translatable="false">&amp;action=customer_creation</string>
+    <string name="CUSTOMER_DELETION_URL" translatable="false">&amp;action=customer_deletion</string>
+    <string name="SEARCH_CUSTOMER_URL" translatable="false">&amp;action=search_customer</string>
+    <string name="SAVE_CUSTOMER_URL" translatable="false">&amp;action=customer_save</string>
 
-    <string name="GET_COUPONS_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=get_coupons</string>
-    <string name="CREATE_COUPON_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=coupon_creation</string>
-    <string name="DELETE_COUPON_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=coupon_deletion</string>
-    <string name="SAVE_COUPON_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=coupon_save</string>
+    <string name="GET_COUPONS_URL" translatable="false">&amp;action=get_coupons</string>
+    <string name="CREATE_COUPON_URL" translatable="false">&amp;action=coupon_creation</string>
+    <string name="DELETE_COUPON_URL" translatable="false">&amp;action=coupon_deletion</string>
+    <string name="SAVE_COUPON_URL" translatable="false">&amp;action=coupon_save</string>
 
-    <string name="CHANGE_STAMP_URL" translatable="false">/loyalty.php\?db=id99137_aggeloandroid&amp;action=stamp_change</string>
+    <string name="CHANGE_STAMP_URL" translatable="false">&amp;action=stamp_change</string>
+    <string name="DATABASE_STATS_URL" translatable="false">&amp;action=get_db</string>
 
 </resources>

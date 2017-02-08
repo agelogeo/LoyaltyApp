@@ -1,6 +1,6 @@
 <?php
 	$host = "localhost";
-	$user = "id99137_agelo1995";
+	$user = "id755156_agelo1995";
 	$password = "";
 	$db = $_GET['db'];
 
@@ -86,7 +86,7 @@
 				$response["required_stamps"] = $row[required_stamps];
 			}
 		}
-		//COUPON CHANGE
+		//STAMP CHANGE
 		else if($action=='stamp_change'){
 			if(empty($_GET['value']) || empty($_GET['id']) || empty($_GET['operation'])){
 					$response["error"] = 105;
@@ -140,7 +140,7 @@
 				}
 			}
 		}
-		//COUPON CREDIT
+		//STAMP CREDIT
 		else if($action=='coupon_credit'){
 
 		}
@@ -407,6 +407,31 @@
 				$response["first_name"] = $row[first_name];
 				$response["last_name"] = $row[last_name];
 				$response["phone"] = $row[phone];
+			}
+		}
+		else if{$action=='get_db'}{
+			if(empty($_GET['filter']){
+				$response["error"] = 103;
+				$response["message"] = "Required fields : filter";
+			}else{
+				$filter = $_GET['filter'];
+				if($filter = 'default' ){
+					$sql = " SELECT * FROM `customers` ";
+				}else{
+
+				}
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
 			}
 		}
 		//Error for Action parameter

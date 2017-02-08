@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="WEBSITE_URL" translatable="false">https://test-cafeoino.000webhostapp.com</string>
+    <string name="WEBSITE_URL" translatable="false">https://loyaltyapp.000webhostapp.com/loyalty.php\?db=id755156_loyalty_db</string>
 </resources>
