@@ -17,12 +17,9 @@ import org.json.JSONObject;
 
 
 public class OperatorActivity extends BaseNavigationDrawer{
-    private TextView welcomeView;
-    private Button check_barcode_btn,manage_customers_btn, manage_operators_btn,db_btn,manage_coupons_btn;
     private EditText barcode_value;
-    private static int ADMIN_ACCESS_LEVEL = 1;
-    private Operator user = new Operator() ;
-    private ImageView qr_reader;
+    private final Operator user = new Operator() ;
+
     @Override
     public void onBackPressed() {
 
@@ -59,20 +56,20 @@ public class OperatorActivity extends BaseNavigationDrawer{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
-        manage_customers_btn = (Button) findViewById(R.id.manage_customers_btn);
-        manage_operators_btn = (Button) findViewById(R.id.manage_operators_btn);
-        manage_coupons_btn = (Button) findViewById(R.id.manage_coupons_btn);
-        db_btn = (Button) findViewById(R.id.db_btn);
+        Button check_barcode_btn = (Button) findViewById(R.id.check_barcode_btn);
+        Button manage_customers_btn = (Button) findViewById(R.id.manage_customers_btn);
+        Button manage_operators_btn = (Button) findViewById(R.id.manage_operators_btn);
+        Button manage_coupons_btn = (Button) findViewById(R.id.manage_coupons_btn);
+        Button db_btn = (Button) findViewById(R.id.db_btn);
         barcode_value = (EditText) findViewById(R.id.barcode_value);
-        qr_reader = (ImageView) findViewById(R.id.qr_scanner_View);
+        ImageView qr_reader = (ImageView) findViewById(R.id.qr_scanner_View);
 
         Intent ii = getIntent();
         String jsonResponse = ii.getStringExtra("jsonResponse");
 
 
         System.out.println(jsonResponse);
-        welcomeView=(TextView) findViewById(R.id.welcomeView);
+        TextView welcomeView = (TextView) findViewById(R.id.welcomeView);
         try {
             JSONObject json = new JSONObject(jsonResponse);
             user.setId(json.getInt("id"));
@@ -84,7 +81,8 @@ public class OperatorActivity extends BaseNavigationDrawer{
             user.setPhone(json.getString("phone"));
 
             welcomeView.setText(welcomeView.getText()+" "+json.getString("first_name")+" "+json.getString("last_name"));
-            if(json.getInt("access_level")!=ADMIN_ACCESS_LEVEL){
+            int ADMIN_ACCESS_LEVEL = 1;
+            if(json.getInt("access_level")!= ADMIN_ACCESS_LEVEL){
                 db_btn.setVisibility(View.GONE);
                 manage_coupons_btn.setVisibility(View.GONE);
                 manage_operators_btn.setVisibility(View.GONE);

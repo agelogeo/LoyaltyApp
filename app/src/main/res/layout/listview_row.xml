@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:id="@+id/header_layout"
@@ -43,7 +42,6 @@
         android:id="@+id/row_required"
         android:layout_weight="0.3"
         android:textStyle="normal|bold"
-        android:textAlignment="textEnd"
         android:textSize="18sp"
         android:gravity="center_vertical|center_horizontal" />
 

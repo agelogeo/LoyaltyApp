@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by Admin on 10/1/2017.
  */
 
-public class CouponAdapter extends ArrayAdapter<Coupon> {
+class CouponAdapter extends ArrayAdapter<Coupon> {
 
     public CouponAdapter(Context context, ArrayList<Coupon> Listrowdata) {
         super(context, 0, Listrowdata);

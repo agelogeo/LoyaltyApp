@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.google.zxing.Result;
 
@@ -21,10 +20,6 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
         mScannerView.startCamera();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 
     @Override
     public void handleResult(Result result) {

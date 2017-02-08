@@ -24,12 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageCoupons extends AppCompatActivity {
-    private Button create_btn;
-    ListView listView ;
-    private List<NameValuePair> params = new ArrayList<>();
+    private ListView listView ;
+    private final List<NameValuePair> params = new ArrayList<>();
     private Coupon EditCoupon;
     private ProgressDialog pDialog;
-    JSONParser jsonParser = new JSONParser();
+    private final JSONParser jsonParser = new JSONParser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class ManageCoupons extends AppCompatActivity {
         setContentView(R.layout.activity_manage_coupons);
 
 
-        create_btn = (Button) findViewById(R.id.create_coupon_btn);
+        Button create_btn = (Button) findViewById(R.id.create_coupon_btn);
         listView = (ListView) findViewById(R.id.coupons_list_view);
         new AttemptGetCoupons().execute();
 
@@ -95,7 +94,7 @@ public class ManageCoupons extends AppCompatActivity {
     }
 
 
-    class AttemptGetCoupons extends AsyncTask<String, String, String> {
+    private class AttemptGetCoupons extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -123,7 +122,7 @@ public class ManageCoupons extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            final ArrayList<Coupon> adapterList = new ArrayList<>();
             String toast_message= null;
             pDialog.dismiss();
 
@@ -199,7 +198,7 @@ public class ManageCoupons extends AppCompatActivity {
                             saveButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if(edit_name.getText().equals(EditCoupon.getName()) &&  edit_stamps.getText().equals(EditCoupon.getRequired_stamps())){
+                                    if(edit_name.getText().toString().equals(EditCoupon.getName()) &&  Integer.decode(edit_stamps.getText().toString()).equals(EditCoupon.getRequired_stamps())){
                                         Toast.makeText(ManageCoupons.this,"No need to save anything.",Toast.LENGTH_SHORT).show();
                                         return;
                                     }
@@ -234,7 +233,7 @@ public class ManageCoupons extends AppCompatActivity {
 
     }
 
-    class AttemptCreateCoupon extends AsyncTask<String, String, String> {
+    private class AttemptCreateCoupon extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -260,7 +259,7 @@ public class ManageCoupons extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            final ArrayList<Coupon> adapterList = new ArrayList<>();
             String toast_message= null;
             pDialog.dismiss();
             params.clear();
@@ -304,7 +303,7 @@ public class ManageCoupons extends AppCompatActivity {
 
     }
 
-    class AttemptDeleteCoupon extends AsyncTask<String, String, String> {
+    private class AttemptDeleteCoupon extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -331,7 +330,7 @@ public class ManageCoupons extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            final ArrayList<Coupon> adapterList = new ArrayList<>();
             String toast_message= null;
             pDialog.dismiss();
             params.clear();
@@ -376,7 +375,7 @@ public class ManageCoupons extends AppCompatActivity {
 
     }
 
-    class AttemptSaveCoupon extends AsyncTask<String, String, String> {
+    private class AttemptSaveCoupon extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {

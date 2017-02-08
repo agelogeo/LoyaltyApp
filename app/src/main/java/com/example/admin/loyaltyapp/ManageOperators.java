@@ -1,8 +1,6 @@
 package com.example.admin.loyaltyapp;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Path;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,23 +24,21 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManageOperators extends AppCompatActivity {
-    private List<NameValuePair> params = new ArrayList<>();
+    private final List<NameValuePair> params = new ArrayList<>();
     private ProgressDialog pDialog;
     private EditText operator_edit_Text;
-    private Button new_operator_btn;
-    private boolean doubleWildCard = false;
-    private ArrayList<Operator> OperatorsArray = new ArrayList<>();
+    private final boolean doubleWildCard = false;
+    private final ArrayList<Operator> OperatorsArray = new ArrayList<>();
     private EditText username,password,password_again,first_name,last_name,phone;
     private ListView listView;
     private JSONArray JSONresponse;
     private TextView waitText ;
-    JSONParser jsonParser = new JSONParser();
+    private final JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +49,7 @@ public class ManageOperators extends AppCompatActivity {
         listView  = (ListView) findViewById(R.id.operators_listview);
         waitText = (TextView) findViewById(R.id.operatorWaitText);
 
-        new_operator_btn = (Button) findViewById(R.id.new_operator_btn);
+        Button new_operator_btn = (Button) findViewById(R.id.new_operator_btn);
         new_operator_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +113,7 @@ public class ManageOperators extends AppCompatActivity {
                             alertDialog.dismiss();
                         }else{
                             Toast.makeText(ManageOperators.this, R.string.checkYourPassword,Toast.LENGTH_LONG).show();
-                            return;
+
                         }
 
 
@@ -159,7 +155,7 @@ public class ManageOperators extends AppCompatActivity {
 
     }
 
-    public void ListViewItemClickListener(final ListView listView){
+    private void ListViewItemClickListener(final ListView listView){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -267,13 +263,13 @@ public class ManageOperators extends AppCompatActivity {
         });
     }
 
-    public int isAdmin ( Switch admin_switch){
+    private int isAdmin(Switch admin_switch){
         if(admin_switch.isChecked())
             return 1;
         return 2;
     }
 
-    class AttemptCreateOperator extends AsyncTask<String, String, String> {
+    private class AttemptCreateOperator extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -324,7 +320,7 @@ public class ManageOperators extends AppCompatActivity {
         }
     }
 
-    class AttemptSearchOperator extends AsyncTask<String, String, String> {
+    private class AttemptSearchOperator extends AsyncTask<String, String, String> {
 
 
         @Override
@@ -385,7 +381,7 @@ public class ManageOperators extends AppCompatActivity {
         }
     }
 
-    class AttemptDeleteOperator extends AsyncTask<String, String, String> {
+    private class AttemptDeleteOperator extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -434,7 +430,7 @@ public class ManageOperators extends AppCompatActivity {
         }
     }
 
-    class AttemptSaveOperator extends AsyncTask<String, String, String> {
+    private class AttemptSaveOperator extends AsyncTask<String, String, String> {
 
 
         @Override

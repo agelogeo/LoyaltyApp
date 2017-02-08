@@ -22,10 +22,9 @@ import java.util.List;
 public class OperatorCreation extends AppCompatActivity {
     private EditText username,password,password_again,first_name,last_name,phone;
     private Switch new_admin_switch;
-    private Button create_operator_btn;
-    private List<NameValuePair> params = new ArrayList<>();
+    private final List<NameValuePair> params = new ArrayList<>();
     private ProgressDialog pDialog;
-    JSONParser jsonParser = new JSONParser();
+    private final JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
 
 
@@ -49,7 +48,7 @@ public class OperatorCreation extends AppCompatActivity {
         TextList.add(phone);
 
         new_admin_switch = (Switch) findViewById(R.id.new_admin_switch);
-        create_operator_btn = (Button) findViewById(R.id.create_operator_btn);
+        Button create_operator_btn = (Button) findViewById(R.id.create_operator_btn);
 
         create_operator_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +71,7 @@ public class OperatorCreation extends AppCompatActivity {
                     new AttemptCreateOperator().execute();
                 }else{
                     Toast.makeText(OperatorCreation.this, R.string.checkYourPassword,Toast.LENGTH_LONG).show();
-                    return;
+
                 }
 
 
@@ -84,7 +83,7 @@ public class OperatorCreation extends AppCompatActivity {
 
     }
 
-    class AttemptCreateOperator extends AsyncTask<String, String, String> {
+    private class AttemptCreateOperator extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {

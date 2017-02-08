@@ -1,10 +1,8 @@
 package com.example.admin.loyaltyapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,20 +18,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class CustomerActivity extends AppCompatActivity {
-    private TextView welcomeView,barcodeView;
-    private Customer user = new Customer();
-    ImageView qrCodeImageview;
+    private final Customer user = new Customer();
+    private ImageView qrCodeImageview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
 
-        welcomeView = (TextView) findViewById(R.id.welcomeCustomerView);
-        barcodeView = (TextView) findViewById(R.id.barcodeView);
+        TextView welcomeView = (TextView) findViewById(R.id.welcomeCustomerView);
+        TextView barcodeView = (TextView) findViewById(R.id.barcodeView);
 
         Intent ii = getIntent();
         String jsonResponse = ii.getStringExtra("jsonResponse");
@@ -64,14 +60,12 @@ public class CustomerActivity extends AppCompatActivity {
         new AsyncTask<Void,Void,Bitmap>(){
             @Override
             protected Bitmap doInBackground(Void... voids) {
-                URL url = null;
+                URL url;
                 Bitmap bmp = null;
                 try {
                     url = new URL("https://chart.googleapis.com/chart?cht=qr&chl="+barcodeID+"&chs=500x500");
                     bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return bmp;

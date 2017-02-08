@@ -4,7 +4,7 @@ package com.example.admin.loyaltyapp;
  * Created by Admin on 10/1/2017.
  */
 
-public class Coupon {
+class Coupon {
     private int id;
     private String name;
     private int required_stamps;

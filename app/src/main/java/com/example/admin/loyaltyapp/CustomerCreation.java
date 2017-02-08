@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,20 +22,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class CustomerCreation extends AppCompatActivity {
-    private EditText first_name,last_name,phone;
-    private Button customer_create_btn;
-    private List<NameValuePair> params = new ArrayList<>();
+    private EditText first_name;
+    private EditText last_name;
+    private EditText phone;
+    private final List<NameValuePair> params = new ArrayList<>();
     private ProgressDialog pDialog;
     private boolean isOperatorTheCreator ;
 
-    JSONParser jsonParser = new JSONParser();
+    private final JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
 
 
@@ -56,7 +54,7 @@ public class CustomerCreation extends AppCompatActivity {
         Intent incoming = getIntent();
         isOperatorTheCreator = incoming.getBooleanExtra("operator",false);
 
-        customer_create_btn = (Button) findViewById(R.id.customer_create_btn);
+        Button customer_create_btn = (Button) findViewById(R.id.customer_create_btn);
 
 
         customer_create_btn.setOnClickListener(new View.OnClickListener() {
@@ -168,14 +166,12 @@ public class CustomerCreation extends AppCompatActivity {
                 new AsyncTask<Void,Void,Bitmap>(){
                     @Override
                     protected Bitmap doInBackground(Void... voids) {
-                        URL url = null;
+                        URL url;
                         Bitmap bmp = null;
                         try {
                             url = new URL("https://chart.googleapis.com/chart?cht=qr&chl="+barcodeID+"&chs=500x500");
                             bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }catch (IOException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                         return bmp;

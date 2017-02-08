@@ -24,11 +24,11 @@ import java.util.List;
 
 public class CheckBarcodeActivity extends AppCompatActivity {
     private String barcode;
-    private Customer user = new Customer();
-    private List<NameValuePair> params = new ArrayList<>();
+    private final Customer user = new Customer();
+    private final List<NameValuePair> params = new ArrayList<>();
     private ProgressDialog pDialog;
-    ListView listView ;
-    JSONParser jsonParser = new JSONParser();
+    private ListView listView ;
+    private final JSONParser jsonParser = new JSONParser();
     private ArrayList<Boolean> isEnough;
     private static final String TAG_SUCCESS = "success";
     private TextView id,name,phone,stamps,coupons,visits,last_visit;
@@ -56,14 +56,10 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         new AttemptCheckBarcode().execute();
     }
 
-    class AttemptCheckBarcode extends AsyncTask<String, String, String> {
+    private class AttemptCheckBarcode extends AsyncTask<String, String, String> {
 
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
 
-        }
 
         @Override
         protected String doInBackground(String... args) {
@@ -164,12 +160,9 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         }
     }
 
-    class AttemptGetCoupons extends AsyncTask<String, String, String> {
+    private class AttemptGetCoupons extends AsyncTask<String, String, String> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+
 
         @Override
         protected String doInBackground(String... args) {
@@ -190,7 +183,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
          * Once the background process is done we need to  Dismiss the progress dialog asap
          * **/
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
+            final ArrayList<Coupon> adapterList = new ArrayList<>();
             String toast_message= null;
             pDialog.dismiss();
 
@@ -249,7 +242,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
     }
 
-    class AttemptAddStamp extends AsyncTask<String, String, String> {
+    private class AttemptAddStamp extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -270,7 +263,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
             pDialog.dismiss();
 
@@ -297,7 +289,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
     }
 
-    class AttemptRemoveStamp extends AsyncTask<String, String, String> {
+    private class AttemptRemoveStamp extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -322,7 +314,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String message) {
-            final ArrayList<Coupon> adapterList = new ArrayList<Coupon>();
             String toast_message= null;
             pDialog.dismiss();
 
@@ -349,7 +340,7 @@ public class CheckBarcodeActivity extends AppCompatActivity {
 
     }
 
-    public void dialogStart (){
+    private void dialogStart(){
         pDialog = new ProgressDialog(CheckBarcodeActivity.this);
         pDialog.setMessage("Please wait..");
         pDialog.setIndeterminate(false);

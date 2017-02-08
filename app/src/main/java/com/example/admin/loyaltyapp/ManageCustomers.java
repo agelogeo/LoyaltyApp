@@ -30,16 +30,15 @@ import java.util.List;
 
 public class ManageCustomers extends AppCompatActivity {
 
-    private List<NameValuePair> params = new ArrayList<>();
+    private final List<NameValuePair> params = new ArrayList<>();
     private ProgressDialog pDialog;
     private EditText customer_edit_text;
     private TextView waitText ;
-    private boolean doubleWildCard = false;
+    private final boolean doubleWildCard = false;
     private ListView listView;
     private JSONArray JSONresponse;
-    private Button new_customer_btn;
-    private ArrayList<Customer> CustomersArray = new ArrayList<>();
-    JSONParser jsonParser = new JSONParser();
+    private final ArrayList<Customer> CustomersArray = new ArrayList<>();
+    private final JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class ManageCustomers extends AppCompatActivity {
         customer_edit_text = (EditText) findViewById(R.id.customer_edit_Text);
         waitText = (TextView) findViewById(R.id.customerWaitText);
 
-        new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
+        Button new_customer_btn = (Button) findViewById(R.id.new_customer_btn);
         new_customer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +89,7 @@ public class ManageCustomers extends AppCompatActivity {
 
     }
 
-    public void ListViewItemClickListener(final ListView listView){
+    private void ListViewItemClickListener(final ListView listView){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -185,7 +184,7 @@ public class ManageCustomers extends AppCompatActivity {
         });
     }
 
-    class AttemptSearchCustomer extends AsyncTask<String, String, String> {
+    private class AttemptSearchCustomer extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -241,7 +240,7 @@ public class ManageCustomers extends AppCompatActivity {
         }
     }
 
-    class AttemptDeleteCustomer extends AsyncTask<String, String, String> {
+    private class AttemptDeleteCustomer extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -289,7 +288,7 @@ public class ManageCustomers extends AppCompatActivity {
         }
     }
 
-    class AttemptSaveCustomer extends AsyncTask<String, String, String> {
+    private class AttemptSaveCustomer extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {

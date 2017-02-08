@@ -4,21 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -40,11 +30,11 @@ public class MainActivity extends AppCompatActivity
         implements View.OnClickListener {
 
     private EditText user, pass;
-    private Button bLogin,signup;
     private ProgressDialog pDialog;
     private Switch oper_switch;
-    String username,password;
-    JSONParser jsonParser = new JSONParser();
+    private String username;
+    private String password;
+    private final JSONParser jsonParser = new JSONParser();
     private static final String TAG_SUCCESS = "success";
 
     @Override
@@ -83,10 +73,10 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
-        bLogin = (Button)findViewById(R.id.login_btn);
+        Button bLogin = (Button) findViewById(R.id.login_btn);
         bLogin.setOnClickListener(this);
 
-        signup = (Button) findViewById(R.id.register_btn);
+        Button signup = (Button) findViewById(R.id.register_btn);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +116,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    class AttemptLoginForOperator extends AsyncTask<String, String, String> {
+    private class AttemptLoginForOperator extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -183,7 +173,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    class AttemptLoginForCustomer extends AsyncTask<String, String, String> {
+    private class AttemptLoginForCustomer extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
