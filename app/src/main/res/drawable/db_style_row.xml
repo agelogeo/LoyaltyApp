@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/btn_default_materialfault_material.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"    >
+    <corners android:radius="10dp" />
+    <gradient
+        android:angle="135"
+        android:centerX="53%"
+        android:centerColor="#FF170F"
+        android:startColor="#750E0E"
+        android:endColor="#750E0E"
+        android:type="linear"
+        />
+</shape>

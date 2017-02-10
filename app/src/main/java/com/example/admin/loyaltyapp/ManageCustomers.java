@@ -99,7 +99,7 @@ public class ManageCustomers extends AppCompatActivity {
                 LayoutInflater inflater = ManageCustomers.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.edit_customer_dialog, null);
                 dialogBuilder.setView(dialogView);
-                final AlertDialog alertDialog = dialogBuilder.create();
+                final AlertDialog EditCustomerDialog = dialogBuilder.create();
 
                 final EditText edit_customer_name = (EditText) dialogView.findViewById(R.id.edit_customer_name);
                 final EditText edit_customer_surname = (EditText) dialogView.findViewById(R.id.edit_customer_surname);
@@ -133,7 +133,7 @@ public class ManageCustomers extends AppCompatActivity {
                 cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
+                        EditCustomerDialog.dismiss();
                     }
                 });
 
@@ -143,7 +143,7 @@ public class ManageCustomers extends AppCompatActivity {
                         params.clear();
                         params.add(new BasicNameValuePair("id", String.valueOf(CustomersArray.get(position).getId())));
                         new AttemptDeleteCustomer().execute();
-                        alertDialog.dismiss();
+                        EditCustomerDialog.dismiss();
                     }
                 });
 
@@ -174,12 +174,12 @@ public class ManageCustomers extends AppCompatActivity {
                         params.add(new BasicNameValuePair("visits",edit_customer_visists.getText().toString()));
                         params.add(new BasicNameValuePair("last_visit",edit_customer_last_visit.getText().toString()));
                         new ManageCustomers.AttemptSaveCustomer().execute();
-                        alertDialog.dismiss();
+                        EditCustomerDialog.dismiss();
                         listView.setAdapter(null);
                     }
                 });
 
-                alertDialog.show();
+                EditCustomerDialog.show();
             }
         });
     }
@@ -226,8 +226,13 @@ public class ManageCustomers extends AppCompatActivity {
                     ));
 
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageCustomers.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                listView.setAdapter(adapter);
+
+                DatabaseAdapter myAdapter = new DatabaseAdapter(ManageCustomers.this, CustomersArray);
+                listView.setAdapter(myAdapter);
+                listView.setDividerHeight(5);
+
+                /*ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageCustomers.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                listView.setAdapter(adapter);*/
                 if(CustomersArray.isEmpty()){
                     waitText.setVisibility(View.VISIBLE);
                     waitText.setText("No matches.");
@@ -240,7 +245,7 @@ public class ManageCustomers extends AppCompatActivity {
         }
     }
 
-    private class AttemptDeleteCustomer extends AsyncTask<String, String, String> {
+    public class AttemptDeleteCustomer extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {

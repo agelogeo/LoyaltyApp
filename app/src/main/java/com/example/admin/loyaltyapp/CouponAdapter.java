@@ -42,7 +42,7 @@ class CouponAdapter extends ArrayAdapter<Coupon> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.listview_row, parent, false);
         }
 
-        LinearLayout header = (LinearLayout) convertView.findViewById(R.id.header_layout);
+        LinearLayout header = (LinearLayout) convertView.findViewById(R.id.listview_row_layout);
         TextView name = (TextView) header.findViewById(R.id.row_name);
         TextView required = (TextView) header.findViewById(R.id.row_required);
         ImageView credit = (ImageView) header.findViewById(R.id.credit_card_icon);

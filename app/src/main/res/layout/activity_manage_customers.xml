@@ -46,7 +46,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/customers_listview" />
+            android:id="@+id/customers_listview"
+            android:layout_marginTop="@dimen/activity_vertical_margin" />
 
     </LinearLayout>
 

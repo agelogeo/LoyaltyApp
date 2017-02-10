@@ -57,10 +57,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
     }
 
     private class AttemptCheckBarcode extends AsyncTask<String, String, String> {
-
-
-
-
         @Override
         protected String doInBackground(String... args) {
             int success;
@@ -73,7 +69,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
                 Log.d("request!", "starting check barcode");
 
                 JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL), params);
-                System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CUSTOMER_LOGIN_URL));
                 System.out.println(params);
 
                 if(!json.has(TAG_SUCCESS)){
@@ -170,7 +165,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
             Log.d("request!", "starting get coupons");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL), params);
-            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.GET_COUPONS_URL));
             System.out.println(params);
             System.out.println(json.toString());
 
@@ -303,7 +297,6 @@ public class CheckBarcodeActivity extends AppCompatActivity {
             Log.d("request!", "starting");
 
             JSONObject json = jsonParser.getJSONFromUrl(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL), params);
-            System.out.println(getString(R.string.WEBSITE_URL)+getString(R.string.CHANGE_STAMP_URL));
             System.out.println(params);
             System.out.println(json.toString());
 
