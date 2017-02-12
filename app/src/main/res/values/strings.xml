@@ -1,4 +1,17 @@
 <resources>
+
+    <string-array name="filter_array">
+        <item>@string/by_name</item>
+        <item>@string/by_stamps</item>
+        <item>@string/by_barcode</item>
+        <item>@string/by_visits</item>
+    </string-array>
+
+    <string name="by_name">Name</string>
+    <string name="by_stamps">Stamps</string>
+    <string name="by_barcode">Barcode</string>
+    <string name="by_visits">Visits</string>
+
     <string name="app_name">Loyalty App</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

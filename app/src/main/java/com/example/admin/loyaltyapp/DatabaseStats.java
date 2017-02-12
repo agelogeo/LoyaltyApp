@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,17 +35,48 @@ public class DatabaseStats extends AppCompatActivity {
     private JSONArray JSONresponse;
     private TextView waitText;
     private ProgressDialog pDialog;
+    private Spinner filter_spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_stats);
 
-        params.clear();
-        params.add(new BasicNameValuePair("filter","default"));
-        db_list = (ListView) findViewById(R.id.db_list_view);
-        waitText = (TextView) findViewById(R.id.db_waitText);
-        new AttemptGetDB().execute();
-        ListViewItemClickListener(db_list);
+        filter_spinner = (Spinner) findViewById(R.id.filter_entry);
+
+        filter_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                params.clear();
+                switch(filter_spinner.getSelectedItemPosition()){
+                    case 0:
+                        params.add(new BasicNameValuePair("filter","name"));
+                        break;
+                    case 1:
+                        params.add(new BasicNameValuePair("filter","stamps"));
+                        break;
+                    case 2:
+                        params.add(new BasicNameValuePair("filter","barcode"));
+                        break;
+                    case 3:
+                        params.add(new BasicNameValuePair("filter","visits"));
+                        break;
+                    default:
+                        params.add(new BasicNameValuePair("filter","default"));
+                }
+
+                db_list = (ListView) findViewById(R.id.db_list_view);
+                waitText = (TextView) findViewById(R.id.db_waitText);
+                new AttemptGetDB().execute();
+                ListViewItemClickListener(db_list);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
     }
 

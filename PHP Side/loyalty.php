@@ -418,6 +418,14 @@
 				$filter = $_GET['filter'];
 				if($filter == 'default' ){
 					$sql = " SELECT * FROM `customers` ";
+				}else if($filter == 'name' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `name` ";
+				}else if($filter == 'stamps' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `stamps` DESC ";
+				}else if($filter == 'barcode' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `barcode` DESC ";
+				}else if($filter == 'visits' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `visits` DESC";
 				}
 				$result = $con->query($sql);
 				$stack = array();
