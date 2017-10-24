@@ -1,6 +1,6 @@
 <?php
 	$host = "localhost";
-	$user = "id99137_agelo1995";
+	$user = "id755156_agelo1995";
 	$password = "";
 	$db = $_GET['db'];
 
@@ -43,9 +43,9 @@
 				$barcode = " SELECT * FROM coupons WHERE `name`='$name' ";
 				$result = $con->query($barcode);
 				$row = $result->fetch_assoc();
-				$response["id"]=$row[id];
-				$response["name"] = $row[name];
-				$response["required_stamps"] = $row[required_stamps];
+				$response["id"]=$row['id'];
+				$response["name"] = $row['name'];
+				$response["required_stamps"] = $row['required_stamps'];
 			}
 		}
 		//COUPON DELETION
@@ -81,12 +81,12 @@
 				$barcode = " SELECT * FROM coupons WHERE `id`='$id' ";
 				$result = $con->query($barcode);
 				$row = $result->fetch_assoc();
-				$response["id"]=$row[id];
-				$response["name"] = $row[name];
-				$response["required_stamps"] = $row[required_stamps];
+				$response["id"]=$row['id'];
+				$response["name"] = $row['name'];
+				$response["required_stamps"] = $row['required_stamps'];
 			}
 		}
-		//COUPON CHANGE
+		//STAMP CHANGE
 		else if($action=='stamp_change'){
 			if(empty($_GET['value']) || empty($_GET['id']) || empty($_GET['operation'])){
 					$response["error"] = 105;
@@ -104,15 +104,15 @@
 					$barcode = " SELECT * FROM customers WHERE `id`='$id' ";
 					$result = $con->query($barcode);
 					$row = $result->fetch_assoc();
-					$response["id"]=$row[id];
-					$response["name"] = $row[name];
-					$response["surname"] = $row[surname];
-					$response["phone"] = $row[phone];
-					$response["barcode"] = $row[barcode];
-					$response["stamps"]=$row[stamps];
-					$response["coupons_used"]=$row[coupons_used];
-					$response["visits"]=$row[visits];
-					$response["last_visit"]=$row[last_visit];
+					$response["id"]=$row['id'];
+					$response["name"] = $row['name'];
+					$response["surname"] = $row['surname'];
+					$response["phone"] = $row['phone'];
+					$response["barcode"] = $row['barcode'];
+					$response["stamps"]=$row['stamps'];
+					$response["coupons_used"]=$row['coupons_used'];
+					$response["visits"]=$row['visits'];
+					$response["last_visit"]=$row['last_visit'];
 				}
 				else if($operation=='remove'){
 					$value = $_GET['value'];
@@ -124,15 +124,15 @@
 					$barcode = " SELECT * FROM customers WHERE `id`='$id' ";
 					$result = $con->query($barcode);
 					$row = $result->fetch_assoc();
-					$response["id"]=$row[id];
-					$response["name"] = $row[name];
-					$response["surname"] = $row[surname];
-					$response["phone"] = $row[phone];
-					$response["barcode"] = $row[barcode];
-					$response["stamps"]=$row[stamps];
-					$response["coupons_used"]=$row[coupons_used];
-					$response["visits"]=$row[visits];
-					$response["last_visit"]=$row[last_visit];
+					$response["id"]=$row['id'];
+					$response["name"] = $row['name'];
+					$response["surname"] = $row['surname'];
+					$response["phone"] = $row['phone'];
+					$response["barcode"] = $row['barcode'];
+					$response["stamps"]=$row['stamps'];
+					$response["coupons_used"]=$row['coupons_used'];
+					$response["visits"]=$row['visits'];
+					$response["last_visit"]=$row['last_visit'];
 				}
 				else{
 					$response["error"] = 104;
@@ -140,7 +140,7 @@
 				}
 			}
 		}
-		//COUPON CREDIT
+		//STAMP CREDIT
 		else if($action=='coupon_credit'){
 
 		}
@@ -158,15 +158,15 @@
 					$row = $result->fetch_assoc();
 					// output data of each row
 					$response["success"] = 1;
-					$response["id"]=$row[id];
-					$response["name"]=$row[name];
-					$response["surname"]=$row[surname];
-					$response["phone"]=$row[phone];
-					$response["barcode"]=$row[barcode];
-					$response["stamps"]=$row[stamps];
-					$response["coupons_used"]=$row[coupons_used];
-					$response["visits"]=$row[visits];
-					$response["last_visit"]=$row[last_visit];
+					$response["id"]=$row['id'];
+					$response["name"] = $row['name'];
+					$response["surname"] = $row['surname'];
+					$response["phone"] = $row['phone'];
+					$response["barcode"] = $row['barcode'];
+					$response["stamps"]=$row['stamps'];
+					$response["coupons_used"]=$row['coupons_used'];
+					$response["visits"]=$row['visits'];
+					$response["last_visit"]=$row['last_visit'];
 				} else {
 					$response["error"] = 102;
 					$response["message"] = "No rows available.";
@@ -196,15 +196,15 @@
 					$barcode = " SELECT * FROM customers WHERE `phone`='$phone' ";
 					$result = $con->query($barcode);
 					$row = $result->fetch_assoc();
-					$response["id"]=$row[id];
-					$response["name"] = $row[name];
-					$response["surname"] = $row[surname];
-					$response["phone"] = $row[phone];
-					$response["barcode"] = $row[barcode];
-					$response["stamps"]=$row[stamps];
-					$response["coupons_used"]=$row[coupons_used];
-					$response["visits"]=$row[visits];
-					$response["last_visit"]=$row[last_visit];
+					$response["id"]=$row['id'];
+					$response["name"] = $row['name'];
+					$response["surname"] = $row['surname'];
+					$response["phone"] = $row['phone'];
+					$response["barcode"] = $row['barcode'];
+					$response["stamps"]=$row['stamps'];
+					$response["coupons_used"]=$row['coupons_used'];
+					$response["visits"]=$row['visits'];
+					$response["last_visit"]=$row['last_visit'];
 				}else{
 					$response["success"] = 0;
 					$response["message"] = $check;
@@ -274,15 +274,15 @@
 				$barcode = " SELECT * FROM customers WHERE `id`='$id' ";
 				$result = $con->query($barcode);
 				$row = $result->fetch_assoc();
-				$response["id"]=$row[id];
-				$response["name"] = $row[name];
-				$response["surname"] = $row[surname];
-				$response["phone"] = $row[phone];
-				$response["barcode"] = $row[barcode];
-				$response["stamps"]=$row[stamps];
-				$response["coupons_used"]=$row[coupons_used];
-				$response["visits"]=$row[visits];
-				$response["last_visit"]=$row[last_visit];
+				$response["id"]=$row['id'];
+				$response["name"] = $row['name'];
+				$response["surname"] = $row['surname'];
+				$response["phone"] = $row['phone'];
+				$response["barcode"] = $row['barcode'];
+				$response["stamps"]=$row['stamps'];
+				$response["coupons_used"]=$row['coupons_used'];
+				$response["visits"]=$row['visits'];
+				$response["last_visit"]=$row['last_visit'];
 			}
 		}
 		//OPERATOR LOGIN
@@ -300,13 +300,13 @@
 					$row = $result->fetch_assoc();
 					// output data of each row
 					$response["success"] = 1;
-					$response["id"]=$row[id];
-					$response["username"]=$row[username];
-					$response["password"]=$row[password];
-					$response["access_level"]=$row[access_level];
-					$response["first_name"]=$row[first_name];
-					$response["last_name"]=$row[last_name];
-					$response["phone"]=$row[phone];
+					$response["id"]=$row['id'];
+					$response["username"]=$row['username'];
+					$response["password"]=$row['password'];
+					$response["access_level"]=$row['access_level'];
+					$response["first_name"]=$row['first_name'];
+					$response["last_name"]=$row['last_name'];
+					$response["phone"]=$row['phone'];
 				} else {
 					$response["error"] = 102;
 					$response["message"] = "No rows available.";
@@ -400,13 +400,45 @@
 				$barcode = " SELECT * FROM operators WHERE `id`='$id' ";
 				$result = $con->query($barcode);
 				$row = $result->fetch_assoc();
-				$response["id"]=$row[id];
-				$response["username"] = $row[username];
-				$response["password"] = $row[password];
-				$response["access_level"] = $row[access_level];
-				$response["first_name"] = $row[first_name];
-				$response["last_name"] = $row[last_name];
-				$response["phone"] = $row[phone];
+				$response["id"]=$row['id'];
+				$response["username"]=$row['username'];
+				$response["password"]=$row['password'];
+				$response["access_level"]=$row['access_level'];
+				$response["first_name"]=$row['first_name'];
+				$response["last_name"]=$row['last_name'];
+				$response["phone"]=$row['phone'];
+			}
+		}
+		//DATABASE STATS
+		else if($action=='get_db'){
+			if(empty($_GET['filter'])){
+				$response["error"] = 103;
+				$response["message"] = "Required fields : filter";
+			}else{
+				$filter = $_GET['filter'];
+				if($filter == 'default' ){
+					$sql = " SELECT * FROM `customers` ";
+				}else if($filter == 'name' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `name` ";
+				}else if($filter == 'stamps' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `stamps` DESC ";
+				}else if($filter == 'barcode' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `barcode` DESC ";
+				}else if($filter == 'visits' ){
+					$sql = " SELECT * FROM `customers` ORDER BY `visits` DESC";
+				}
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
 			}
 		}
 		//Error for Action parameter
