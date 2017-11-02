@@ -1,7 +1,8 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 	$host = "localhost";
 	$user = "id755156_agelo1995";
-	$password = "";
+	$password = "Ney-8392";
 	$db = $_GET['db'];
 
 	$con = mysqli_connect($host,$user,$password,$db);
@@ -138,6 +139,116 @@
 					$response["error"] = 104;
 					$response["message"] = 'operation parameter invalid.';
 				}
+			}
+		}
+		//GET CHARTS
+		else if($action=='get_pie_chart'){
+            if (empty($_GET['date']) || empty($_GET['interval']) || empty($_GET['hours'] )) {
+			  $response["error"] = 103;
+			  $response["message"] = "Required fields : date,interval,hours";
+			}else{
+				$date = $_GET['date'];
+				$hours = $_GET['hours'];
+				$interval = $_GET['interval'];
+				if( $interval==-1 ){//TODAY
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('{$date} {$hours}'), INTERVAL 0 DAY) = DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}else if($interval==1){//YESTERDAY
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('{$date} {$hours}'), INTERVAL $interval DAY) = DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}else if($interval==7){//LAST 7 DAYS
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL $interval DAY) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}else if($interval==30){//LAST 30 DAYS
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 1 MONTH) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}else if($interval==180){//LAST 6 MONTHS
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 6 MONTH) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}else if($interval==365){//LAST YEAR
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 1 YEAR) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}else if($interval==1000){//ALL TIME
+					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 10 YEAR) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					$result = $con->query($sql);
+					$stack = array();
+					$d = array();
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							$d[] = $row;
+						}
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
+					$response["results"] = $d;
+				}				
 			}
 		}
 		//STAMP CREDIT
