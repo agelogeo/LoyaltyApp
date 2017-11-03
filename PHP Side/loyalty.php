@@ -250,6 +250,30 @@ header("Access-Control-Allow-Origin: *");
 					$response["results"] = $d;
 				}				
 			}
+		}//TRACK VISIT
+		else if($action=='track_visit'){
+			if ( empty($_GET['date']) || empty($_GET['hours']) || empty($_GET['visits'])) {
+			  $response["error"] = 103;
+			  $response["message"] = "Required fields : date,hours,visits";
+			}else{
+				$date = $_GET['date'];
+				$hours = $_GET['hours'];
+				$visits = $_GET['visits'];
+				$sql = " UPDATE `track_visits` SET `visits`= `visits`+'$visits' WHERE `datetime`='{$date} {$hours}'";
+				$result = $con->query($sql);
+				$stack = array();
+				if (mysqli_affected_rows($con)) {
+					$response["success"] = 1;
+					$response["message"]= "UPDATED";					
+				}else {
+					$sql = "INSERT INTO `track_visits`( `datetime`, `visits`) VALUES ('{$date} {$hours}','$visits')";
+					$result = $con->query($sql);
+					if($result){
+						$response["success"] = 1;
+						$response["message"]= "CREATED";	
+					}
+				} 
+			}
 		}
 		//STAMP CREDIT
 		else if($action=='coupon_credit'){
