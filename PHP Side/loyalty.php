@@ -274,6 +274,28 @@ header("Access-Control-Allow-Origin: *");
 					}
 				} 
 			}
+		}//GET VISITS BY DAY
+		else if($action=='get_visits_by_day'){
+			if (empty($_GET['date']) || empty($_GET['hours'])) {
+			  $response["error"] = 103;
+			  $response["message"] = "Required fields : date,hours";
+			}else{
+				$date = $_GET['date'];
+				$hours = $_GET['hours'];
+				$sql = "SELECT CAST(`track_visits`.datetime AS TIME) AS 'datetime',`track_visits`.`visits` FROM `track_visits` WHERE CAST(`datetime` AS DATE) = CAST('{$date} {$hours}' AS DATE)";
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
+			}
 		}
 		//STAMP CREDIT
 		else if($action=='coupon_credit'){
