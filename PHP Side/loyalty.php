@@ -296,7 +296,24 @@ header("Access-Control-Allow-Origin: *");
 				}
 				$response["results"] = $d;
 			}
-		}
+		}//GET VISITS BY DAY
+		else if($action=='get_available_months'){
+			
+				$sql = "SELECT MONTH(`datetime`) FROM `track_visits` GROUP BY CAST(`datetime` AS DATE)";
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
+			
+		}		
 		//STAMP CREDIT
 		else if($action=='coupon_credit'){
 
