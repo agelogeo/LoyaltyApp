@@ -142,16 +142,18 @@ header("Access-Control-Allow-Origin: *");
 			}
 		}
 		//GET CHARTS
-		else if($action=='get_pie_chart'){
-            if (empty($_GET['date']) || empty($_GET['interval']) || empty($_GET['hours'] )) {
+		else if($action=='get_pie_chart' || $action=='get_days_chart'){
+            if (empty($_GET['date']) || empty($_GET['interval'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : date,interval,hours";
+			  $response["message"] = "Required fields : date,interval";
 			}else{
 				$date = $_GET['date'];
-				$hours = $_GET['hours'];
 				$interval = $_GET['interval'];
 				if( $interval==-1 ){//TODAY
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('{$date} {$hours}'), INTERVAL 0 DAY) = DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 0 DAY) = DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL 0 DAY) = DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
@@ -165,7 +167,11 @@ header("Access-Control-Allow-Origin: *");
 					}
 					$response["results"] = $d;
 				}else if($interval==1){//YESTERDAY
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('{$date} {$hours}'), INTERVAL $interval DAY) = DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL $interval DAY) = DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL $interval DAY) = DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
@@ -179,7 +185,11 @@ header("Access-Control-Allow-Origin: *");
 					}
 					$response["results"] = $d;
 				}else if($interval==7){//LAST 7 DAYS
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL $interval DAY) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL $interval DAY) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL $interval DAY) <= DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
@@ -193,7 +203,11 @@ header("Access-Control-Allow-Origin: *");
 					}
 					$response["results"] = $d;
 				}else if($interval==30){//LAST 30 DAYS
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 1 MONTH) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 1 MONTH) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL 1 MONTH) <= DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
@@ -207,7 +221,11 @@ header("Access-Control-Allow-Origin: *");
 					}
 					$response["results"] = $d;
 				}else if($interval==180){//LAST 6 MONTHS
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 6 MONTH) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 6 MONTH) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL 6 MONTH) <= DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
@@ -221,7 +239,11 @@ header("Access-Control-Allow-Origin: *");
 					}
 					$response["results"] = $d;
 				}else if($interval==365){//LAST YEAR
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 1 YEAR) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 1 YEAR) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL 1 YEAR) <= DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
@@ -235,7 +257,11 @@ header("Access-Control-Allow-Origin: *");
 					}
 					$response["results"] = $d;
 				}else if($interval==1000){//ALL TIME
-					$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 10 YEAR) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					if($action=='get_pie_chart')
+						$sql = "SELECT COUNT(*) AS count,coupons.name FROM `coupons_track` INNER JOIN `coupons` ON `coupons_track`.`coupons_id` = `coupons`.id WHERE DATE_SUB(DATE('$date'), INTERVAL 10 YEAR) <= DATE(`datetime`) GROUP BY coupons_track.coupons_id";
+					
+					else if($action=='get_days_chart')
+						$sql = "SELECT DAYNAME(`datetime`) AS names,COUNT(*) AS counts FROM `track_visits` WHERE DATE_SUB(DATE('$date'), INTERVAL 10 YEAR) <= DATE(`datetime`) GROUP BY DAYNAME(`datetime`) ORDER BY DAYOFWEEK(`datetime`) ";
 					$result = $con->query($sql);
 					$stack = array();
 					$d = array();
