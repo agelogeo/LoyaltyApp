@@ -322,10 +322,10 @@ header("Access-Control-Allow-Origin: *");
 				}
 				$response["results"] = $d;
 			}
-		}//GET VISITS BY DAY
+		}//GET AVAILABLE MONTHS
 		else if($action=='get_available_months'){
 			
-				$sql = "SELECT MONTH(`datetime`) FROM `track_visits` GROUP BY CAST(`datetime` AS DATE)";
+				$sql = "SELECT DISTINCT MONTH(`datetime`) AS MONTH FROM `track_visits` GROUP BY CAST(`datetime` AS DATE)";
 				$result = $con->query($sql);
 				$stack = array();
 				$d = array();
