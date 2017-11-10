@@ -460,14 +460,10 @@ header("Access-Control-Allow-Origin: *");
 			}else{
 				$id = $_GET['id'];
 				$name = $_GET['name'];
-				$surname = $_GET['surname'];
-				$barcode = $_GET['barcode'];
+				$surname = $_GET['surname'];				
 				$phone = $_GET['phone'];
-				$stamps = $_GET['stamps'];
-				$coupons_used = $_GET['coupons_used'];
-				$visits = $_GET['visits'];
 
-				$sql2 = " UPDATE `customers` SET `name`='$name',`surname`='$surname',`barcode`='$barcode',`phone`='$phone',`stamps`='$stamps',`coupons_used`='$coupons_used',`visits`='$visits' WHERE `id`='$id'";
+				$sql2 = " UPDATE `customers` SET `name`='$name',`surname`='$surname',`phone`='$phone' WHERE `id`='$id'";
 				$result = $con->query($sql2);
 				$response["success"] = 1;
 				$response["message"] = $result;
