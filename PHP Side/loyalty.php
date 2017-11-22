@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 	$host = "localhost";
 	$user = "id755156_agelo1995";
-	$password = "Ney-8392";
+	$password = "";
 	$db = $_GET['db'];
 
 	$con = mysqli_connect($host,$user,$password,$db);
