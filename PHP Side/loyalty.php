@@ -56,7 +56,7 @@ header("Access-Control-Allow-Origin: *");
 			  $response["message"] = "Required fields : id";
 			}else{
 				$id = $_GET['id'];
-				$sql2 = " DELETE FROM `coupons` WHERE `id`='$id'";
+				$sql2 = " DELETE FROM `coupons_track` WHERE `coupons_id`='$id'; DELETE FROM `coupons` WHERE `id`='$id'";
 				$response["success"] = 1;
 				$result = $con->query($sql2);
 				if(mysqli_affected_rows($con)!=0)
