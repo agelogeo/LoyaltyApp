@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 	$host = "localhost";
 	$user = "id755156_agelo1995";
-	$password = "";
+	$password = "Ney-8392";
 	$db = $_GET['db'];
 
 	$con = mysqli_connect($host,$user,$password,$db);
@@ -503,6 +503,19 @@ header("Access-Control-Allow-Origin: *");
 					$response["first_name"]=$row['first_name'];
 					$response["last_name"]=$row['last_name'];
 					$response["phone"]=$row['phone'];
+					
+					$sql = " SELECT * FROM settings ";
+					$result = $con->query($sql);
+					$stack = array();
+					if ($result->num_rows == 1) {
+						$row = $result->fetch_assoc();
+    					// output data of each row
+    					$response["same_day_twice"] = $row['same_day_twice'];
+    					$response["stamp_value"] = $row['stamp_value'];
+					} else {
+						$response["error"] = 102;
+						$response["message"] = "No rows available.";
+					}
 				} else {
 					$response["error"] = 102;
 					$response["message"] = "No rows available.";
@@ -636,6 +649,23 @@ header("Access-Control-Allow-Origin: *");
 				}
 				$response["results"] = $d;
 			}
+		}
+		//GET SETTINGS
+		else if($action=='get_settings'){
+			$sql = " SELECT * FROM `settings`";
+				
+			$result = $con->query($sql);
+			$stack = array();
+			$d = array();
+			if ($result->num_rows == 1) {
+					$row = $result->fetch_assoc();
+					// output data of each row
+					$response["same_day_twice"] = $row['same_day_twice'];
+					$response["stamp_value"] = $row['stamp_value'];
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+			}			
 		}
 		//Error for Action parameter
 		else{
