@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 	$host = "localhost";
-	$user = "id5733007_admin";
+	$user = "id5809553_admin";
 	$password = "";
 	$db = $_GET['db'];
 
@@ -30,7 +30,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//COUPON CREATION
 		else if($action=='coupon_creation'){
-			if (empty($_GET['name']) || empty($_GET['required'])) {
+			if (is_null($_GET['name']) || is_null($_GET['required'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : name,required";
 			}else{
@@ -51,7 +51,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//COUPON DELETION
 		else if($action=='coupon_deletion'){
-			if (empty($_GET['id'])) {
+			if (is_null($_GET['id'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : id";
 			}else{
@@ -67,7 +67,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//COUPON SAVE
 		else if($action=='coupon_save'){
-			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['required']) ) {
+			if (is_null($_GET['id']) || is_null($_GET['name']) || is_null($_GET['required']) ) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : id,name,required";
 			}else{
@@ -89,7 +89,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//STAMP CHANGE
 		else if($action=='stamp_change'){
-			if(empty($_GET['value']) || empty($_GET['id']) || empty($_GET['operation'])){
+			if(is_null($_GET['value']) || is_null($_GET['id']) || is_null($_GET['operation'])){
 					$response["error"] = 105;
 					$response["message"] = "value,id,operation parameter invalid.";
 			}
@@ -143,7 +143,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//GET CHARTS
 		else if($action=='get_pie_chart' || $action=='get_days_chart'){
-            if (empty($_GET['date']) || empty($_GET['interval'])) {
+            if (is_null($_GET['date']) || is_null($_GET['interval'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : date,interval";
 			}else{
@@ -278,7 +278,7 @@ header("Access-Control-Allow-Origin: *");
 			}
 		}//TRACK VISIT
 		else if($action=='track_visit'){
-			if ( empty($_GET['date']) || empty($_GET['hours']) || empty($_GET['visits'])) {
+			if ( is_null($_GET['date']) || is_null($_GET['hours']) || is_null($_GET['visits'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : date,hours,visits";
 			}else{
@@ -302,7 +302,7 @@ header("Access-Control-Allow-Origin: *");
 			}
 		}//GET VISITS BY DAY
 		else if($action=='get_visits_by_day'){
-			if (empty($_GET['date']) || empty($_GET['hours'])) {
+			if (is_null($_GET['date']) || is_null($_GET['hours'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : date,hours";
 			}else{
@@ -346,7 +346,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//CUSTOMER LOGIN
 		else if($action=='customer_login'){
-			if (empty($_GET['username'])) {
+			if (is_null($_GET['username'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : username";
 			}else{
@@ -375,7 +375,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//CUSTOMER CREATION
 		else if($action=='customer_creation'){
-			if (empty($_GET['name'])) {
+			if (is_null($_GET['name'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : name";
 			}else{
@@ -413,7 +413,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//CUSTOMER DELETION
 		else if($action=='customer_deletion'){
-			if (empty($_GET['id'])) {
+			if (is_null($_GET['id'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : id";
 			}else{
@@ -429,11 +429,11 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//CUSTOMER SEARCH
 		else if($action=='search_customer'){
-			if(empty($_GET['term'])){
+			if(is_null($_GET['term'])){
 				$response["message"] = "";
 			}else{
 				$term = $_GET['term'];
-				if(empty($_GET['double'])){
+				if(is_null($_GET['double'])){
 					$sql = " SELECT * FROM `customers` WHERE `phone` LIKE '$term%' OR `barcode` LIKE '$term%' OR `name` LIKE '$term%' OR `surname` LIKE '$term%'";
 				}else{
 					$sql = " SELECT * FROM `customers` WHERE `phone` LIKE '%$term%' OR `barcode` LIKE '%$term%' OR `name` LIKE '$term%' OR `surname` LIKE '$term%'";
@@ -454,7 +454,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//CUSTOMER SAVE
 		else if($action=='customer_save'){
-			if (empty($_GET['id']) || empty($_GET['name']) || empty($_GET['surname']) || empty($_GET['phone'])) {
+			if (is_null($_GET['id']) || is_null($_GET['name']) || is_null($_GET['surname']) || is_null($_GET['phone'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : id,name,surname,phone";
 			}else{
@@ -483,7 +483,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//OPERATOR LOGIN
 		else if($action=='operator_login'){
-			if (empty($_GET['username']) || empty($_GET['password'])) {
+			if (is_null($_GET['username']) || is_null($_GET['password'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : username,password";
 			}else{
@@ -524,7 +524,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//OPERATOR CREATION
 		else if($action=='operator_creation'){
-			if (empty($_GET['username']) || empty($_GET['password'])) {
+			if (is_null($_GET['username']) || is_null($_GET['password'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : username,password";
 			}else{
@@ -533,7 +533,7 @@ header("Access-Control-Allow-Origin: *");
 				$first_name = $_GET['first_name'];
 				$last_name = $_GET['last_name'];
 				$phone = $_GET['phone'];
-				if( empty($_GET['access_level']) ){
+				if( is_null($_GET['access_level']) ){
 					$sql2 = " INSERT INTO `operators`(`username`, `password`, `first_name`, `last_name`, `phone`) VALUES ('$username','$password','$first_name','$last_name','$phone')";
 					$result = $con->query($sql2);
 					$response["success"] = 1;
@@ -549,7 +549,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//OPERATOR DELETION
 		else if($action=='operator_deletion'){
-			if (empty($_GET['id'])) {
+			if (is_null($_GET['id'])) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : id";
 			}else{
@@ -565,11 +565,11 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//OPERATOR SEARCH
 		else if($action=='search_operator'){
-			if(empty($_GET['term'])){
+			if(is_null($_GET['term'])){
 				$response["message"] = "";
 			}else{
 				$term = $_GET['term'];
-				if(empty($_GET['double'])){
+				if(is_null($_GET['double'])){
 					$sql = " SELECT * FROM `operators` WHERE `phone` LIKE '$term%' OR `username` LIKE '$term%' OR `first_name` LIKE '$term%' OR `last_name` LIKE '$term%'";
 				}else{
 					$sql = " SELECT * FROM `operators` WHERE `phone` LIKE '%$term%' OR `username` LIKE '%$term%' OR `first_name` LIKE '$term%' OR `last_name` LIKE '$term%'";
@@ -590,7 +590,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//OPERATOR SAVE
 		else if($action=='operator_save'){
-			if (empty($_GET['id']) || empty($_GET['username']) || empty($_GET['password']) || empty($_GET['access_level']) || empty($_GET['first_name']) || empty($_GET['last_name']) || empty($_GET['phone']) ) {
+			if (is_null($_GET['id']) || is_null($_GET['username']) || is_null($_GET['password']) || is_null($_GET['access_level']) || is_null($_GET['first_name']) || is_null($_GET['last_name']) || is_null($_GET['phone']) ) {
 			  $response["error"] = 103;
 			  $response["message"] = "Required fields : id,username,password,access_level,first_name,last_name,phone";
 			}else{
@@ -620,7 +620,7 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//DATABASE STATS
 		else if($action=='get_db'){
-			if(empty($_GET['filter'])){
+			if(is_null($_GET['filter'])){
 				$response["error"] = 103;
 				$response["message"] = "Required fields : filter";
 			}else{
@@ -635,8 +635,6 @@ header("Access-Control-Allow-Origin: *");
 					$sql = " SELECT * FROM `customers` ORDER BY `barcode` DESC ";
 				}else if($filter == 'visits' ){
 					$sql = " SELECT * FROM `customers` ORDER BY `visits` DESC";
-				}else if($filter == 'operators' ){
-					$sql = " SELECT * FROM `operators`";
 				}
 				$result = $con->query($sql);
 				$stack = array();
