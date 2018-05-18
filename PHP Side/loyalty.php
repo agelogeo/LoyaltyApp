@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 	$host = "localhost";
-	$user = "id755156_agelo1995";
+	$user = "id5733007_admin";
 	$password = "";
 	$db = $_GET['db'];
 
@@ -635,6 +635,8 @@ header("Access-Control-Allow-Origin: *");
 					$sql = " SELECT * FROM `customers` ORDER BY `barcode` DESC ";
 				}else if($filter == 'visits' ){
 					$sql = " SELECT * FROM `customers` ORDER BY `visits` DESC";
+				}else if($filter == 'operators' ){
+					$sql = " SELECT * FROM `operators`";
 				}
 				$result = $con->query($sql);
 				$stack = array();
