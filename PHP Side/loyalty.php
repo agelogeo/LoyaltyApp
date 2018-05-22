@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 	$host = "localhost";
 	$user = "id5809553_admin";
 	$password = "";
-	$db = $_GET['db'];
+	$db = "id5809553_appdb";
 
 	$con = mysqli_connect($host,$user,$password,$db);
 	//Error for database parameter
@@ -375,9 +375,9 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//CUSTOMER CREATION
 		else if($action=='customer_creation'){
-			if (is_null($_GET['name'])) {
+			if (is_null($_GET['name']) || is_null($_GET['surname']) || is_null($_GET['phone']) ) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : name";
+			  $response["message"] = "Required fields : name,surname,phone";
 			}else{
 				$name = $_GET['name'];
 				$surname = $_GET['surname'];
@@ -524,9 +524,9 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//OPERATOR CREATION
 		else if($action=='operator_creation'){
-			if (is_null($_GET['username']) || is_null($_GET['password'])) {
+			if (is_null($_GET['username']) || is_null($_GET['password'])  || is_null($_GET['first_name']) || is_null($_GET['last_name']) || is_null($_GET['phone']) || is_null($_GET['phone'])) {
 			  $response["error"] = 103;
-			  $response["message"] = "Required fields : username,password";
+			  $response["message"] = "Required fields : username,password,first_name,last_name,phone";
 			}else{
 				$username = $_GET['username'];
 				$password = $_GET['password'];
@@ -635,6 +635,12 @@ header("Access-Control-Allow-Origin: *");
 					$sql = " SELECT * FROM `customers` ORDER BY `barcode` DESC ";
 				}else if($filter == 'visits' ){
 					$sql = " SELECT * FROM `customers` ORDER BY `visits` DESC";
+				}else if($filter == 'coupons' ){
+					$sql = " SELECT * FROM `coupons`";
+				}else if($filter == 'customers' ){
+					$sql = " SELECT * FROM `customers`";
+				}else if($filter == 'operators' ){
+					$sql = " SELECT * FROM `operators`";
 				}
 				$result = $con->query($sql);
 				$stack = array();
