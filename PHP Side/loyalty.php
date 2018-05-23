@@ -89,13 +89,31 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//STAMP CHANGE
 		else if($action=='stamp_change'){
-			if(is_null($_GET['value']) || is_null($_GET['id']) || is_null($_GET['operation'])){
+			if(is_null($_GET['value']) || is_null($_GET['id']) || is_null($_GET['operation']) || is_null($_GET['date']) || is_null($_GET['hours'])){
 					$response["error"] = 105;
-					$response["message"] = "value,id,operation parameter invalid.";
+					$response["message"] = "value,id,operation,date,hours parameter invalid.";
 			}
 			else{
 				$operation = $_GET['operation'];
 				if($operation=='add'){
+				    
+			    $date = $_GET['date'];
+				$hours = $_GET['hours'];
+				$sql = " UPDATE `track_visits` SET `visits`= `visits`+1 WHERE `datetime`='{$date} {$hours}'";
+				$result = $con->query($sql);
+				$stack = array();
+				if (mysqli_affected_rows($con)) {
+					$response["success"] = 1;
+					$response["message"]= "UPDATED";					
+				}else {
+					$sql = "INSERT INTO `track_visits`( `datetime`, `visits`) VALUES ('{$date} {$hours}',1)";
+					$result = $con->query($sql);
+					if($result){
+						$response["success"] = 1;
+						$response["message"]= "CREATED";	
+					}
+				} 
+				
 					$value = $_GET['value'];
 					$id = $_GET['id'];
 					$sql = " UPDATE `customers` SET `last_visit`=(SELECT CURDATE()),`visits`=`visits`+1,`stamps`=`stamps`+'$value' WHERE `id`='$id'";
