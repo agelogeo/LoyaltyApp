@@ -340,9 +340,23 @@ header("Access-Control-Allow-Origin: *");
 				$response["results"] = $d;
 			
 		}		
-		//STAMP CREDIT
-		else if($action=='coupon_credit'){
-
+		//GET AVAILABLE MONTHS
+		else if($action=='get_available_years'){
+			
+				$sql = "SELECT DISTINCT YEAR(`datetime`) AS YEAR FROM `track_visits` GROUP BY CAST(`datetime` AS DATE)";
+				$result = $con->query($sql);
+				$stack = array();
+				$d = array();
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						$d[] = $row;
+					}
+				} else {
+					$response["error"] = 102;
+					$response["message"] = "No rows available.";
+				}
+				$response["results"] = $d;
+			
 		}
 		//CUSTOMER LOGIN
 		else if($action=='customer_login'){
