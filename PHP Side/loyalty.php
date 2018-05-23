@@ -89,9 +89,9 @@ header("Access-Control-Allow-Origin: *");
 		}
 		//STAMP CHANGE
 		else if($action=='stamp_change'){
-			if(is_null($_GET['value']) || is_null($_GET['id']) || is_null($_GET['operation']) || is_null($_GET['date']) || is_null($_GET['hours'])){
+			if(is_null($_GET['value']) || is_null($_GET['id']) || is_null($_GET['operation']) || is_null($_GET['coupon']) || is_null($_GET['date']) || is_null($_GET['hours'])){
 					$response["error"] = 105;
-					$response["message"] = "value,id,operation,date,hours parameter invalid.";
+					$response["message"] = "value,id,operation,date,hours,coupon parameter invalid.";
 			}
 			else{
 				$operation = $_GET['operation'];
@@ -134,8 +134,30 @@ header("Access-Control-Allow-Origin: *");
 					$response["last_visit"]=$row['last_visit'];
 				}
 				else if($operation=='remove'){
+					
+				$date = $_GET['date'];
+				$hours = $_GET['hours'];
+				$sql = " UPDATE `coupons_track` SET `count`= `count`+1 WHERE `datetime`='{$date} {$hours}' AND `coupons_id`='{$coupon}'";
+				$result = $con->query($sql);
+				$stack = array();
+				if (mysqli_affected_rows($con)) {
+					$response["success"] = 1;
+					$response["message"]= "UPDATED";					
+				}else {
+					$sql = "INSERT INTO `coupons_track`( `datetime`, `count`,`coupons_id`) VALUES ('{$date} {$hours}',1,{$coupon})";
+					$result = $con->query($sql);
+					if($result){
+						$response["success"] = 1;
+						$response["message"]= "CREATED";	
+					}
+				} 
+					
 					$value = $_GET['value'];
+					$coupon = $_GET['coupon'];
 					$id = $_GET['id'];
+					$sql = " UPDATE `customers` SET `stamps`=`stamps`-'$value' WHERE `id`='$id'";
+					$result = $con->query($sql);
+					
 					$sql = " UPDATE `customers` SET `stamps`=`stamps`-'$value' WHERE `id`='$id'";
 					$result = $con->query($sql);
 					$response["success"] = 1;
