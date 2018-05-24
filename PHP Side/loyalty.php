@@ -134,17 +134,19 @@ header("Access-Control-Allow-Origin: *");
 					$response["last_visit"]=$row['last_visit'];
 				}
 				else if($operation=='remove'){
-					
+						$value = $_GET['value'];
+					$coupon = $_GET['coupon'];
+					$id = $_GET['id'];
 				$date = $_GET['date'];
 				$hours = $_GET['hours'];
-				$sql = " UPDATE `coupons_track` SET `count`= `count`+1 WHERE `datetime`='{$date} {$hours}' AND `coupons_id`='{$coupon}'";
+				$sql = " UPDATE `coupons_track` SET `count`= `count`+1 WHERE `datetime`='{$date} {$hours}' AND `coupons_id`='$coupon'";
 				$result = $con->query($sql);
 				$stack = array();
 				if (mysqli_affected_rows($con)) {
 					$response["success"] = 1;
 					$response["message"]= "UPDATED";					
 				}else {
-					$sql = "INSERT INTO `coupons_track`( `datetime`, `count`,`coupons_id`) VALUES ('{$date} {$hours}',1,{$coupon})";
+					$sql = "INSERT INTO `coupons_track`( `datetime`, `count`,`coupons_id`) VALUES ('{$date} {$hours}',1,'$coupon')";
 					$result = $con->query($sql);
 					if($result){
 						$response["success"] = 1;
@@ -152,9 +154,7 @@ header("Access-Control-Allow-Origin: *");
 					}
 				} 
 					
-					$value = $_GET['value'];
-					$coupon = $_GET['coupon'];
-					$id = $_GET['id'];
+				
 					$sql = " UPDATE `customers` SET `stamps`=`stamps`-'$value' WHERE `id`='$id'";
 					$result = $con->query($sql);
 					
